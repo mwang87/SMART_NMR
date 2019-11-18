@@ -90,7 +90,7 @@ def CSV_converter(i): # Converting CSV file to numpy array (200 x 240), # i = CS
                 mat[b, 239-a] = 1
     return mat
         
-def search_CSV(i,mw=None): # i = CSV file name
+def search_CSV(i, mw=None): # i = CSV file name
     mat = CSV_converter(i)
     # plotting and saving constructed HSQC images
     ## image without padding and margin
