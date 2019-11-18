@@ -28,15 +28,19 @@ import matplotlib.pyplot as plt
 from math import sqrt
 import time
 
-#loading DB
-DB = np.load('FPinder_DB.npy', allow_pickle=True)
+import argparse
 
-#importing trained model
-#If no gpus are available, these models are working with CPU automatically
-with tf.device('/CPU:0'):
-    model = keras.models.load_model('models/HWK_sAug_1106_final(2048r1)_cos.hdf5')
-    model_mw = keras.models.load_model('models/VGG16_high_aug_MW_continue.hdf5')
+def load_models():
+    #loading DB
+    DB = np.load('FPinder_DB.npy', allow_pickle=True)
 
+    #importing trained model
+    #If no gpus are available, these models are working with CPU automatically
+    with tf.device('/CPU:0'):
+        model = keras.models.load_model('models/HWK_sAug_1106_final(2048r1)_cos.hdf5')
+        model_mw = keras.models.load_model('models/VGG16_high_aug_MW_continue.hdf5')
+
+    return DB, model, model_mw
 
 def cosine(x,y):
     '''x, y are same shape array'''
@@ -45,19 +49,20 @@ def cosine(x,y):
     return (len(a&b))/(sqrt(len(a))*sqrt(len(b)))
 
 
-def drawing(i,n):#i is compound name used for file name. (ex abc.csv)
-    neighbors = pd.read_csv('Result/{}'.format(i))
-    smiles_input = neighbors.columns[1]
+def draw_candidates(candidates_df, output_png, topk=10):#i is compound name used for file name. (ex abc.csv)
+    smiles_input = candidates_df["SMILES"]
     names = []
     mols = []
     
-    if n == 1:
+    number_candidates = len(candidates_df)
+    molsPerRow = 2
+    if topk == 1:
         molsPerRow = 2
-    elif n == 5:
+    elif topk < 5:
         molsPerRow = 3
-    elif n == 10:
+    else:
         molsPerRow = 5
-    for j in range(n):
+    for j in range(topk):
         try:
             smiles_candi = Chem.MolFromSmiles(neighbors.iat[j,1])        
             mols.append(smiles_candi)
@@ -66,12 +71,13 @@ def drawing(i,n):#i is compound name used for file name. (ex abc.csv)
         except:
             continue
     try:
-        Draw.MolsToGridImage(mols, molsPerRow=molsPerRow, subImgSize=(300, 300),legends=names ,highlightAtomLists=None, highlightBondLists=None, useSVG=False).save('Result/{}.png'.format(i[:-4]))
+        Draw.MolsToGridImage(mols, molsPerRow=molsPerRow, subImgSize=(300, 300),legends=names ,highlightAtomLists=None, highlightBondLists=None, useSVG=False).save(output_png)
     except:
         print("RDKIT error, see the csv file in result folder")
+        raise
 
-def CSV_converter(i): # Converting CSV file to numpy array (200 x 240), # i = CSV file name
-    qc = pd.read_csv('input/{}'.format(i))
+def CSV_converter(CSV_converter): # Converting CSV file to numpy array (200 x 240), # i = CSV file name
+    qc = pd.read_csv(CSV_converter)
     qc = qc.dropna()
     H = (qc['1H']*240//12).astype(int)
     C = (qc['13C']*200//200).astype(int)
@@ -92,18 +98,18 @@ def CSV_converter(i): # Converting CSV file to numpy array (200 x 240), # i = CS
                 mat[b, 239-a] = 1
     return mat
         
-def search_CSV(i, mw=None): # i = CSV file name
-    mat = CSV_converter(i)
+def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_candidate_image, mw=None, top_candidates=20): # i = CSV file name
+    mat = CSV_converter(input_nmr_filename)
     # plotting and saving constructed HSQC images
     ## image without padding and margin
     height, width = mat.shape
     figsize = (10, 10*height/width) if height>=width else (width/height, 1)
-    plt.figure(figsize=figsize) 
+    plt.figure(figsize=figsize)
     plt.imshow(mat, cmap=plt.cm.binary)
     plt.axis('off'), plt.xticks([]), plt.yticks([])
     plt.tight_layout()
     plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
-    plt.savefig('Result/{}_HSQC.png'.format(i[:-4]),dpi=600)
+    plt.savefig(output_nmr_image, dpi=600)
     
     pred = np.where(model.predict(mat.reshape(1,200,240,1)).round()[0]==1)[0]
     pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0]
@@ -128,24 +134,42 @@ def search_CSV(i, mw=None): # i = CSV file name
     topK = topK.dropna(how='all')
     topK = topK.sort_values(['Cosine score'], ascending = False)
     topK = topK.drop_duplicates(['SMILES'])
-    topK = topK[:20]
+    topK = topK[:top_candidates]
     topK = topK.fillna('No_name') #Time
-    topK.to_csv('Result/{}'.format(i), index = None)
-    return drawing(i,10)
+    topK.to_csv(output_table, index = None)
+    #draw_candidates(topK, output_candidate_image)
+
+def main():
+    DB, model, model_mw = load_models()
+
+    parser = argparse.ArgumentParser(description='SMART Embedding')
+    parser.add_argument('input_csv', help='input_csv')
+    parser.add_argument('output_table', help='output_table')
+    parser.add_argument('output_nmr_image', help='output_nmr_image')
+    parser.add_argument('output_candidate_image', help='output_candidate_image')
+    parser.add_argument('--molecular_weight', default=None, type=float, help='molecular_weight')
+    args = parser.parse_args()
+
+    search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_candidate_image, mw=args.molecular_weight)
+
+    # print(args)
+
+    # i = str(input("Input file name? (ex gerwick.csv):"))
+
+    # if i not in os.listdir("input/"):
+    #     i = str(input("Input file name? (ex gerwick.csv):"))
+    #     print("No file in input folder")
+            
+    # mwQ = input("Do you know the molecular weight?(y/n):")
+    # if mwQ == 'Y' or mwQ == 'y' or mwQ == 'yes' or mwQ == 'Yes' or mwQ=='YES':
+    #     mw = float(input("please enter the molecular weight:"))
+    # else:
+    #     mw = None
+
+    # print("now searching...")
+    # search_CSV(i,mw)
+    # print("Done")
 
 
-i = str(input("Input file name? (ex gerwick.csv):"))
-
-if i not in os.listdir("input/"):
-    i = str(input("Input file name? (ex gerwick.csv):"))
-    print("No file in input folder")
-        
-mwQ = input("Do you know the molecular weight?(y/n):")
-if mwQ == 'Y' or mwQ == 'y' or mwQ == 'yes' or mwQ == 'Yes' or mwQ=='YES':
-    mw = float(input("please enter the molecular weight:"))
-else:
-    mw = None
-
-print("now searching...")
-search_CSV(i,mw)
-print("Done")
+if __name__ == "__main__":
+    main()
