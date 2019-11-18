@@ -1,0 +1,2 @@
+import sys
+import SMART_FPinder
