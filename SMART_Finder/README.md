@@ -10,7 +10,7 @@ This is the source code to do development for FPinder.
 
 ## Input Format Definition
 
-The input file must be a csv (comma separated) with the following columns: 1H and 13C. 
+The input file must be a tsv (tab separated) or csv (comma separated) with the following columns: 1H and 13C. 
 
 ## Examples
 
