@@ -19,7 +19,7 @@ import os
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from rdkit.Chem import Draw
-from rdkit.Chem.Draw import IPythonConsole
+#from rdkit.Chem.Draw import IPythonConsole
 from rdkit.Chem import Descriptors
 from rdkit.Chem import AllChem
 from rdkit import DataStructs
