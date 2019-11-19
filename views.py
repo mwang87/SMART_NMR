@@ -91,7 +91,10 @@ def result():
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     candidates_df = pd.read_csv(output_result_table)
 
-    return make_response(render_template('results.html', candidates=candidates_df.to_dict(orient="records"), task_id=task_id))
+    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    projector_json_url = urllib.parse.quote(projector_json_url)
+
+    return make_response(render_template('results.html', candidates=candidates_df.to_dict(orient="records"), task_id=task_id, projector_json_url=projector_json_url))
 
 @app.route('/result_nmr', methods=['GET'])
 def result_nmr():
@@ -102,27 +105,25 @@ def result_nmr():
 
 #Embedding end points
 
-@app.route('/embedding_json', methods=['GET'])
-def embedding_json():
-    task_id = request.values["task"]
+@app.route('/embedding_json/<task_id>', methods=['GET'])
+def embedding_json(task_id):
 
-    #SERVER_URL = "http://dorresteinappshub.ucsd.edu:6213"
-    SERVER_URL = "http://mingwangbeta.ucsd.edu:6213"
+    SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
 
     result_dict = {}
-    result_dict["embedding"] = [{
+    result_dict["embeddings"] = [{
         "tensorName": "SMART Embeddings",
         "tensorShape": [2019, 180],
-        "tensorPath": SERVER_URL + "/embedding_data?task={}".format(task_id),
-        "metadataPath": SERVER_URL + "/embedding_metadata?task={}".format(task_id),
+        "tensorPath": SERVER_URL + "/embedding_data/{}".format(task_id),
+        "metadataPath": SERVER_URL + "/embedding_metadata/{}".format(task_id),
     }]
     
     return json.dumps(result_dict)
 
-@app.route('/embedding_data', methods=['GET'])
-def embedding_data():
+@app.route('/embedding_data/<task_id>', methods=['GET'])
+def embedding_data(task_id):
     return send_from_directory("/SMART_Finder/projection/", "smart_embedding.tsv")
 
-@app.route('/embedding_metadata', methods=['GET'])
-def embedding_metadata():
+@app.route('/embedding_metadata/<task_id>', methods=['GET'])
+def embedding_metadata(task_id):
     return send_from_directory("/SMART_Finder/projection/", "smart_metadata.tsv")
