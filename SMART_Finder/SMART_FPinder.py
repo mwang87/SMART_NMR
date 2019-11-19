@@ -77,7 +77,13 @@ def draw_candidates(candidates_df, output_png, topk=10):#i is compound name used
         raise
 
 def CSV_converter(CSV_converter): # Converting CSV file to numpy array (200 x 240), # i = CSV file name
-    qc = pd.read_csv(CSV_converter)
+    try:
+        qc = pd.read_csv(CSV_converter, sep=",")
+        qc["1H"]
+    except:
+        qc = pd.read_csv(CSV_converter, sep="\t")
+        qc["1H"]
+
     qc = qc.dropna()
     H = (qc['1H']*240//12).astype(int)
     C = (qc['13C']*200//200).astype(int)
