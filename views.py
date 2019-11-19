@@ -104,6 +104,9 @@ def result_nmr():
 
 
 #Embedding end points
+EMBED_DIMENSIONS = 180
+EMBED_LENGTH = 2019
+
 
 @app.route('/embedding_json/<task_id>', methods=['GET'])
 def embedding_json(task_id):
@@ -113,7 +116,7 @@ def embedding_json(task_id):
     result_dict = {}
     result_dict["embeddings"] = [{
         "tensorName": "SMART Embeddings",
-        "tensorShape": [2019, 180],
+        "tensorShape": [EMBED_LENGTH, EMBED_DIMENSIONS],
         "tensorPath": SERVER_URL + "/embedding_data/{}".format(task_id),
         "metadataPath": SERVER_URL + "/embedding_metadata/{}".format(task_id),
     }]
