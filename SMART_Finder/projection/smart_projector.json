@@ -1,0 +1,13 @@
+{
+  "embeddings": [
+    {
+      "tensorName": "SMART Embeddings",
+      "tensorShape": [
+        2019,
+        180
+      ],
+      "tensorPath": "https://gist.githubusercontent.com/calclavia/89df56b76e6468ed0d9e32ba1c9e7cb5/raw/a5e1e4057de968b53df002f9123bb8f4cc859101/smart_embedding.tsv",
+      "metadataPath": "https://gist.githubusercontent.com/calclavia/61ec03ef0d85639ef5c0590c7ddd390f/raw/70ae86c36a37bf9fd6ed9ad249b958c56f300c87/smart_metadata.tsv"
+    }
+  ]
+}
