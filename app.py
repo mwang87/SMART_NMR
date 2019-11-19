@@ -3,6 +3,8 @@ import os
 
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = False
@@ -20,6 +22,12 @@ class CustomFlask(Flask):
 
 app = CustomFlask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1, x_for=1, x_host=1)
+
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["500 per hour"]
+)
 
 app.config.from_object(__name__)
 UPLOAD_FOLDER = './tempuploads'
