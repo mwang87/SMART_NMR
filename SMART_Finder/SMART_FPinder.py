@@ -116,23 +116,25 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     plt.tight_layout()
     plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
     plt.savefig(output_nmr_image, dpi=600)
-    
-    pred = np.where(model.predict(mat.reshape(1,200,240,1)).round()[0]==1)[0]
-    pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0]
     plt.close()
     
+    #TODO: Annotate Logic Here
+    pred = np.where(model.predict(mat.reshape(1,200,240,1)).round()[0]==1)[0] 
+    pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
+    
+    
+    #TODO: Annotate Logic Here
     topK = np.full((len(DB),4), np.nan, dtype=object)
     for j in range(len(DB)):
         try:
             real = DB[j][2]
-            score = cosine(pred,real)
+            score = cosine(pred, real)
             if mw == None:
                 if score > 0.7 and abs(DB[j][3]-pred_MW)/(DB[j][3]) < 0.1 :
                     topK[j] = DB[j][0], DB[j][1],score, DB[j][3]
             else:
                 if score > 0.7 and abs(DB[j][3]-mw) < 20 :
                     topK[j] = DB[j][0], DB[j][1],score, DB[j][3]
-                
         except:
             continue
     
