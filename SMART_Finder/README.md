@@ -30,3 +30,9 @@ The input file must be a tsv (tab separated) or csv (comma separated) with the f
 We use docker to encapsule running the examples
 
 ```python ./SMART_FPinder.py input/cyclomarin_A_fenical_input.csv ./test.tsv ./test_nmr.png ./test_structures.png```
+
+## Testing
+
+To run all the tests, go to the test folder and type
+
+```nose2 -v```
