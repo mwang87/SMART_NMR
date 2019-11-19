@@ -2,6 +2,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = False
@@ -18,6 +19,8 @@ class CustomFlask(Flask):
   ))
 
 app = CustomFlask(__name__)
+CORS(app)
+
 app.config.from_object(__name__)
 UPLOAD_FOLDER = './tempuploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
