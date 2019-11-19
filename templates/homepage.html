@@ -104,14 +104,18 @@
             </style>
 
         <script>
-            group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1000, parallelUploads:20, timeout: 300000});
+            group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads:1, timeout: 300000});
             group1dropzone.on("sending", function(file, xhr, data) {
-                if(file.fullPath){
-                    data.append("fullPath", file.fullPath);
-                }
+              //TODO: Read the MW as optional
+              
             });
-
+            group1dropzone.on("success", function(file, response) {
+              json_response = JSON.parse(response)
+              window.location = "/result?task=" + json_response["task"]
+            });
             
+
+
             function AnalyzeFiles(){
                 $("#loadMe").modal({
                   backdrop: "static", //remove ability to close modal with click
