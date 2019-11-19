@@ -98,3 +98,31 @@ def result_nmr():
     task_id = request.values["task"]
     output_result_nmr_image = task_id + "_nmr.png"
     return send_from_directory(app.config['UPLOAD_FOLDER'], output_result_nmr_image)
+
+
+#Embedding end points
+
+@app.route('/embedding_json', methods=['GET'])
+def embedding_json():
+    task_id = request.values["task"]
+
+    #SERVER_URL = "http://dorresteinappshub.ucsd.edu:6213"
+    SERVER_URL = "http://mingwangbeta.ucsd.edu:6213"
+
+    result_dict = {}
+    result_dict["embedding"] = [{
+        "tensorName": "SMART Embeddings",
+        "tensorShape": [2019, 180],
+        "tensorPath": SERVER_URL + "/embedding_data?task={}".format(task_id),
+        "metadataPath": SERVER_URL + "/embedding_metadata?task={}".format(task_id),
+    }]
+    
+    return json.dumps(result_dict)
+
+@app.route('/embedding_data', methods=['GET'])
+def embedding_data():
+    return send_from_directory("/SMART_Finder/projection/", "smart_embedding.tsv")
+
+@app.route('/embedding_metadata', methods=['GET'])
+def embedding_metadata():
+    return send_from_directory("/SMART_Finder/projection/", "smart_metadata.tsv")
