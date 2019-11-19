@@ -124,6 +124,7 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     
     
     #TODO: Annotate Logic Here
+    # Database structure, 2 must be the predictions for the DB, 3, must be the mass
     topK = np.full((len(DB),4), np.nan, dtype=object)
     for j in range(len(DB)):
         try:
@@ -160,23 +161,6 @@ def main():
 
     search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_candidate_image, mw=args.molecular_weight)
 
-    # print(args)
-
-    # i = str(input("Input file name? (ex gerwick.csv):"))
-
-    # if i not in os.listdir("input/"):
-    #     i = str(input("Input file name? (ex gerwick.csv):"))
-    #     print("No file in input folder")
-            
-    # mwQ = input("Do you know the molecular weight?(y/n):")
-    # if mwQ == 'Y' or mwQ == 'y' or mwQ == 'yes' or mwQ == 'Yes' or mwQ=='YES':
-    #     mw = float(input("please enter the molecular weight:"))
-    # else:
-    #     mw = None
-
-    # print("now searching...")
-    # search_CSV(i,mw)
-    # print("Done")
 
 
 if __name__ == "__main__":
