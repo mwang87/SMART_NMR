@@ -6,3 +6,7 @@ services:
     ports:
       - "6213:5000"
     command: /app/run_server.sh
+    volumes:
+        - ./SMART_Finder:/SMART_Finder
+        - ./logs/:/app/logs
+        - ./tempuploads/:/app/tempuploads

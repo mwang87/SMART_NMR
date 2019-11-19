@@ -30,15 +30,15 @@ import time
 
 import argparse
 
-def load_models():
+def load_models(db_folder=".", models_folder="models"):
     #loading DB
-    DB = np.load('FPinder_DB.npy', allow_pickle=True)
+    DB = np.load(os.path.join(db_folder, 'FPinder_DB.npy'), allow_pickle=True)
 
     #importing trained model
     #If no gpus are available, these models are working with CPU automatically
     with tf.device('/CPU:0'):
-        model = keras.models.load_model('models/HWK_sAug_1106_final(2048r1)_cos.hdf5')
-        model_mw = keras.models.load_model('models/VGG16_high_aug_MW_continue.hdf5')
+        model = keras.models.load_model(os.path.join(models_folder, 'HWK_sAug_1106_final(2048r1)_cos.hdf5'))
+        model_mw = keras.models.load_model(os.path.join(models_folder, 'VGG16_high_aug_MW_continue.hdf5'))
 
     return DB, model, model_mw
 
