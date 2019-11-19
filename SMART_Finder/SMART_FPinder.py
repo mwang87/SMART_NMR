@@ -27,6 +27,7 @@ from rdkit import DataStructs
 import matplotlib.pyplot as plt
 from math import sqrt
 import time
+import json
 
 import argparse
 
@@ -108,7 +109,7 @@ def CSV_converter(CSV_converter): # Converting CSV file to numpy array (200 x 24
                 mat[b, 239-a] = 1
     return mat
         
-def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_candidate_image, mw=None, top_candidates=20): # i = CSV file name
+def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename)
     # plotting and saving constructed HSQC images
     ## image without padding and margin
@@ -121,11 +122,12 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
     plt.savefig(output_nmr_image, dpi=600)
     plt.close()
-    
+
+    ### Model Prediction
+    fingerprint_prediction = model.predict(mat.reshape(1,200,240,1))
     #TODO: Annotate Logic Here
-    pred = np.where(model.predict(mat.reshape(1,200,240,1)).round()[0]==1)[0] 
+    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
     pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
-    
     
     #TODO: Annotate Logic Here
     # Database structure, 2 must be the predictions for the DB, 3, must be the mass
@@ -133,7 +135,7 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     for j in range(len(DB)):
         try:
             real = DB[j][2]
-            score = cosine(pred, real)
+            score = cosine(fingerprint_prediction_nonzero, real)
             if mw == None:
                 if score > 0.7 and abs(DB[j][3]-pred_MW)/(DB[j][3]) < 0.1 :
                     topK[j] = DB[j][0], DB[j][1],score, DB[j][3]
@@ -143,6 +145,7 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
         except:
             continue
     
+    #Saving the DB Search
     topK = pd.DataFrame(topK, columns = ['Name','SMILES','Cosine score','MW'])
     topK = topK.dropna(how='all')
     topK = topK.sort_values(['Cosine score'], ascending = False)
@@ -150,6 +153,11 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     topK = topK[:top_candidates]
     topK = topK.fillna('No_name') #Time
     topK.to_csv(output_table, index = None)
+
+    #Saving the predicted Fingerprint
+    open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
+
+    #TODO: Evaluate if we want to remove the code to not have the drawing
     #draw_candidates(topK, output_candidate_image)
 
 def main():
@@ -160,11 +168,11 @@ def main():
     parser.add_argument('input_csv', help='input_csv')
     parser.add_argument('output_table', help='output_table')
     parser.add_argument('output_nmr_image', help='output_nmr_image')
-    parser.add_argument('output_candidate_image', help='output_candidate_image')
+    parser.add_argument('output_pred_fingerprint', help='output_pred_fingerprint')
     parser.add_argument('--molecular_weight', default=None, type=float, help='molecular_weight')
     args = parser.parse_args()
 
-    search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_candidate_image, mw=args.molecular_weight)
+    search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
 
 
 

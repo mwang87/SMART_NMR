@@ -3,5 +3,6 @@ matplotlib
 flask
 gunicorn
 requests
+requests_cache
 Werkzeug
 flask_limiter 
