@@ -8,6 +8,7 @@ import glob
 import json
 import requests
 import pandas as pd
+import requests_cache
 import urllib.parse
 
 #SMART import
@@ -17,7 +18,14 @@ import SMART_FPinder
 
 #Loading the Model Globally
 DB = SMART_FPinder.load_db(db_folder="/SMART_Finder")
-#model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
+model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
+
+#Creating the dataframes
+metadata_df = pd.read_csv("/SMART_Finder/projection/smart_metadata.tsv", sep="\t", names=["compound"])
+database_df = pd.DataFrame(DB, columns=["compound", "smiles", "embedding", "mw"])
+
+#Setting up cache
+requests_cache.install_cache(os.path.join(app.config['UPLOAD_FOLDER'], 'requests_cache'))
 
 @app.route('/heartbeat', methods=['GET'])
 def heartbeat():
@@ -25,7 +33,6 @@ def heartbeat():
 
 @app.route('/', methods=['GET'])
 def homepage():
-    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr), file=sys.stderr)
     response = make_response(render_template('homepage.html'))
     return response
 
@@ -48,9 +55,10 @@ def upload_1():
 
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
+    output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null", mw=mw)
+    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
 
     # task identifier for results
     result_dict = {}
@@ -75,9 +83,10 @@ def process_entry():
 
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
+    output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null", mw=mw)
+    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
 
     # task identifier for results
     result_dict = {}
@@ -106,21 +115,32 @@ def result_nmr():
 
 
 #Embedding end points
-EMBED_DIMENSIONS = 180
-EMBED_LENGTH = 2019
+EMBED_DIMENSIONS = 2048
+EMBED_LENGTH = 2000
 
+def set_to_vector(set_object, dim=2048):
+    vector = [0] * dim
+
+    for index in set_object:
+        vector[index] = 1
+
+    return vector
 
 @app.route('/embedding_json/<task_id>', methods=['GET'])
 def embedding_json(task_id):
-    print(DB.shape, file=sys.stderr)
-    print(DB[0], file=sys.stderr)
+    #Slow Filtering
+    all_compounds = set(metadata_df["compound"])
+    output_records = []
+    for record in database_df.to_dict(orient="records"):
+        if record["compound"] in all_compounds:
+            output_records.append(record)
 
     SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
 
     result_dict = {}
     result_dict["embeddings"] = [{
         "tensorName": "SMART Embeddings",
-        "tensorShape": [EMBED_LENGTH, EMBED_DIMENSIONS],
+        "tensorShape": [len(output_records) + 1, EMBED_DIMENSIONS],
         "tensorPath": SERVER_URL + "/embedding_data/{}".format(task_id),
         "metadataPath": SERVER_URL + "/embedding_metadata/{}".format(task_id),
     }]
@@ -129,8 +149,58 @@ def embedding_json(task_id):
 
 @app.route('/embedding_data/<task_id>', methods=['GET'])
 def embedding_data(task_id):
-    return send_from_directory("/SMART_Finder/projection/", "smart_embedding.tsv")
+    #Slow Filtering
+    all_compounds = set(metadata_df["compound"])
+    output_records = []
+    output_embedding = []
+    for record in database_df.to_dict(orient="records"):
+        if record["compound"] in all_compounds:
+            output_records.append(record)
+            vector = set_to_vector(record["embedding"])
+            vector = [str(x) for x in vector]
+            output_embedding.append(vector)
+
+    output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
+    query_vector = json.loads(open(output_result_fp_pred, "r").read())[0]
+    query_vector = [str(x) for x in query_vector]
+    output_embedding.append(vector)
+
+    print(len(output_embedding), file=sys.stderr)
+
+    return "\n".join(["\t".join(vector) for vector in output_embedding])
 
 @app.route('/embedding_metadata/<task_id>', methods=['GET'])
 def embedding_metadata(task_id):
-    return send_from_directory("/SMART_Finder/projection/", "smart_metadata.tsv")
+    #Slow Filtering
+    all_compounds = set(metadata_df["compound"])
+    output_metadata = []
+    for record in database_df.to_dict(orient="records"):
+        if record["compound"] in all_compounds:
+            output_dict = {}
+            output_dict["compound"] = record["compound"]
+            output_dict["type"] = "db"
+            output_dict["smiles"] = record["smiles"]
+            output_dict["mw"] = record["mw"]
+
+            # Attempting to do classyfire
+            # try:
+            #     r = requests.get("https://gnps-structure.ucsd.edu/classyfire?smiles=".format(urllib.parse.quote( record["smiles"])))
+            #     output_dict["class"] = r.json()["class"]["name"]
+            # except:
+            #     print("No Classification", record["smiles"], file=sys.stderr)
+            #     raise
+                
+
+            output_metadata.append(output_dict)
+
+    output_dict = {}
+    output_dict["compound"] = "query"
+    output_dict["type"] = "query"
+    output_metadata.append(output_dict)
+
+    metadata_output_df = pd.DataFrame(output_metadata)
+
+    
+    return metadata_output_df.to_csv(sep="\t", index=False)
+
+    
