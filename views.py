@@ -24,6 +24,7 @@ def heartbeat():
 
 @app.route('/', methods=['GET'])
 def homepage():
+    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr), file=sys.stderr)
     response = make_response(render_template('homepage.html'))
     return response
 
