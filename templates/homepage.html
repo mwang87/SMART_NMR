@@ -164,8 +164,7 @@
                 method: "POST",
                 success: function (response) {
                     $("#loadMe").modal("hide");
-                    json_response = JSON.parse(response)
-                    window.location = "/result?task=" + json_response["task"]
+                    window.location = "/result?task=" + response["task"]
                 },
                 dataType: "json",
                 data: {
