@@ -4,3 +4,4 @@ flask
 gunicorn
 requests
 Werkzeug
+flask_limiter 
