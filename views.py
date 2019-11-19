@@ -51,6 +51,28 @@ def upload_1():
     return json.dumps(result_dict)
 
 
+@app.route('/analyzeentry', methods=['POST'])
+def process_entry():
+    print(request.values)
+
+    task_id = str(uuid.uuid4())
+
+    input_filename = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_input.tsv")
+    with open(input_filename, "w") as input_file:
+        input_file.write(request.values["peaks"])
+
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
+
+    # Performing calculation
+    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null")
+
+    # task identifier for results
+    result_dict = {}
+    result_dict["task"] = task_id
+
+    return json.dumps(result_dict)
+
 
 @app.route('/result', methods=['GET'])
 def result():

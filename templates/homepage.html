@@ -1,142 +1,200 @@
-
 (% extends "layout.html" %)
 
 (% block content %)
 
-        <div class="container-fluid">
-            <br>
-            <br>
-            <div class="row">
-              <div class="col-sm"></div>
-              <div class="col-sm text-center">
-                  <h2>SMART Drag and Drop</h2>
-              </div>
-              <div class="col-sm"></div>
-            </div>
+<div class="container-fluid">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm text-center">
+            <h2>SMART Drag and Drop</h2>
+        </div>
+        <div class="col-sm"></div>
+    </div>
 
-            <br>
-            <div class="row">
-              <div class="col-sm"></div>
-              <div class="col-sm">
-                      <p>
-                        Drag and drop HSQC Spectra for SMART
-                      </p>
-              </div>
-              <div class="col-sm"></div>
-            </div>
+    <br>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <p>
+                Drag and drop HSQC Spectra for SMART
+            </p>
+        </div>
+        <div class="col-sm"></div>
+    </div>
 
-            <!-- <div class="row">
-              <div class="col-sm"></div>
-              <div class="col-sm">
-                  <button onclick="AnalyzeFiles()" class="btn btn-primary">Analyze</button>
-              </div>
-              <div class="col-sm"></div>
-            </div> -->
+    <hr>
 
-            <hr>
-
-            <div class="row">
-                <div class="dropzone col-md" id="group1">
-                    <div class="dz-message">Drop files here or click to upload and analyze<br>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="dropzone col-md" id="group1">
+            <div class="dz-message">Drop files here or click to upload and analyze<br>
             </div>
         </div>
+    </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
-          <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-              <div class="modal-body text-center">
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm text-center">
+            <h2>SMART Peaks Entry</h2>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+    <div class="col-sm">
+        <div class="form-group">
+            <label for="manual_weight">Molecular Weight</label>
+            <input id="manual_weight" type="number" step="any" class="form-control" name="manual_weight"
+                placeholder="1044.66">
+        </div>
+        <div class="form-group">
+            <label for="peaks">Peaks</label>
+            <textarea id="peaks" class="form-control" name="peaks" rows="12"
+                placeholder='Enter peaks here in the follow headers "1H,13C", one per line separated by tab or comma.'></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <button onclick="AnalyzeEntry()" class="btn btn-primary">Analyze</button>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
                 <div class="loader"></div>
                 <div clas="loader-txt">
-                  <p>Analyzing! Please Wait...</p>
+                    <p>Analyzing! Please Wait...</p>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>
 
-        <style>
-                /** SPINNER CREATION **/
-                .loader {
-                  position: relative;
-                  text-align: center;
-                  margin: 15px auto 35px auto;
-                  z-index: 9999;
-                  display: block;
-                  width: 80px;
-                  height: 80px;
-                  border: 10px solid rgba(0, 0, 0, .3);
-                  border-radius: 50%;
-                  border-top-color: #000;
-                  animation: spin 1s ease-in-out infinite;
-                  -webkit-animation: spin 1s ease-in-out infinite;
-                }
-                @keyframes spin {
-                  to {
-                    -webkit-transform: rotate(360deg);
-                  }
-                }
-                @-webkit-keyframes spin {
-                  to {
-                    -webkit-transform: rotate(360deg);
-                  }
-                }
-                /** MODAL STYLING **/
-                .modal-content {
-                  border-radius: 0px;
-                  box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
-                }
-                .modal-backdrop.show {
-                  opacity: 0.75;
-                }
-                .loader-txt {
-                  p {
-                    font-size: 13px;
-                    color: #666;
-                    small {
-                      font-size: 11.5px;
-                      color: #999;
-                    }
-                  }
-                }
-            </style>
+<style>
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
 
-        <script>
-            group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads:1, timeout: 300000});
-            group1dropzone.on("sending", function(file, xhr, data) {
-              //TODO: Read the MW as optional
-              
-            });
-            group1dropzone.on("success", function(file, response) {
-              json_response = JSON.parse(response)
-              window.location = "/result?task=" + json_response["task"]
-            });
-            
+    @keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
 
+    @-webkit-keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
 
-            function AnalyzeFiles(){
-                $("#loadMe").modal({
-                  backdrop: "static", //remove ability to close modal with click
-                  keyboard: false, //remove option to close with keyboard
-                  show: true //Display loader!
-                });
-                $.ajax(
-                    {
-                        url: "/process",
-                        success: function(result){
-                            $("#loadMe").modal("hide");
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
 
-                            console.log(result)
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
 
-                            window.location = "/downloadconvert?" + r
-                        },
-                        dataType: "json"
-                    }
-                );
+    .loader-txt {
+        p {
+            font-size: 13px;
+            color: #666;
+
+            small {
+                font-size: 11.5px;
+                color: #999;
             }
-        </script>
+        }
+    }
+</style>
+
+<script>
+    group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads: 1, timeout: 300000 });
+    group1dropzone.on("sending", function (file, xhr, data) {
+        //TODO: Read the MW as optional
+
+    });
+    group1dropzone.on("success", function (file, response) {
+        json_response = JSON.parse(response)
+        window.location = "/result?task=" + json_response["task"]
+    });
+
+
+
+    function AnalyzeFiles() {
+        $("#loadMe").modal({
+            backdrop: "static", //remove ability to close modal with click
+            keyboard: false, //remove option to close with keyboard
+            show: true //Display loader!
+        });
+        $.ajax(
+            {
+                url: "/process",
+                success: function (result) {
+                    $("#loadMe").modal("hide");
+
+                    console.log(result)
+
+                    window.location = "/downloadconvert?" + r
+                },
+                dataType: "json"
+            }
+        );
+    }
+
+    function AnalyzeEntry() {
+        $("#loadMe").modal({
+            backdrop: "static", //remove ability to close modal with click
+            keyboard: false, //remove option to close with keyboard
+            show: true //Display loader!
+        });
+        $.ajax(
+            {
+                url: "/analyzeentry",
+                method: "POST",
+                success: function (response) {
+                    $("#loadMe").modal("hide");
+                    json_response = JSON.parse(response)
+                    window.location = "/result?task=" + json_response["task"]
+                },
+                dataType: "json",
+                data: {
+                    "peaks": $("#peaks").val(),
+                    "mw": $("#manual_weight").val()
+                }
+            }
+        );
+    }
+
+
+
+</script>
 
 
 (% endblock %)
