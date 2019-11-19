@@ -2,7 +2,7 @@
 import os
 
 from flask import Flask
-from flask_cors import CORS
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = False
@@ -19,7 +19,7 @@ class CustomFlask(Flask):
   ))
 
 app = CustomFlask(__name__)
-CORS(app)
+app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1, x_for=1, x_host=1)
 
 app.config.from_object(__name__)
 UPLOAD_FOLDER = './tempuploads'
