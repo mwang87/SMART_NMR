@@ -30,18 +30,22 @@ import time
 
 import argparse
 
-def load_models(db_folder=".", models_folder="models"):
-    #loading DB
-    DB = np.load(os.path.join(db_folder, 'FPinder_DB.npy'), allow_pickle=True)
-
+def load_models(models_folder="models"):
     #importing trained model
     #If no gpus are available, these models are working with CPU automatically
     with tf.device('/CPU:0'):
         model = keras.models.load_model(os.path.join(models_folder, 'HWK_sAug_1106_final(2048r1)_cos.hdf5'))
         model_mw = keras.models.load_model(os.path.join(models_folder, 'VGG16_high_aug_MW_continue.hdf5'))
 
-    return DB, model, model_mw
+    return model, model_mw
 
+def load_db(db_folder="."):
+    #loading DB
+    DB = np.load(os.path.join(db_folder, 'FPinder_DB.npy'), allow_pickle=True)
+
+    return DB
+
+#This is a binary cosine between two sets
 def cosine(x,y):
     '''x, y are same shape array'''
     a = set(x)
@@ -149,7 +153,8 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     #draw_candidates(topK, output_candidate_image)
 
 def main():
-    DB, model, model_mw = load_models()
+    DB = load_db()
+    model, model_mw = load_models()
 
     parser = argparse.ArgumentParser(description='SMART Embedding')
     parser.add_argument('input_csv', help='input_csv')

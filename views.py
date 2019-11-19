@@ -16,7 +16,8 @@ sys.path.insert(0, "SMART_Finder")
 import SMART_FPinder
 
 #Loading the Model Globally
-DB, model, model_mw = SMART_FPinder.load_models(db_folder="/SMART_Finder", models_folder="/SMART_Finder/models")
+DB = SMART_FPinder.load_db(db_folder="/SMART_Finder")
+#model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
 
 @app.route('/heartbeat', methods=['GET'])
 def heartbeat():
@@ -111,6 +112,8 @@ EMBED_LENGTH = 2019
 
 @app.route('/embedding_json/<task_id>', methods=['GET'])
 def embedding_json(task_id):
+    print(DB.shape, file=sys.stderr)
+    print(DB[0], file=sys.stderr)
 
     SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
 
