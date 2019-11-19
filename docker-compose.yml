@@ -6,7 +6,21 @@ services:
     ports:
       - "6213:5000"
     command: /app/run_server.sh
+    networks:
+      - default
+      - nginx-net
     volumes:
         - ./SMART_Finder:/SMART_Finder
         - ./logs/:/app/logs
         - ./tempuploads/:/app/tempuploads
+    environment:
+      VIRTUAL_HOST: mingwangbeta.ucsd.edu
+      VIRTUAL_PORT: 6213
+      LETSENCRYPT_HOST: mingwangbeta.ucsd.edu
+      LETSENCRYPT_EMAIL: miw023@ucsd.edu
+
+
+networks:
+  nginx-net:
+    external:
+      name: nginx-net
