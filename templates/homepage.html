@@ -18,7 +18,7 @@
         <div class="col-sm"></div>
         <div class="col-sm">
             <p>
-                Drag and drop HSQC Spectra for SMART
+                Lorem Ipsum, description of the SMART TOOL here
             </p>
         </div>
         <div class="col-sm"></div>
@@ -27,8 +27,18 @@
     <hr>
 
     <div class="row">
-        <div class="dropzone col-md" id="group1">
-            <div class="dz-message">Drop files here or click to upload and analyze<br>
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="drag_weight">Molecular Weight</label>
+                <input id="drag_weight" type="number" step="any" class="form-control" name="drag_weight"
+                    placeholder="1044.66">
+            </div>
+    
+            <div class="form-group">
+                <div class="dropzone col-md" id="group1">
+                    <div class="dz-message">Drop files here or click to upload and analyze<br>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -44,25 +54,23 @@
         <div class="col-sm"></div>
     </div>
 
-    <div class="col-sm">
-        <div class="form-group">
-            <label for="manual_weight">Molecular Weight</label>
-            <input id="manual_weight" type="number" step="any" class="form-control" name="manual_weight"
-                placeholder="1044.66">
-        </div>
-        <div class="form-group">
-            <label for="peaks">Peaks</label>
-            <textarea id="peaks" class="form-control" name="peaks" rows="12"
-                placeholder='Enter peaks here in the follow headers "1H,13C", one per line separated by tab or comma.'></textarea>
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="manual_weight">Molecular Weight</label>
+                <input id="manual_weight" type="number" step="any" class="form-control" name="manual_weight"
+                    placeholder="1044.66">
+            </div>
+            <div class="form-group">
+                <label for="peaks">Peaks</label>
+                <textarea id="peaks" class="form-control" name="peaks" rows="12"
+                    placeholder='Enter peaks here in the follow headers "1H,13C", one per line separated by tab or comma.'></textarea>
+            </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm"></div>
-        <div class="col-sm">
-            <button onclick="AnalyzeEntry()" class="btn btn-primary">Analyze</button>
-        </div>
-        <div class="col-sm"></div>
+        <button onclick="AnalyzeEntry()" class="btn btn-primary btn-block">Analyze</button>
     </div>
 
 
@@ -135,38 +143,14 @@
 </style>
 
 <script>
-    group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads: 1, timeout: 300000 });
+    group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 1});
     group1dropzone.on("sending", function (file, xhr, data) {
-        //TODO: Read the MW as optional
-
+        data.append("mw", $("#drag_weight").val());
     });
     group1dropzone.on("success", function (file, response) {
         json_response = JSON.parse(response)
         window.location = "/result?task=" + json_response["task"]
     });
-
-
-
-    function AnalyzeFiles() {
-        $("#loadMe").modal({
-            backdrop: "static", //remove ability to close modal with click
-            keyboard: false, //remove option to close with keyboard
-            show: true //Display loader!
-        });
-        $.ajax(
-            {
-                url: "/process",
-                success: function (result) {
-                    $("#loadMe").modal("hide");
-
-                    console.log(result)
-
-                    window.location = "/downloadconvert?" + r
-                },
-                dataType: "json"
-            }
-        );
-    }
 
     function AnalyzeEntry() {
         $("#loadMe").modal({

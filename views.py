@@ -29,6 +29,12 @@ def homepage():
 
 @app.route('/analyzeupload', methods=['POST'])
 def upload_1():
+    mw = request.values.get("mw", None)
+    try:
+        mw = float(mw)
+    except:
+        mw = None
+    
     # Saving file on disk
     if 'file' not in request.files:
         return "{}", 400
@@ -42,7 +48,7 @@ def upload_1():
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null")
+    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null", mw=mw)
 
     # task identifier for results
     result_dict = {}
@@ -53,7 +59,11 @@ def upload_1():
 
 @app.route('/analyzeentry', methods=['POST'])
 def process_entry():
-    print(request.values)
+    mw = request.values.get("mw", None)
+    try:
+        mw = float(mw)
+    except:
+        mw = None
 
     task_id = str(uuid.uuid4())
 
@@ -65,7 +75,7 @@ def process_entry():
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null")
+    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, "/dev/null", mw=mw)
 
     # task identifier for results
     result_dict = {}
