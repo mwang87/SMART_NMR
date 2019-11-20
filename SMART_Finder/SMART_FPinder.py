@@ -108,9 +108,21 @@ def CSV_converter(CSV_converter): # Converting CSV file to numpy array (200 x 24
             if 0 <= a < 240 and 0 <= b < 200:
                 mat[b, 239-a] = 1
     return mat
+
+def predict_nmr(input_nmr_filename, model, model_mw):
+    mat = CSV_converter(input_nmr_filename)
+
+    ### Model Prediction
+    fingerprint_prediction = model.predict(mat.reshape(1,200,240,1))
+    #TODO: Annotate Logic Here
+    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
+    pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
+
+    return fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW
         
 def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename)
+
     # plotting and saving constructed HSQC images
     ## image without padding and margin
     height, width = mat.shape
@@ -123,11 +135,7 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     plt.savefig(output_nmr_image, dpi=600)
     plt.close()
 
-    ### Model Prediction
-    fingerprint_prediction = model.predict(mat.reshape(1,200,240,1))
-    #TODO: Annotate Logic Here
-    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
-    pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
+    fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW = predict_nmr(input_nmr_filename, model, model_mw)
     
     #TODO: Annotate Logic Here
     # Database structure, 2 must be the predictions for the DB, 3, must be the mass
