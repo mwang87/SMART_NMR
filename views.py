@@ -21,7 +21,7 @@ DB = SMART_FPinder.load_db(db_folder="/SMART_Finder")
 model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
 
 #Creating the dataframes
-metadata_df = pd.read_csv("/SMART_Finder/projection/smart_metadata_large.tsv", sep="\t", names=["compound"], encoding="ISO-8859–1")
+metadata_df = pd.read_csv("/SMART_Finder/projection/smart_metadata.tsv", sep="\t", names=["compound"], encoding="ISO-8859–1")
 database_df = pd.DataFrame(DB, columns=["compound", "smiles", "embedding", "mw"])
 
 #Setting up cache
