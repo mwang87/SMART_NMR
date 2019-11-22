@@ -19,6 +19,24 @@ services:
       LETSENCRYPT_HOST: mingwangbeta.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
+  smart-redis:
+    image: redis
+    networks:
+      - default
+
+  smartfp-worker:
+    build: .
+    container_name: smartfp-worker
+    volumes:
+        - ./SMART_Finder:/SMART_Finder
+        - ./tempuploads/:/app/tempuploads
+    command: /app/run_smartfp_celery_worker.sh
+    restart: on-failure
+    depends_on: 
+      - smart-redis
+    networks:
+      - default
+
 
 networks:
   nginx-net:
