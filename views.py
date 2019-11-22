@@ -10,22 +10,7 @@ import requests
 import pandas as pd
 import requests_cache
 import urllib.parse
-
-#SMART import
-import sys
-sys.path.insert(0, "SMART_Finder")
-import SMART_FPinder
-
-#Loading the Model Globally
-DB = SMART_FPinder.load_db(db_folder="/SMART_Finder")
-model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
-
-#Creating the dataframes
-metadata_df = pd.read_csv("/SMART_Finder/projection/smart_metadata.tsv", sep="\t", names=["compound"], encoding="ISO-8859–1")
-database_df = pd.DataFrame(DB, columns=["compound", "smiles", "embedding", "mw"])
-
-#Setting up cache
-requests_cache.install_cache(os.path.join(app.config['UPLOAD_FOLDER'], 'requests_cache'))
+from time import sleep
 
 @app.route('/heartbeat', methods=['GET'])
 def heartbeat():
@@ -35,6 +20,8 @@ def heartbeat():
 def homepage():
     response = make_response(render_template('homepage.html'))
     return response
+
+from smartfp_tasks import smart_fp_run
 
 @app.route('/analyzeupload', methods=['POST'])
 def upload_1():
@@ -58,8 +45,13 @@ def upload_1():
     output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
-
+    result = smart_fp_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_fp_pred, mw)
+    while(1):
+        if result.ready():
+            break
+        sleep(3)
+    result = result.get()
+    
     # task identifier for results
     result_dict = {}
     result_dict["task"] = task_id
@@ -86,7 +78,7 @@ def process_entry():
     output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
+    #SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
 
     # task identifier for results
     result_dict = {}
