@@ -14,7 +14,6 @@ import SMART_FPinder
 
 celery_instance = Celery('smart_fp_tasks', backend='redis://smart-redis', broker='redis://smart-redis')
 
-
 shared_model_data = {}
 
 def worker_load_models(**kwargs):
@@ -36,23 +35,49 @@ def worker_load_models(**kwargs):
 
     return 0
 
-
 @celery_instance.task()
 def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, output_result_fp_pred, mw):
+    import requests
+    import numpy as np
+
     print("PROCESSING", file=sys.stderr)
 
-    DB = shared_model_data["DB"]
-    model = shared_model_data["model"]
-    model_mw = shared_model_data["model_mw"]
-    metadata_df = shared_model_data["metadata_df"]
-    database_df = shared_model_data["database_df"]
+    mat = SMART_FPinder.CSV_converter(input_filename)
 
-    print("SEARCHING", file=sys.stderr)
+    # plotting and saving constructed HSQC images
+    ## image without padding and margin
+    height, width = mat.shape
+    figsize = (10, 10*height/width) if height>=width else (width/height, 1)
+    plt.figure(figsize=figsize)
+    plt.imshow(mat, cmap=plt.cm.binary)
+    plt.axis('off'), plt.xticks([]), plt.yticks([])
+    plt.tight_layout()
+    plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
+    plt.savefig(output_nmr_image, dpi=600)
+    plt.close()
 
-    SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
+    # Tensorflow Serve fp query
+    fp_pred_url = "http://smartfp-tf-server:8501/v1/models/HWK_sAug_1106_final_2048_cos:predict"
+    payload = json.dumps({"instances": mat.reshape(1,200,240,1).tolist()})
+    
+    headers = {"content-type": "application/json"}
+    json_response = requests.post(fp_pred_url, data=payload, headers=headers)
 
-    print("DONE", file=sys.stderr)
+    fingerprint_prediction = np.asarray(json.loads(json_response.text)['predictions'][0])
+    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
+
+    # Tensorflow Serve fp mw query
+    fp_pred_url = "http://smartfp-mw-tf-server:8501/v1/models/VGG16_high_aug_MW_continue:predict"
+    payload = json.dumps({"instances": mat.reshape(1,200,240,1).tolist()})
+    
+    headers = {"content-type": "application/json"}
+    json_response = requests.post(fp_pred_url, data=payload, headers=headers)
+
+    pred_MW = json.loads(json_response.text)['predictions'][0]
+
+    topK = SMART_FPinder.search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=20)
+    topK.to_csv(output_result_table, index = None)
+
+    open(output_result_fp_pred, "w").write(json.dumps(fingerprint_prediction.tolist()))
 
     return 0
-
-worker_init.connect(worker_load_models)
