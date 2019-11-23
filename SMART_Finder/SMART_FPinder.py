@@ -120,24 +120,8 @@ def predict_nmr(input_nmr_filename, model, model_mw):
     pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
 
     return fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW
-        
-def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
-    mat = CSV_converter(input_nmr_filename)
 
-    # plotting and saving constructed HSQC images
-    ## image without padding and margin
-    height, width = mat.shape
-    figsize = (10, 10*height/width) if height>=width else (width/height, 1)
-    plt.figure(figsize=figsize)
-    plt.imshow(mat, cmap=plt.cm.binary)
-    plt.axis('off'), plt.xticks([]), plt.yticks([])
-    plt.tight_layout()
-    plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
-    plt.savefig(output_nmr_image, dpi=600)
-    plt.close()
-
-    fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW = predict_nmr(input_nmr_filename, model, model_mw)
-    
+def search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=None, top_candidates=20):
     #TODO: Annotate Logic Here
     # Database structure, 2 must be the predictions for the DB, 3, must be the mass
     topK = np.full((len(DB),4), np.nan, dtype=object)
@@ -161,8 +145,29 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
     topK = topK.drop_duplicates(['SMILES'])
     topK = topK[:top_candidates]
     topK = topK.fillna('No_name') #Time
-    topK.to_csv(output_table, index = None)
 
+def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
+    mat = CSV_converter(input_nmr_filename)
+
+    # plotting and saving constructed HSQC images
+    ## image without padding and margin
+    height, width = mat.shape
+    figsize = (10, 10*height/width) if height>=width else (width/height, 1)
+    plt.figure(figsize=figsize)
+    plt.imshow(mat, cmap=plt.cm.binary)
+    plt.axis('off'), plt.xticks([]), plt.yticks([])
+    plt.tight_layout()
+    plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
+    plt.savefig(output_nmr_image, dpi=600)
+    plt.close()
+
+    fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW = predict_nmr(input_nmr_filename, model, model_mw)
+    
+    topK = search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=top_candidates)
+
+    #Saving TopK
+    topK.to_csv(output_table, index = None)
+    
     #Saving the predicted Fingerprint
     open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
 

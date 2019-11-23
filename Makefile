@@ -28,4 +28,4 @@ server-compose-production:
 
 
 attach:
-	docker exec -it smartfp-worker /bin/bash
+	docker exec -it smart_nmr_smartfp-tf-server_1 /bin/bash

@@ -37,6 +37,28 @@ services:
     networks:
       - default
 
+  smartfp-tf-server:
+    image: tensorflow/serving
+    volumes:
+        - ./SMART_Finder/models:/models
+        - ./tempuploads/:/app/tempuploads
+    restart: on-failure
+    networks:
+      - default
+    environment:
+      MODEL_NAME: HWK_sAug_1106_final_2048_cos
+
+  smartfp-mw-tf-server:
+    image: tensorflow/serving
+    volumes:
+        - ./SMART_Finder/models:/models
+        - ./tempuploads/:/app/tempuploads
+    restart: on-failure
+    networks:
+      - default
+    environment:
+      MODEL_NAME: VGG16_high_aug_MW_continue
+
 
 networks:
   nginx-net:
