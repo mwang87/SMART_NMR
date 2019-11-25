@@ -1,6 +1,7 @@
 from celery import Celery
 from celery.signals import worker_init
 
+import time
 import os
 import json
 import requests
@@ -38,6 +39,7 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
     import requests
     import numpy as np
 
+    start_time = time.time()
     print("PROCESSING", file=sys.stderr)
 
     mat = SMART_FPinder.CSV_converter(input_filename)
@@ -73,9 +75,13 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
 
     pred_MW = json.loads(json_response.text)['predictions'][0][0]
 
+    print("FINISHED PREDICTION", time.time() - start_time, file=sys.stderr)
+
     DB = shared_model_data["DB"]
     topK = SMART_FPinder.search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=20)
     topK.to_csv(output_result_table, index=None)
+
+    print("FINISHED DB SEARCH", time.time() - start_time, file=sys.stderr)
 
     open(output_result_fp_pred, "w").write(json.dumps(fingerprint_prediction.tolist()))
 
