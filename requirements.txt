@@ -6,3 +6,5 @@ requests
 requests_cache
 Werkzeug
 flask_limiter 
+celery
+redis
