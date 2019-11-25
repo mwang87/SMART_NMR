@@ -14,7 +14,7 @@ import sys
 sys.path.insert(0, "SMART_Finder")
 import SMART_FPinder
 
-celery_instance = Celery('smart_fp_tasks', backend='redis://smart-redis', broker='redis://smart-redis')
+celery_instance = Celery('smart_fp_tasks', backend='redis://smartfp-redis', broker='redis://smartfp-redis')
 
 shared_model_data = {}
 

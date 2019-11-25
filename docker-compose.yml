@@ -19,7 +19,27 @@ services:
       LETSENCRYPT_HOST: mingwangbeta.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
-  smart-redis:
+  smartclassic-redis:
+    image: redis
+    networks:
+      - default
+
+  smartclassic-worker:
+    build:
+      context: .
+      dockerfile: classic.Dockerfile
+    container_name: smartclassic-worker
+    volumes:
+        - ./SMART_Classic:/SMART_Classic
+        - ./tempuploads/:/src/tempuploads
+    command: /src/run_smartclassic_celery_worker.sh
+    restart: on-failure
+    depends_on: 
+      - smartclassic-redis
+    networks:
+      - default
+
+  smartfp-redis:
     image: redis
     networks:
       - default
@@ -33,7 +53,7 @@ services:
     command: /app/run_smartfp_celery_worker.sh
     restart: on-failure
     depends_on: 
-      - smart-redis
+      - smartfp-redis
     networks:
       - default
 
