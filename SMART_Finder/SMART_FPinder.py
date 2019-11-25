@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 import datetime
 import os
+import sys
 
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
@@ -119,7 +120,47 @@ def predict_nmr(input_nmr_filename, model, model_mw):
     pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
 
     return fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW
-        
+
+def search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=None, top_candidates=20):
+    #TODO: Annotate Logic Here
+    # Database structure, 2 must be the predictions for the DB, 3, must be the mass
+    #topK = np.full((len(DB),4), np.nan, dtype=object)
+    results_list = []
+
+    for j in range(len(DB)):
+        try:
+            real = DB[j][2]
+            score = cosine(fingerprint_prediction_nonzero, real)
+            if mw == None:
+                #If we don't provide a user input mw, we should use the prediction
+                if score > 0.7 and abs(DB[j][3]-pred_MW)/(DB[j][3]) < 0.1 :
+                    result_dict = {}
+                    result_dict["Name"] = DB[j][0]
+                    result_dict["SMILES"] = DB[j][1]
+                    result_dict["Cosine score"] = score
+                    result_dict["MW"] = DB[j][3]
+                    results_list.append(result_dict)
+            else:
+                if score > 0.7 and abs(DB[j][3]-mw) < 20 :
+                    result_dict = {}
+                    result_dict["Name"] = DB[j][0]
+                    result_dict["SMILES"] = DB[j][1]
+                    result_dict["Cosine score"] = score
+                    result_dict["MW"] = DB[j][3]
+                    results_list.append(result_dict)
+        except:
+            continue
+    
+    #Saving the DB Search
+    topK = pd.DataFrame(results_list)
+    topK = topK.dropna(how='all')
+    topK = topK.sort_values(['Cosine score'], ascending = False)
+    topK = topK.drop_duplicates(['SMILES'])
+    topK = topK[:top_candidates]
+    topK = topK.fillna('No_name') #Time
+
+    return topK
+
 def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename)
 
@@ -137,31 +178,11 @@ def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr
 
     fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW = predict_nmr(input_nmr_filename, model, model_mw)
     
-    #TODO: Annotate Logic Here
-    # Database structure, 2 must be the predictions for the DB, 3, must be the mass
-    topK = np.full((len(DB),4), np.nan, dtype=object)
-    for j in range(len(DB)):
-        try:
-            real = DB[j][2]
-            score = cosine(fingerprint_prediction_nonzero, real)
-            if mw == None:
-                if score > 0.7 and abs(DB[j][3]-pred_MW)/(DB[j][3]) < 0.1 :
-                    topK[j] = DB[j][0], DB[j][1],score, DB[j][3]
-            else:
-                if score > 0.7 and abs(DB[j][3]-mw) < 20 :
-                    topK[j] = DB[j][0], DB[j][1],score, DB[j][3]
-        except:
-            continue
-    
-    #Saving the DB Search
-    topK = pd.DataFrame(topK, columns = ['Name','SMILES','Cosine score','MW'])
-    topK = topK.dropna(how='all')
-    topK = topK.sort_values(['Cosine score'], ascending = False)
-    topK = topK.drop_duplicates(['SMILES'])
-    topK = topK[:top_candidates]
-    topK = topK.fillna('No_name') #Time
-    topK.to_csv(output_table, index = None)
+    topK = search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
+    #Saving TopK
+    topK.to_csv(output_table, index = None)
+    
     #Saving the predicted Fingerprint
     open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
 
