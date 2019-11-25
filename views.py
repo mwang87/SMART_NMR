@@ -22,7 +22,7 @@ def homepage():
     return response
 
 @app.route('/classic', methods=['GET'])
-def homepage():
+def classic():
     response = make_response(render_template('smartclassic.html'))
     return response
 
