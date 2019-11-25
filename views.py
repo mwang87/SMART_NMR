@@ -21,10 +21,16 @@ def homepage():
     response = make_response(render_template('homepage.html'))
     return response
 
+@app.route('/classic', methods=['GET'])
+def homepage():
+    response = make_response(render_template('smartclassic.html'))
+    return response
+
+
 from smartfp_tasks import smart_fp_run
 from smartclassic_tasks import smart_classic_run
 
-@app.route('/analyzeupload', methods=['POST'])
+@app.route('/analyzeuploadclassic', methods=['POST'])
 def upload_1():
     mw = request.values.get("mw", None)
     try:
@@ -61,7 +67,7 @@ def upload_1():
     return json.dumps(result_dict)
 
 
-@app.route('/analyzeentry', methods=['POST'])
+@app.route('/analyzeentryclassic', methods=['POST'])
 def process_entry():
     mw = request.values.get("mw", None)
     try:
