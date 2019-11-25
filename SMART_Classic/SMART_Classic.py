@@ -13,19 +13,16 @@ import numpy as np
 ### drawing package ###
 import matplotlib as mpl 
 import matplotlib.pyplot as plt # 그래프를 그리는 모듈
-from rdkit import Chem
-from rdkit.Chem import AllChem
-from rdkit.Chem import Draw
+#from rdkit import Chem
+#from rdkit.Chem import AllChem
+#from rdkit.Chem import Draw
 
 ###system package###
 from math import sqrt
-from tqdm import tqdm
+#from tqdm import tqdm
 import os
 import subprocess
 
-###Multiprocessing###
-import multiprocessing
-from multiprocessing import Pool
 import argparse
 
 ### PATH of initial point

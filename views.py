@@ -22,6 +22,7 @@ def homepage():
     return response
 
 from smartfp_tasks import smart_fp_run
+from smartclassic_tasks import smart_classic_run
 
 @app.route('/analyzeupload', methods=['POST'])
 def upload_1():
@@ -45,7 +46,7 @@ def upload_1():
     output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    result = smart_fp_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_fp_pred, mw)
+    result = smart_classic_run.delay(input_filename)
     
     while(1):
         if result.ready():
