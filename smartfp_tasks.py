@@ -6,6 +6,7 @@ import json
 import requests
 import glob
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #SMART import
 import sys
@@ -17,19 +18,16 @@ celery_instance = Celery('smart_fp_tasks', backend='redis://smart-redis', broker
 shared_model_data = {}
 
 def worker_load_models(**kwargs):
-    print("LOADING", file=sys.stderr)
+    print("LOADING DATABASE", file=sys.stderr)
 
     #Loading the Model Globally
     DB = SMART_FPinder.load_db(db_folder="/SMART_Finder")
-    model, model_mw = SMART_FPinder.load_models(models_folder="/SMART_Finder/models")
-
+    
     #Creating the dataframes
     metadata_df = pd.read_csv("/SMART_Finder/projection/smart_metadata.tsv", sep="\t", names=["compound"], encoding="ISO-8859–1")
     database_df = pd.DataFrame(DB, columns=["compound", "smiles", "embedding", "mw"])
 
     shared_model_data["DB"] = DB
-    shared_model_data["model"] = model
-    shared_model_data["model_mw"] = model_mw
     shared_model_data["metadata_df"] = metadata_df
     shared_model_data["database_df"] = database_df
 
@@ -53,7 +51,7 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
     plt.axis('off'), plt.xticks([]), plt.yticks([])
     plt.tight_layout()
     plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
-    plt.savefig(output_nmr_image, dpi=600)
+    plt.savefig(output_result_nmr_image, dpi=600)
     plt.close()
 
     # Tensorflow Serve fp query
@@ -63,8 +61,8 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
     headers = {"content-type": "application/json"}
     json_response = requests.post(fp_pred_url, data=payload, headers=headers)
 
-    fingerprint_prediction = np.asarray(json.loads(json_response.text)['predictions'][0])
-    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
+    fingerprint_prediction = np.asarray(json.loads(json_response.text)['predictions'])
+    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0]
 
     # Tensorflow Serve fp mw query
     fp_pred_url = "http://smartfp-mw-tf-server:8501/v1/models/VGG16_high_aug_MW_continue:predict"
@@ -73,11 +71,15 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
     headers = {"content-type": "application/json"}
     json_response = requests.post(fp_pred_url, data=payload, headers=headers)
 
-    pred_MW = json.loads(json_response.text)['predictions'][0]
+    pred_MW = json.loads(json_response.text)['predictions'][0][0]
 
+    DB = shared_model_data["DB"]
     topK = SMART_FPinder.search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=20)
-    topK.to_csv(output_result_table, index = None)
+    topK.to_csv(output_result_table, index=None)
 
     open(output_result_fp_pred, "w").write(json.dumps(fingerprint_prediction.tolist()))
 
     return 0
+
+# Load the database when the worker starts
+worker_init.connect(worker_load_models)
