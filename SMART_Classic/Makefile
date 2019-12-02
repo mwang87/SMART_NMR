@@ -9,3 +9,7 @@ cli:
 
 test_data:
 	python ./SMART.py ./input/XC817.csv output/test.npy
+
+download_db:
+	wget --output-document="DB.npy" https://www.dropbox.com/s/tswjabjcc3vt1rb/lib.npy?dl=1
+
