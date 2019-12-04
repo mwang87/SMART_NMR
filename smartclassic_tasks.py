@@ -75,7 +75,7 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
             output_embed.write(json.dumps(embedding.tolist()))
 
         #Performing DB Search
-        search_results_df = cli.search_database(db, embedding)
+        search_results_df = cli.search_database(db, embedding, topk=100)
 
     #Save all results
     search_results_df.to_csv(output_result_table, index=None)
@@ -84,29 +84,43 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
 
 
 @celery_instance.task()
-def smart_classic_size(query_embedding_filename):
+def smart_classic_size(query_embedding_filename, query_result_table):
     db = shared_model_data["database"]
 
     return len(db)
 
 @celery_instance.task()
-def smart_classic_embedding(query_embedding_filename):
+def smart_classic_embedding(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
-    
-    output_list = ['\t'.join(map(str, entry[1])) for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
+
+    if filterresults is True:
+        df = pd.read_csv(query_result_table)
+        all_compounds = set(df["Name"])
+        output_list = ['\t'.join(map(str, entry[1])) for entry in db if entry[0] in all_compounds]
+    else:
+        output_list = ['\t'.join(map(str, entry[1])) for entry in db]
 
     #Reading Embedding of Query
-    embedding = json.loads(open(query_embedding_filename).read())
-    output_list.append('\t'.join(map(str, embedding)))
+    if mapquery is True:
+        embedding = json.loads(open(query_embedding_filename).read())
+        output_list.append('\t'.join(map(str, embedding)))
 
     return "\n".join(output_list)
 
 @celery_instance.task()
-def smart_classic_metadata(query_embedding_filename):
+def smart_classic_metadata(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
-    
-    output_list = [entry[0].replace("\n", "") for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
-    output_list.append("Query")
+
+    if filterresults is True:
+        df = pd.read_csv(query_result_table)
+        all_compounds = set(df["Name"])
+        output_list = [entry[0].replace("\n", "") for entry in db if entry[0] in all_compounds]
+    else:
+        output_list = [entry[0].replace("\n", "") for entry in db]
+
+    #Reading Embedding of Query
+    if mapquery is True:
+        output_list.append("Query")
 
     return "\n".join(output_list)
 
