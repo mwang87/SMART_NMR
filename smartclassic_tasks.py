@@ -51,7 +51,7 @@ def worker_load_models(**kwargs):
     return 0
 
 @celery_instance.task()
-def smart_classic_run(input_filename, output_result_table, output_result_nmr_image):
+def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed):
     import requests
     import numpy as np
     import cli
@@ -70,6 +70,9 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
     with torch.no_grad():
         #Predict Embedding
         embedding = cli.predict_embedding(model, hsqc)
+
+        with open(output_result_embed, "w") as output_embed:
+            output_embed.write(json.dumps(embedding.tolist()))
 
         #Performing DB Search
         search_results_df = cli.search_database(db, embedding)
@@ -90,9 +93,11 @@ def smart_classic_size(query_embedding_filename):
 def smart_classic_embedding(query_embedding_filename):
     db = shared_model_data["database"]
     
-    output_list = ['\t'.join(map(str, entry[1])) + "\t" + entry[0] for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
+    output_list = ['\t'.join(map(str, entry[1])) for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
 
-    print(len(output_list), file=sys.stderr)
+    #Reading Embedding of Query
+    embedding = json.loads(open(query_embedding_filename).read())
+    output_list.append('\t'.join(map(str, embedding)))
 
     return "\n".join(output_list)
 
@@ -100,9 +105,8 @@ def smart_classic_embedding(query_embedding_filename):
 def smart_classic_metadata(query_embedding_filename):
     db = shared_model_data["database"]
     
-    output_list = [entry[0] for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
-
-    print(len(output_list), file=sys.stderr)
+    output_list = [entry[0].replace("\n", "") for entry in db if len(entry[0]) > 5 and len(entry[1]) > 100]
+    output_list.append("Query")
 
     return "\n".join(output_list)
 

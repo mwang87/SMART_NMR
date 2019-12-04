@@ -49,10 +49,10 @@ def upload_1():
 
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
-    output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
 
     # Performing calculation
-    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image)
+    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed)
     
     while(1):
         if result.ready():
@@ -162,7 +162,9 @@ def embedding_json_classic(task_id):
 
 @app.route('/embedding_data_classic/<task_id>', methods=['GET'])
 def embedding_data_classic(task_id):
-    embedding_string = smart_classic_embedding.delay(None)
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+
+    embedding_string = smart_classic_embedding.delay(output_result_embed)
 
     while(1):
         if embedding_string.ready():
@@ -175,7 +177,9 @@ def embedding_data_classic(task_id):
 
 @app.route('/embedding_metadata_classic/<task_id>', methods=['GET'])
 def embedding_metadata_classic(task_id):
-    metadata_string = smart_classic_metadata.delay(None)
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+    
+    metadata_string = smart_classic_metadata.delay(output_result_embed)
 
     while(1):
         if metadata_string.ready():
