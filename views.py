@@ -18,17 +18,17 @@ def heartbeat():
 
 @app.route('/', methods=['GET'])
 def homepage():
-    response = make_response(render_template('homepage.html'))
-    return response
-
-@app.route('/classic', methods=['GET'])
-def classic():
     response = make_response(render_template('smartclassic.html'))
     return response
 
 
 from smartfp_tasks import smart_fp_run
-from smartclassic_tasks import smart_classic_run
+from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata
+
+@app.route('/classic', methods=['GET'])
+def classic():
+    response = make_response(render_template('smartclassic.html'))
+    return response
 
 @app.route('/analyzeuploadclassic', methods=['POST'])
 def upload_1():
@@ -52,7 +52,7 @@ def upload_1():
     output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
 
     # Performing calculation
-    result = smart_classic_run.delay(input_filename)
+    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image)
     
     while(1):
         if result.ready():
@@ -94,6 +94,25 @@ def process_entry():
 
     return json.dumps(result_dict)
 
+@app.route('/resultclassic', methods=['GET'])
+def resultclassic():
+    task_id = request.values["task"]
+
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    candidates_df = pd.read_csv(output_result_table)
+
+    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    projector_json_url = urllib.parse.quote(projector_json_url)
+
+    embed_metadata_json_url = "https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+
+    return make_response(render_template('results.html', candidates=candidates_df.to_dict(orient="records"), task_id=task_id, projector_json_url=projector_json_url, embed_metadata_json_url=embed_metadata_json_url))
+
+
+
+
+
+
 
 @app.route('/result', methods=['GET'])
 def result():
@@ -115,6 +134,58 @@ def result_nmr():
 
 
 #Embedding end points
+
+
+# For Classic Embedder
+@app.route('/embedding_json_classic/<task_id>', methods=['GET'])
+def embedding_json_classic(task_id):
+    size = smart_classic_size.delay(None)
+
+    while(1):
+        if size.ready():
+            break
+        sleep(1)
+    size = size.get()
+    
+    SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
+
+    result_dict = {}
+    result_dict["embeddings"] = [{
+        "tensorName": "SMART Classic Embeddings",
+        "tensorShape": [size, 180],
+        "tensorPath": SERVER_URL + "/embedding_data_classic/{}".format(task_id),
+        "metadataPath": SERVER_URL + "/embedding_metadata_classic/{}".format(task_id),
+    }]
+    
+    return json.dumps(result_dict)
+
+
+@app.route('/embedding_data_classic/<task_id>', methods=['GET'])
+def embedding_data_classic(task_id):
+    embedding_string = smart_classic_embedding.delay(None)
+
+    while(1):
+        if embedding_string.ready():
+            break
+        sleep(1)
+    embedding_string = embedding_string.get()
+    
+    return embedding_string
+
+
+@app.route('/embedding_metadata_classic/<task_id>', methods=['GET'])
+def embedding_metadata_classic(task_id):
+    metadata_string = smart_classic_metadata.delay(None)
+
+    while(1):
+        if metadata_string.ready():
+            break
+        sleep(1)
+    metadata_string = metadata_string.get()
+    
+    return metadata_string
+
+
 EMBED_DIMENSIONS = 2048
 EMBED_LENGTH = 2000
 
@@ -126,6 +197,18 @@ def set_to_vector(set_object, dim=2048):
 
     return vector
 
+
+
+
+
+
+
+
+
+
+
+
+# For FP Tensor Embedder
 @app.route('/embedding_json/<task_id>', methods=['GET'])
 def embedding_json(task_id):
     #Slow Filtering

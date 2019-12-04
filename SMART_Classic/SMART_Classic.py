@@ -30,7 +30,7 @@ PATH = os.getcwd().replace('\\','/')
 
 print("loading functions...")
 ### CSV to NPY###
-def HSQCtoNPY(input_filename, output_numpy): # x is csv filename ex) flavonoid.csv
+def HSQCtoNPY(input_filename, output_numpy=None): # x is csv filename ex) flavonoid.csv
     qc = pd.read_csv(input_filename)
     qc = qc.dropna()
     scale = 100 #n by n
@@ -41,14 +41,11 @@ def HSQCtoNPY(input_filename, output_numpy): # x is csv filename ex) flavonoid.c
         a, b = H.iloc[j], C.iloc[j]
         if 0 <= a < scale and 0 <= b < scale:
             mat[b, scale-a-1] = 1
-    fig = plt.figure(figsize=(5.12,5.12)) #그림사이즈 300 x 300
-    ax = fig.add_axes([0.05, 0.05, 0.9, 0.9])
-    ax.imshow(mat, cmap=plt.cm.binary, interpolation=None)
-    plt.xticks([], [])
-    plt.yticks([], [])
-    #plt.savefig('{}/convert/{}.png'.format(PATH,(x[:-4].replace(" ","_"))))
-    np.save(output_numpy, mat)
-    plt.clf()
+
+    if output_numpy is not None:
+        np.save(output_numpy, mat)
+
+    return mat
 
 ### mesurement of cosine score ###
 def cosine(x,y):
