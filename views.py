@@ -18,16 +18,16 @@ def heartbeat():
 
 @app.route('/', methods=['GET'])
 def homepage():
-    response = make_response(render_template('smartclassic.html'))
-    return response
-
-
+    return redirect(url_for('classic'))
+ 
 from smartfp_tasks import smart_fp_run
 from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata
 
 @app.route('/classic', methods=['GET'])
 def classic():
-    response = make_response(render_template('smartclassic.html'))
+    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json_classic_global".format(os.getenv("VIRTUAL_HOST"))
+    projector_json_url = urllib.parse.quote(projector_json_url)
+    response = make_response(render_template('smartclassic.html', projector_json_url=projector_json_url))
     return response
 
 @app.route('/analyzeuploadclassic', methods=['POST'])
@@ -133,7 +133,9 @@ def result_nmr():
 # For Classic Embedder
 @app.route('/embedding_json_classic/<task_id>', methods=['GET'])
 def embedding_json_classic(task_id):
-    size = smart_classic_size.delay(None)
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    size = smart_classic_size.delay(output_result_embed, output_result_table)
 
     while(1):
         if size.ready():
@@ -153,12 +155,12 @@ def embedding_json_classic(task_id):
     
     return json.dumps(result_dict)
 
-
 @app.route('/embedding_data_classic/<task_id>', methods=['GET'])
 def embedding_data_classic(task_id):
     output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
 
-    embedding_string = smart_classic_embedding.delay(output_result_embed)
+    embedding_string = smart_classic_embedding.delay(output_result_embed, output_result_table)
 
     while(1):
         if embedding_string.ready():
@@ -172,8 +174,9 @@ def embedding_data_classic(task_id):
 @app.route('/embedding_metadata_classic/<task_id>', methods=['GET'])
 def embedding_metadata_classic(task_id):
     output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     
-    metadata_string = smart_classic_metadata.delay(output_result_embed)
+    metadata_string = smart_classic_metadata.delay(output_result_embed, output_result_table)
 
     while(1):
         if metadata_string.ready():
@@ -183,6 +186,61 @@ def embedding_metadata_classic(task_id):
     
     return metadata_string
 
+
+# For Classic Global Embedder
+@app.route('/embedding_json_classic_global', methods=['GET'])
+def embedding_json_classic_global():
+    size = smart_classic_size.delay(None, None)
+
+    while(1):
+        if size.ready():
+            break
+        sleep(1)
+    size = size.get()
+    
+    SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
+
+    result_dict = {}
+    result_dict["embeddings"] = [{
+        "tensorName": "SMART Classic Embeddings",
+        "tensorShape": [size, 180],
+        "tensorPath": SERVER_URL + "/embedding_data_classic_global",
+        "metadataPath": SERVER_URL + "/embedding_metadata_classic_global",
+    }]
+    
+    return json.dumps(result_dict)
+
+@app.route('/embedding_data_classic_global', methods=['GET'])
+def embedding_data_classic_global():
+    embedding_string = smart_classic_embedding.delay(None, None, filterresults=False, mapquery=False)
+
+    while(1):
+        if embedding_string.ready():
+            break
+        sleep(1)
+    embedding_string = embedding_string.get()
+    
+    return embedding_string
+
+
+@app.route('/embedding_metadata_classic_global', methods=['GET'])
+def embedding_metadata_classic_global():
+    
+    metadata_string = smart_classic_metadata.delay(None, None, filterresults=False, mapquery=False)
+
+    while(1):
+        if metadata_string.ready():
+            break
+        sleep(1)
+    metadata_string = metadata_string.get()
+    
+    return metadata_string
+
+
+
+
+
+# Deprecated below
 
 EMBED_DIMENSIONS = 2048
 EMBED_LENGTH = 2000
