@@ -19,8 +19,8 @@ services:
       LETSENCRYPT_HOST: mingwangbeta.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
-  smartclassic-redis:
-    image: redis
+  smartclassic-rabbitmq:
+    image: rabbitmq:latest
     networks:
       - default
 
@@ -35,7 +35,7 @@ services:
     command: /src/run_smartclassic_celery_worker.sh
     restart: on-failure
     depends_on: 
-      - smartclassic-redis
+      - smartclassic-rabbitmq
     networks:
       - default
 
