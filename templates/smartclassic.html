@@ -143,14 +143,14 @@
 </style>
 
 <script>
-    group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 10});
+    group1dropzone = new Dropzone("#group1", { url: "analyzeuploadclassic", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 10});
     group1dropzone.on("sending", function (file, xhr, data) {
         data.append("mw", $("#drag_weight").val());
     });
     group1dropzone.on("success", function (file, response) {
         json_response = JSON.parse(response)
         //window.location = "/result?task=" + json_response["task"]
-        window.open("/result?task=" + json_response["task"], '_blank');
+        window.open("/resultclassic?task=" + json_response["task"], '_blank');
     });
 
     function AnalyzeEntry() {
@@ -161,7 +161,7 @@
         });
         $.ajax(
             {
-                url: "/analyzeentry",
+                url: "/analyzeentryclassic",
                 method: "POST",
                 success: function (response) {
                     $("#loadMe").modal("hide");

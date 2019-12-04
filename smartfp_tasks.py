@@ -77,6 +77,7 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
 
     print("FINISHED PREDICTION", time.time() - start_time, file=sys.stderr)
 
+    #Performing DB Search
     DB = shared_model_data["DB"]
     topK = SMART_FPinder.search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=20)
     topK.to_csv(output_result_table, index=None)
@@ -86,6 +87,7 @@ def smart_fp_run(input_filename, output_result_table, output_result_nmr_image, o
     open(output_result_fp_pred, "w").write(json.dumps(fingerprint_prediction.tolist()))
 
     return 0
+    
 
 # Load the database when the worker starts
 worker_init.connect(worker_load_models)
