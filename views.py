@@ -32,12 +32,6 @@ def classic():
 
 @app.route('/analyzeuploadclassic', methods=['POST'])
 def upload_1():
-    mw = request.values.get("mw", None)
-    try:
-        mw = float(mw)
-    except:
-        mw = None
-    
     # Saving file on disk
     if 'file' not in request.files:
         return "{}", 400
@@ -69,12 +63,6 @@ def upload_1():
 
 @app.route('/analyzeentryclassic', methods=['POST'])
 def process_entry():
-    mw = request.values.get("mw", None)
-    try:
-        mw = float(mw)
-    except:
-        mw = None
-
     task_id = str(uuid.uuid4())
 
     input_filename = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_input.tsv")
@@ -83,11 +71,17 @@ def process_entry():
 
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
-    output_result_fp_pred = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_fp_pred.json")
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
 
     # Performing calculation
-    #SMART_FPinder.search_CSV(input_filename, DB, model, model_mw, output_result_table, output_result_nmr_image, output_result_fp_pred, mw=mw)
-
+    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed)
+    
+    while(1):
+        if result.ready():
+            break
+        sleep(3)
+    result = result.get()
+    
     # task identifier for results
     result_dict = {}
     result_dict["task"] = task_id
