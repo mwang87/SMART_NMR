@@ -50,7 +50,7 @@
                 ],
                 pageLength: 30, 
                 columnDefs: [ {
-                    targets: 3,
+                    targets: 1,
                     render: function ( data, type, row ) {
                         url = "https://gnps-structure.ucsd.edu/structureimg?smiles=" + encodeURIComponent(row["SMILES"])
                         return "<img src='" + url + "'/>"
