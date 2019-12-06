@@ -21,7 +21,7 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
 
     return mat
 
-def draw_nmr(input_filename, output_png):
+def draw_nmr(input_filename, output_png, dpi=300):
     mat = hsqc_to_np(input_filename)
     # getting scale
     C_scale, H_scale = mat.shape[0], mat.shape[1]
@@ -40,5 +40,5 @@ def draw_nmr(input_filename, output_png):
     plt.grid(True,linewidth=0.5)
     plt.tight_layout()
     
-    plt.savefig(output_png, dpi=600)
+    plt.savefig(output_png, dpi=dpi)
     plt.close()
