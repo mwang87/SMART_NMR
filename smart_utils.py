@@ -11,7 +11,7 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
     H = (qc['1H']*H_scale//12).astype(int)
     C = (qc['13C']*C_scale//200).astype(int)
     mat = np.zeros((C_scale,H_scale), int)
-    for j in range(len(qc)): #인덱스 수가 같으므로
+    for j in range(len(qc)): # number of index of C and H is same
         a, b = H.iloc[j], C.iloc[j]
         if 0 <= a < H_scale and 0 <= b < C_scale:
             mat[b, H_scale-a-1] = 1
