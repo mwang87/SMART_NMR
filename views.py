@@ -100,11 +100,18 @@ def resultclassic():
 
     embed_metadata_json_url = "https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
 
-    return make_response(render_template('results.html', candidates=candidates_df.to_dict(orient="records"), task_id=task_id, projector_json_url=projector_json_url, embed_metadata_json_url=embed_metadata_json_url))
+    resultclassictable_url = "https://{}/resultclassictable?task={}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    return make_response(render_template('results.html',
+        candidates=candidates_df.to_dict(orient="records"), 
+        task_id=task_id, projector_json_url=projector_json_url, 
+        embed_metadata_json_url=embed_metadata_json_url,
+        resultclassictable_url=resultclassictable_url))
 
-
-
-
+@app.route('/resultclassictable', methods=['GET'])
+def resultclassictable():
+    task_id = request.values["task"]
+    output_result_table = task_id + "_table.tsv"
+    return send_from_directory(app.config['UPLOAD_FOLDER'], output_result_table)
 
 
 
