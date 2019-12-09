@@ -141,7 +141,7 @@
 </style>
 
 <script>
-    group1dropzone = new Dropzone("#group1", { url: "analyzeuploadclassic", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 10});
+    group1dropzone = new Dropzone("#group1", { url: "analyzeuploadclassic", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 20});
     group1dropzone.on("sending", function (file, xhr, data) {
         data.append("mw", $("#drag_weight").val());
     });
