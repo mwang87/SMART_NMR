@@ -37,8 +37,9 @@ def draw_nmr(input_filename, output_png, dpi=300):
     plt.yticks(np.arange(C_scale+1,step=C_scale/10), (list(range(0,200+1,20))))
     ax.set_xlabel('1H [ppm]')
     ax.set_ylabel('13C [ppm]')
-    plt.grid(True,linewidth=0.5)
+    plt.grid(True,linewidth=0.5,alpha=0.5)
     plt.tight_layout()
+    plt.text(4, 6, input_filename[:-4], ha='left', wrap=True)
     
     plt.savefig(output_png, dpi=dpi)
     plt.close()
