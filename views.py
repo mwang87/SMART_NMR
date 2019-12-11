@@ -46,7 +46,7 @@ def upload_1():
     output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
 
     # Performing calculation
-    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed)
+    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display=request_file.filename)
     
     while(1):
         if result.ready():
