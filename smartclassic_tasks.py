@@ -51,7 +51,7 @@ def worker_load_models(**kwargs):
     return 0
 
 @celery_instance.task()
-def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed):
+def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display="SMART 2.0 Query"):
     import requests
     import numpy as np
     import cli
@@ -59,10 +59,9 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
     import torch
 
     start_time = time.time()
-    print("PROCESSING", file=sys.stderr)
 
     #Saving image
-    smart_utils.draw_nmr(input_filename, output_result_nmr_image)
+    smart_utils.draw_nmr(input_filename, output_result_nmr_image, display_name=nmr_display)
 
     hsqc = smart_utils.hsqc_to_np(input_filename)
     model = shared_model_data["model"]
