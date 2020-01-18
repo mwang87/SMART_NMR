@@ -40,7 +40,8 @@ def worker_load_models(**kwargs):
 
     try:
         #Loading the database
-        db = np.load("/src/SMART_Classic/DB.npy", allow_pickle=True)
+        #db = np.load("/src/SMART_Classic/DB.npy", allow_pickle=True)
+        db = json.loads(open("/src/SMART_Classic/DB.json").read())
     except Exception as e: 
         print("EROOOOOOOOOOORRRRRRRRRRRRRR", e, file=sys.stderr)
         raise
