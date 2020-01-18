@@ -1,0 +1,1 @@
+wget https://www.dropbox.com/s/lj8xu4ly5q4ez0n/lib.json?dl=1 --output-document=DB.json
