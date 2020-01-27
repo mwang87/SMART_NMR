@@ -107,6 +107,16 @@ def smart_classic_embedding(query_embedding_filename, query_result_table, filter
     return "\n".join(output_list)
 
 @celery_instance.task()
+def smart_classic_embedding_global(output_filename):
+    db = shared_model_data["database"]
+    output_list = ['\t'.join(map(str, entry[1])) for entry in db]
+
+    with open(output_filename, "w") as out_file:
+        out_file.write("\n".join(output_list))
+
+    return 0
+
+@celery_instance.task()
 def smart_classic_metadata(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
 
@@ -122,6 +132,16 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
         output_list.append("Query")
 
     return "\n".join(output_list)
+
+@celery_instance.task()
+def smart_classic_metadata_global(output_filename):
+    db = shared_model_data["database"]
+    output_list = [entry[0].replace("\n", "") for entry in db]
+
+    with open(output_filename, "wb") as out_file:
+        out_file.write("\n".join(output_list).encode("ascii", errors="ignore"))
+
+    return 0
 
 # Load the database when the worker starts
 worker_init.connect(worker_load_models)

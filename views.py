@@ -21,7 +21,7 @@ def homepage():
     return redirect(url_for('classic'))
  
 from smartfp_tasks import smart_fp_run
-from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata
+from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
 
 @app.route('/classic', methods=['GET'])
 def classic():
@@ -219,32 +219,32 @@ def embedding_json_classic_global():
 
 @app.route('/embedding_data_classic_global', methods=['GET'])
 def embedding_data_classic_global():
-    embedding_string = smart_classic_embedding.delay(None, None, filterresults=False, mapquery=False)
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], "global_embed.txt")
 
-    while(1):
-        if embedding_string.ready():
-            break
-        sleep(1)
-    embedding_string = embedding_string.get()
-    
-    return embedding_string
+    if os.path.isfile(output_result_embed) is False:
+        embedding_string = smart_classic_embedding_global.delay(output_result_embed)
+
+        while(1):
+            if embedding_string.ready():
+                break
+            sleep(1)
+
+    return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_embed))
 
 
 @app.route('/embedding_metadata_classic_global', methods=['GET'])
 def embedding_metadata_classic_global():
-    
-    metadata_string = smart_classic_metadata.delay(None, None, filterresults=False, mapquery=False)
+    output_result_metadata = os.path.join(app.config['UPLOAD_FOLDER'], "global_metadata.txt")
 
-    while(1):
-        if metadata_string.ready():
-            break
-        sleep(1)
-    metadata_string = metadata_string.get()
-    
-    return metadata_string
+    if os.path.isfile(output_result_metadata) is False:
+        embedding_string = smart_classic_metadata_global.delay(output_result_metadata)
 
+        while(1):
+            if embedding_string.ready():
+                break
+            sleep(1)
 
-
+    return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_metadata))
 
 
 # Deprecated below
