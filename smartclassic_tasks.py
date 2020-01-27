@@ -51,7 +51,7 @@ def worker_load_models(**kwargs):
     return 0
 
 @celery_instance.task()
-def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display="SMART 2.0 Query"):
+def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display="SMART 2.0 Query", perform_db_search=True):
     import requests
     import numpy as np
     import cli
@@ -73,11 +73,12 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
         with open(output_result_embed, "w") as output_embed:
             output_embed.write(json.dumps(embedding.tolist()))
 
-        #Performing DB Search
-        search_results_df = cli.search_database(db, embedding, topk=100)
+        if perform_db_search:
+            #Performing DB Search
+            search_results_df = cli.search_database(db, embedding, topk=100)
 
-    #Save all results
-    search_results_df.to_csv(output_result_table, index=None)
+            #Save all results
+            search_results_df.to_csv(output_result_table, index=None)
 
     return 0
 
