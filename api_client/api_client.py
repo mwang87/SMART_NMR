@@ -3,7 +3,8 @@ import sys
 import pandas as pd
 import json
 
-SERVER_URL = "http://localhost:6213"
+#SERVER_URL = "http://localhost:6213"
+SERVER_URL = "https://smart.ucsd.edu"
 
 input_csv_filename = sys.argv[1]
 
