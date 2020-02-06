@@ -29,3 +29,4 @@ def test_api():
     peaks_json = df.to_dict(orient="records")
     r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
     r.raise_for_status()
+
