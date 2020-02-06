@@ -21,6 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install pandas
+        pip install nose2
     - name: Test with nose2
       run: |
         cd test	&& nose2 -v
