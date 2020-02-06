@@ -16,7 +16,7 @@ sys.path.insert(0, "SMART_Classic")
 sys.path.insert(0, "SMART_Classic/SMART")
 import smart_utils
 
-celery_instance = Celery('smart_classic_tasks', backend='rpc://smartclassic-mqrabbit', broker='pyamqp://smartclassic-rabbitmq')
+celery_instance = Celery('smart_classic_tasks', backend='redis://smartclassic-redis', broker='pyamqp://smartclassic-rabbitmq')
 
 shared_model_data = {}
 
