@@ -36,6 +36,23 @@ def test_entry():
     PARAMS = {'peaks': open("Data/cyclomarin_A_fenical_tsv.txt").read()} 
     requests.post(url, params=PARAMS)
 
+def test_upload():
+    url = f"{PRODUCTION_URL}/analyzeuploadclassic"
+    files = {'file': open("Data/CDCl3_SwinholideA.csv").read()}
+    r = requests.post(url, files=files)
+
+    files = {'file': open("Data/cyclomarin_A_duggan2_input.csv").read()}
+    r = requests.post(url, files=files)
+
+    files = {'file': open("Data/cyclomarin_A_duggan_tsv.txt").read()}
+    r = requests.post(url, files=files)
+
+    files = {'file': open("Data/cyclomarin_A_fenical_semicolon.csv").read()}
+    r = requests.post(url, files=files)
+
+    files = {'file': open("Data/cyclomarin_A_fenical_tsv.txt").read()}
+    r = requests.post(url, files=files)
+
 def test_api():
     df = pd.read_csv("Data/CDCl3_SwinholideA.csv", sep=",")
     peaks_json = df.to_dict(orient="records")
