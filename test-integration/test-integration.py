@@ -36,6 +36,9 @@ def test_entry():
     PARAMS = {'peaks': open("Data/cyclomarin_A_fenical_tsv.txt").read()} 
     requests.post(url, params=PARAMS)
 
+    PARAMS = {'peaks': open("Data/topspin_peak.txt").read()} 
+    requests.post(url, params=PARAMS)
+
 def test_upload():
     url = f"{PRODUCTION_URL}/analyzeuploadclassic"
     files = {'file': open("Data/CDCl3_SwinholideA.csv").read()}
@@ -51,6 +54,9 @@ def test_upload():
     r = requests.post(url, files=files)
 
     files = {'file': open("Data/cyclomarin_A_fenical_tsv.txt").read()}
+    r = requests.post(url, files=files)
+
+    files = {'file': open("Data/topspin_peak.txt").read()}
     r = requests.post(url, files=files)
 
 def test_api():
