@@ -7,3 +7,4 @@ def test_draw():
     smart_utils.draw_nmr("Data/cyclomarin_A_duggan2_input.csv", "x.png")
     smart_utils.draw_nmr("Data/cyclomarin_A_duggan_tsv.txt", "x.png")
     smart_utils.draw_nmr("Data/cyclomarin_A_fenical_tsv.txt", "x.png")
+    smart_utils.draw_nmr("Data/cyclomarin_A_fenical_semicolon.csv", "x.png")
