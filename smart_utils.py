@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 
 def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x is csv filename ex) flavonoid.csv
-    qc = pd.read_csv(input_filename)
+    qc = pd.read_csv(input_filename, sep=None) # Sniffing out delimiter
+        
     qc = qc.dropna()
     H = (qc['1H']*H_scale//12).astype(int)
     C = (qc['13C']*C_scale//200).astype(int)
