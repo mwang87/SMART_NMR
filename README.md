@@ -18,3 +18,11 @@ The format of the database is a numpy matrix. The columns in order are:
 1. 
 1. 
 1. 
+
+## Running Unit Tests
+
+Although unit tests are automatically run with github actions, to run them yourself, go to test folder and run
+
+```
+nose2 -v
+```
