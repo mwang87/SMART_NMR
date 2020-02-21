@@ -11,5 +11,5 @@ test_data:
 	python ./SMART.py ./input/XC817.csv output/test.npy
 
 download_db:
-	wget --output-document="DB.npy" https://www.dropbox.com/s/tswjabjcc3vt1rb/lib.npy?dl=1
+	wget --output-document="DB.json" https://www.dropbox.com/s/qmgulkztfab3by7/DB_2000220_MW.json?dl=1
 

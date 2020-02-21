@@ -2,6 +2,7 @@ import requests
 import os
 import pandas as pd
 import json
+import glob
 
 PRODUCTION_URL = os.environ.get("SERVER_URL", "https://smart.ucsd.edu")
 
@@ -21,12 +22,34 @@ def test_moliverse():
 
 def test_entry():
     url = f"{PRODUCTION_URL}/analyzeentryclassic"
-    PARAMS = {'peaks': open("Data/CDCl3_SwinholideA.csv").read()} 
-    requests.post(url, params=PARAMS)
+
+    test_files = glob.glob("Data/*")
+
+    for test_file in test_files:
+        print(test_file)
+        PARAMS = {'peaks': open(test_file).read()} 
+        r = requests.post(url, params=PARAMS)
+        r.raise_for_status()
+
+def test_upload():
+    url = f"{PRODUCTION_URL}/analyzeuploadclassic"
+
+    test_files = glob.glob("Data/*")
+
+    for test_file in test_files:
+        print(test_file)
+        files = {'file': open(test_file).read()}
+        r = requests.post(url, files=files)
+        r.raise_for_status()
+
 
 def test_api():
-    df = pd.read_csv("Data/CDCl3_SwinholideA.csv", sep=",")
-    peaks_json = df.to_dict(orient="records")
-    r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
-    r.raise_for_status()
+    test_files = glob.glob("Data/*")
+
+    for test_file in test_files:
+        print(test_file)
+        df = pd.read_csv(test_file, sep=",")
+        peaks_json = df.to_dict(orient="records")
+        r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
+        r.raise_for_status()
 

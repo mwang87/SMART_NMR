@@ -2,11 +2,59 @@
 
 import pandas as pd
 import numpy as np
+import csv
+import os
 import matplotlib.pyplot as plt
 
+## Written by Joseph Egan
+def topspin_to_pd(input_filename):
+    ###row_dict was written by Jeff van Santen ###
+    Rows = dict()
+    with open(input_filename) as p:
+        reader = csv.reader(p, delimiter=" ")
+        for row in reader:
+            row = [x for x in row if x]
+            if "#" in row or not row:
+                continue
+            else:
+                try:
+                    Rows[row[0]] = [row[3],row[4]]
+                except:
+                    pass
+
+    HSQC_Data_df = pd.DataFrame.from_dict(Rows, orient='index',columns = ['1H','13C']).astype('float')
+    HSQC_Data_df = HSQC_Data_df.sort_values(by=['1H'],ascending = True).round({'1H':2,'13C':1})
+
+    return HSQC_Data_df
 
 def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x is csv filename ex) flavonoid.csv
-    qc = pd.read_csv(input_filename)
+    qc = pd.DataFrame()
+
+    # First try to parse as standard csv/tsv files
+    try:
+        if 'xls' in input_filename:
+            qc = pd.read_excel(input_filename)
+        else:
+            # Cleaning non ascii data
+            from tempfile import NamedTemporaryFile
+            f = NamedTemporaryFile(delete=False)
+            clean_input_filename = f.name
+            with open(clean_input_filename, "wb") as clean_input:
+                input_text = open(input_filename).read().encode('ascii', errors="ignore")
+                clean_input.write(input_text)
+            
+            qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
+
+            os.unlink(clean_input_filename)
+    except:
+        pass
+
+    # Seeing if we can parse it as topspin
+    if not "1H" in qc:
+        qc = topspin_to_pd(input_filename)
+
+    
+    
     qc = qc.dropna()
     H = (qc['1H']*H_scale//12).astype(int)
     C = (qc['13C']*C_scale//200).astype(int)
