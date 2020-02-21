@@ -28,7 +28,10 @@ def topspin_to_pd(input_filename):
 
 def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x is csv filename ex) flavonoid.csv
     try:
-        qc = pd.read_csv(input_filename, sep=None) # Sniffing out delimiter
+        if 'xls' in input_filename:
+            qc = pd.read_excel(input_filename)
+        else:
+            qc = pd.read_csv(input_filename, sep=None) # Sniffing out delimiter
     except:
         qc = topspin_to_pd(input_filename)
     if not "1H" in qc:
