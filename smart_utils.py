@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import csv
+import os
 import matplotlib.pyplot as plt
 
 ## Written by Joseph Egan
@@ -27,15 +28,30 @@ def topspin_to_pd(input_filename):
     return HSQC_Data_df
 
 def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x is csv filename ex) flavonoid.csv
+    # Cleaning non ascii data
+    from tempfile import NamedTemporaryFile
+    f = NamedTemporaryFile(delete=False)
+    clean_input_filename = f.name
+    with open(clean_input_filename, "wb") as clean_input:
+        input_text = open(input_filename).read().encode('ascii', errors="ignore")
+        clean_input.write(input_text)
+    
+    qc = pd.DataFrame()
+
+    # First try to parse as standard csv/tsv files
     try:
         if 'xls' in input_filename:
             qc = pd.read_excel(input_filename)
         else:
-            qc = pd.read_csv(input_filename, sep=None) # Sniffing out delimiter
+            qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
     except:
-        qc = topspin_to_pd(input_filename)
+        pass
+
+    # Seeing if we can parse it as topspin
     if not "1H" in qc:
-        qc = topspin_to_pd(input_filename)
+        qc = topspin_to_pd(clean_input_filename)
+
+    os.unlink(clean_input_filename)
     
     qc = qc.dropna()
     H = (qc['1H']*H_scale//12).astype(int)
