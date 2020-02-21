@@ -12,12 +12,13 @@ https://smart.ucsd.edu/
 
 ## Database Format
 
-The format of the database is a numpy matrix. The columns in order are:
+The format of the database is a json file, that is a list of records. The following headers are included. 
 
-1. 
-1. 
-1. 
-1. 
+1. Compound_name - Compound Name
+1. Embeddings - 180 dimension embedding
+1. SMILES - SMILES Structure
+1. MW - exact mass
+1. From - indicates the database
 
 ## Running Unit Tests
 
