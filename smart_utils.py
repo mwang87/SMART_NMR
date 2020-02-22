@@ -32,20 +32,17 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
 
     # First try to parse as standard csv/tsv files
     try:
-        if 'xls' in input_filename:
-            qc = pd.read_excel(input_filename)
-        else:
-            # Cleaning non ascii data
-            from tempfile import NamedTemporaryFile
-            f = NamedTemporaryFile(delete=False)
-            clean_input_filename = f.name
-            with open(clean_input_filename, "wb") as clean_input:
-                input_text = open(input_filename).read().encode('ascii', errors="ignore")
-                clean_input.write(input_text)
-            
-            qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
+        # Cleaning non ascii data
+        from tempfile import NamedTemporaryFile
+        f = NamedTemporaryFile(delete=False)
+        clean_input_filename = f.name
+        with open(clean_input_filename, "wb") as clean_input:
+            input_text = open(input_filename).read().encode('ascii', errors="ignore")
+            clean_input.write(input_text)
+        
+        qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
 
-            os.unlink(clean_input_filename)
+        os.unlink(clean_input_filename)
     except:
         pass
 
