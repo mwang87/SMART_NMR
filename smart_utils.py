@@ -101,16 +101,53 @@ def draw_nmr(input_filename, output_png, dpi=300, display_name=None):
     plt.savefig(output_png, dpi=dpi)
     plt.close()
 
-
 # Creating a canvas of structure images for projector
 def draw_structures(structure_list, output_filename):
     import requests
     import urllib.parse
 
+    #TODO: properly do temporary files
     local_folder_name = "temp"
+    all_image_paths = []
     for i, structure in enumerate(structure_list):
         r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
-        output_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
+        temp_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
+        all_image_paths.append(temp_filename)
+        with open(temp_filename, "wb") as output_image:
+            output_image.write(r.content)
         
+    return create_square_image(all_image_paths, output_filename)
 
-        print(output_filename)
+def concat_tile(im_list_2d):
+    import cv2
+    return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
+
+# Returns the lenght dimension
+def create_square_image(image_paths, output_image):
+    import cv2
+    import math
+
+    total_image_count = len(image_paths)
+
+    grid_size = int(math.sqrt(total_image_count) + 0.99)
+
+    all_images = []
+    # Going to assume all of the images are the same width and height and are square
+    for image in image_paths:
+        im1 = cv2.imread(image)
+        all_images.append(im1)
+
+    image_2d = []
+    for i in range(grid_size):
+        image_list = []
+        for j in range(grid_size):
+            lookup_index = j + i * grid_size
+            if lookup_index  > len(all_images):
+                break
+            image_list.append(all_images[lookup_index])
+        image_2d.append(image_list)
+
+    im_tile = concat_tile(image_2d)
+    cv2.imwrite(output_image, im_tile)
+
+    return grid_size * all_images[0].width
