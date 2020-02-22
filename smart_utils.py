@@ -28,14 +28,7 @@ def topspin_to_pd(input_filename):
     return HSQC_Data_df
 
 def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x is csv filename ex) flavonoid.csv
-    # Cleaning non ascii data
-    from tempfile import NamedTemporaryFile
-    f = NamedTemporaryFile(delete=False)
-    clean_input_filename = f.name
-    with open(clean_input_filename, "wb") as clean_input:
-        input_text = open(input_filename).read().encode('ascii', errors="ignore")
-        clean_input.write(input_text)
-    
+      
     qc = pd.DataFrame()
 
     # First try to parse as standard csv/tsv files
@@ -44,7 +37,7 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
        
     except:
         try:
-            qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
+            qc = pd.read_csv(clean_input_filename, sep=None, encoding='utf-8-sig') # Sniffing out delimiter
         except:
             pass
         
