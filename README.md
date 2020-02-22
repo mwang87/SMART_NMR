@@ -19,7 +19,7 @@ The format of the database is a json file, that is a list of records. The follow
 1. SMILES - SMILES Structure
 1. MW - exact mass
 1. From - indicates the database
-1. ID - unique identifier to give the database a pseudo accession
+1. ID - unique identifier to give the database a pseudo accession. These can be integers or simply uuids, but they must be unique per entry and must not be NULL. 
 
 ## Running Unit Tests
 
