@@ -111,9 +111,9 @@ def smart_classic_images(query_result_table, filterresults=True, mapquery=True):
     if filterresults is True:
         df = pd.read_csv(query_result_table)
         all_db_ids = set(df["DBID"])
-        structures_list = [entry["Smiles"] for entry in db if entry["ID"] in all_db_ids]
+        structures_list = [entry["SMILES"] for entry in db if entry["ID"] in all_db_ids]
     else:
-        structures_list = [entry["Smiles"] for entry in db]
+        structures_list = [entry["SMILES"] for entry in db]
 
     return None
 
