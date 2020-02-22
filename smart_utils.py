@@ -105,29 +105,42 @@ def draw_structures(structure_list, output_filename):
     all_image_paths = []
     for i, structure in enumerate(structure_list):
         r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
-        output_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
-        all_image_paths.append(output_filename)
+        temp_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
+        all_image_paths.append(temp_filename)
+        with open(temp_filename, "wb") as output_image:
+            output_image.write(r.content)
         
-    populate_img_arr(all_image_paths)
+    create_square_image(all_image_paths, output_filename)
 
-def populate_img_arr(images_paths, size=(100, 100), should_preprocess=False):
-    from PIL import Image
+def concat_tile(im_list_2d):
+    import cv2
+    return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
 
-    """
-    Get an array of images for a list of image paths
-    Args:
-        size: the size of image , in pixels
-        should_preprocess: if the images should be processed (according to InceptionV3 requirements)
-    Returns:
-        arr: An array of the loaded images
-    """
-    arr = []
-    for i, img_path in enumerate(images_paths):
-        img = image.load_img(img_path, target_size=size)
-        x = image.img_to_array(img)
-        arr.append(x)
-    arr = np.array(arr)
-    if should_preprocess:
-        arr = preprocess_input(arr)
-    print(arr.shape)
-    return arr
+def create_square_image(image_paths, output_image):
+    import cv2
+    import math
+
+    total_image_count = len(image_paths)
+
+    grid_size = int(math.sqrt(total_image_count) + 0.99)
+    print(total_image_count, grid_size)
+
+    all_images = []
+    # Going to assume all of the images are the same width and height and are square
+    for image in image_paths:
+        im1 = cv2.imread(image)
+        all_images.append(im1)
+
+    image_2d = []
+    for i in range(grid_size):
+        image_list = []
+        for j in range(grid_size):
+            lookup_index = j + i * grid_size
+            if lookup_index  > len(all_images):
+                break
+            image_list.append(all_images[lookup_index])
+        image_2d.append(image_list)
+
+    im_tile = concat_tile(image_2d)
+    print(im_tile, output_image)
+    cv2.imwrite(output_image, im_tile)
