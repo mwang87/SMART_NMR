@@ -106,17 +106,22 @@ def draw_structures(structure_list, output_filename):
     import requests
     import urllib.parse
 
-    #TODO: properly do temporary files
-    local_folder_name = "temp"
+    import tempfile
+
+    tempfile.TemporaryDirectory()
     all_image_paths = []
-    for i, structure in enumerate(structure_list):
-        r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
-        temp_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
-        all_image_paths.append(temp_filename)
-        with open(temp_filename, "wb") as output_image:
-            output_image.write(r.content)
-        
-    return create_square_image(all_image_paths, output_filename)
+
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        for i, structure in enumerate(structure_list):
+            r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
+            temp_filename = os.path.join(tmpdirname, "{0:03d}.png".format(i))
+            print(temp_filename)
+            all_image_paths.append(temp_filename)
+            with open(temp_filename, "wb") as output_image:
+                output_image.write(r.content)
+        merged_dimension = create_square_image(all_image_paths, output_filename)
+
+    return merged_dimension
 
 def concat_tile(im_list_2d):
     import cv2
@@ -150,4 +155,5 @@ def create_square_image(image_paths, output_image):
     im_tile = concat_tile(image_2d)
     cv2.imwrite(output_image, im_tile)
 
-    return grid_size * all_images[0].width
+    # THIS IS A HARDCODE TODO: Fix
+    return grid_size * 300
