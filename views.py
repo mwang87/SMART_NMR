@@ -172,7 +172,7 @@ def embedding_json_classic(task_id):
     size = smart_classic_size.delay(output_result_embed, output_result_table)
 
     # Calculating the images
-    structure_dim = smart_classic_images.delay(output_result_embed, output_result_table)
+    structure_dim = smart_classic_images.delay(output_result_img, output_result_table)
 
     while(1):
         if structure_dim.ready():

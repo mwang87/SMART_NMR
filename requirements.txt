@@ -8,5 +8,4 @@ Werkzeug
 flask_limiter
 celery
 redis
-Pillow
 opencv-python
