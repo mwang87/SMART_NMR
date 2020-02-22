@@ -50,7 +50,7 @@
                     { data: "Cosine score" , title: "Cosine score"},
                     { data: "MW" , title: "MW"},
                     { data: "From" , title: "Source"},
-                    { data: "SMILES" , title: "SMILES"}
+                    { data: "SMILES" , title: "External"}
                 ],
                 pageLength: 30, 
                 columnDefs: [ {
@@ -58,6 +58,14 @@
                     render: function ( data, type, row ) {
                         url = "https://gnps-structure.ucsd.edu/structureimg?smiles=" + encodeURIComponent(row["SMILES"])
                         return "<img src='" + url + "'/>"
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function ( data, type, row ) {
+                        img_url = "https://gnps-external.ucsd.edu/npatlasproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        ref_url = "https://gnps-external.ucsd.edu/npatlasproxy?smiles=" + encodeURIComponent(row["SMILES"])
+                        return "<a href='" + ref_url + "' target='_blank'>" + "<img height='76' src='" + img_url + "'/>" + "</a>"
                     }
                 } ],
                 order: [[ 2, 'desc' ]]
