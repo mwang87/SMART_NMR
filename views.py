@@ -21,7 +21,7 @@ def homepage():
     return redirect(url_for('classic'))
  
 from smartfp_tasks import smart_fp_run
-from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
+from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_images, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
 
 @app.route('/classic', methods=['GET'])
 def classic():
@@ -232,7 +232,7 @@ def embedding_metadata_classic(task_id):
 
 
 @app.route('/embedding_structures_classic/<task_id>', methods=['GET'])
-def embedding_data_classic(task_id):
+def embedding_structures_classic(task_id):
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_img = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_structures.png")
 
