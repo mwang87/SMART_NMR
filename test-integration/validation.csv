@@ -1,2 +1,3 @@
-filename,truestructure
-cyclomarin_A_duggan2_input.csv,CC=CCC1N=C(O)C(CC(C)C)N2C(=O)C(CC(C)C2O)N(C)C(=O)C(C)N=C(O)C(Cc2ccc(O)c([N+](=O)[O-])c2)N=C(O)C(CC(C)C)N(C)C(=O)C(Cc2cn(C(C)(C)C3CO3)c3ccccc23)N=C1O
+filename,truestructure,expectedmatch,expectedname,expectedscore
+cyclomarin_A_duggan2_input.csv,CC=CCC1N=C(O)C(CC(C)C)N2C(=O)C(CC(C)C2O)N(C)C(=O)C(C)N=C(O)C(Cc2ccc(O)c([N+](=O)[O-])c2)N=C(O)C(CC(C)C)N(C)C(=O)C(Cc2cn(C(C)(C)C3CO3)c3ccccc23)N=C1O,C/C=C/CC1NC(C(N2C(C(N(C(C(NC(C(NC(C(N(C(C(NC1=O)CC3=CN(C4=C3C=CC=C4)C(C)(C5CO5)C)=O)C)CC(C)C)=O)CC6=CC=C(C([N+]([O-])=O)=C6)O)=O)C)=O)C)CC([C@H]2O)C)=O)CC(C)C)OC,Ilamycin C1,0.83
+cyclomarin_A_duggan2_input.csv,CC=CCC1N=C(O)C(CC(C)C)N2C(=O)C(CC(C)C2O)N(C)C(=O)C(C)N=C(O)C(Cc2ccc(O)c([N+](=O)[O-])c2)N=C(O)C(CC(C)C)N(C)C(=O)C(Cc2cn(C(C)(C)C3CO3)c3ccccc23)N=C1O,C/C=C/CC1NC(C(N2C(C(N(C(C(NC(C(NC(C(N(C(C(NC1=O)CC3=CN(C4=C3C=CC=C4)C(C)(C5CO5)C)=O)C)CC(C)C)=O)CC6=CC=C(C([N+]([O-])=O)=C6)O)=O)C)=O)C)CC([C@@H]2O)C)=O)CC(C)C)OC,Ilamycin C2,0.82
