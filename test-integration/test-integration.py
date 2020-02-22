@@ -26,8 +26,10 @@ def test_entry():
     test_files = glob.glob("Data/*")
 
     for test_file in test_files:
+        if "topspin" in test_file:
+            continue
         print(test_file)
-        PARAMS = {'peaks': open(test_file).read()} 
+        PARAMS = {'peaks': open(test_file, encoding='ascii', errors='ignore').read()} 
         r = requests.post(url, params=PARAMS)
         r.raise_for_status()
 
@@ -38,7 +40,7 @@ def test_upload():
 
     for test_file in test_files:
         print(test_file)
-        files = {'file': open(test_file).read()}
+        files = {'file': open(test_file, encoding='ascii', errors='ignore').read()}
         r = requests.post(url, files=files)
         r.raise_for_status()
 
@@ -47,7 +49,10 @@ def test_api():
     test_files = glob.glob("Data/*")
 
     for test_file in test_files:
+        if "topspin" in test_file:
+            continue
         print(test_file)
+
         df = pd.read_csv(test_file, sep=",")
         peaks_json = df.to_dict(orient="records")
         r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
