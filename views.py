@@ -169,6 +169,9 @@ def embedding_json_classic(task_id):
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     size = smart_classic_size.delay(output_result_embed, output_result_table)
 
+    # Calculating the images
+    smart_classic_images.delay(output_result_embed, output_result_table)
+
     show_images = False
     if "images" in request.values:
         show_images = True

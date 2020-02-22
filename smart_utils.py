@@ -94,3 +94,17 @@ def draw_nmr(input_filename, output_png, dpi=300, display_name=None):
     
     plt.savefig(output_png, dpi=dpi)
     plt.close()
+
+
+# Creating a canvas of structure images for projector
+def draw_structures(structure_list, output_filename):
+    import requests
+    import urllib.parse
+
+    local_folder_name = "temp"
+    for i, structure in enumerate(structure_list):
+        r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
+        output_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
+        
+
+        print(output_filename)
