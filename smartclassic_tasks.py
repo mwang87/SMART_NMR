@@ -106,12 +106,13 @@ def smart_classic_size(query_embedding_filename, query_result_table, filterresul
 
 @celery_instance.task()
 def smart_classic_images(query_image_filename, query_result_table, filterresults=True, mapquery=True):
+    db = shared_model_data["database"]
     if filterresults is True:
         df = pd.read_csv(query_result_table)
         all_db_ids = set(df["DBID"])
-        structures_list = [entry["Smiles"] for entry in db if entry["ID"] in all_db_ids]
+        structures_list = [entry["SMILES"] for entry in db if entry["ID"] in all_db_ids]
     else:
-        structures_list = [entry["Smiles"] for entry in db]
+        structures_list = [entry["SMILES"] for entry in db]
 
     dimension = smart_utils.draw_structures(smiles_list, query_image_filename)
 
