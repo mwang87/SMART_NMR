@@ -37,7 +37,7 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
        
     except:
         try:
-            qc = pd.read_csv(clean_input_filename, sep=None, encoding='utf-8-sig') # Sniffing out delimiter
+            qc = pd.read_csv(input_filename, sep=None, encoding='utf-8-sig') # Sniffing out delimiter
         except:
             pass
         
