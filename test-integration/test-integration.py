@@ -33,6 +33,14 @@ def test_entry():
         r = requests.post(url, params=PARAMS)
         r.raise_for_status()
 
+        task = r.json()["task"]
+        r = requests.get(f"{PRODUCTION_URL}/embedding_json_classic/{task}")
+        r.raise_for_status()
+        r = requests.get(f"{PRODUCTION_URL}/embedding_metadata_classic/{task}")
+        r.raise_for_status()
+        r = requests.get(f"{PRODUCTION_URL}/embedding_data_classic/{task}")
+        r.raise_for_status()
+
 def test_upload():
     url = f"{PRODUCTION_URL}/analyzeuploadclassic"
 
@@ -44,6 +52,13 @@ def test_upload():
         r = requests.post(url, files=files)
         r.raise_for_status()
 
+        task = r.json()["task"]
+        r = requests.get(f"{PRODUCTION_URL}/embedding_json_classic/{task}")
+        r.raise_for_status()
+        r = requests.get(f"{PRODUCTION_URL}/embedding_metadata_classic/{task}")
+        r.raise_for_status()
+        r = requests.get(f"{PRODUCTION_URL}/embedding_data_classic/{task}")
+        r.raise_for_status()
 
 def test_api():
     test_files = glob.glob("Data/*")
@@ -57,4 +72,5 @@ def test_api():
         peaks_json = df.to_dict(orient="records")
         r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
         r.raise_for_status()
+
 
