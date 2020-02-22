@@ -105,6 +105,26 @@ def smart_classic_size(query_embedding_filename, query_result_table, filterresul
 
 
 @celery_instance.task()
+def smart_classic_images(query_result_table, filterresults=True, mapquery=True):
+    if filterresults is True:
+        df = pd.read_csv(query_result_table)
+        all_db_ids = set(df["DBID"])
+        structures_list = [entry["Smiles"] for entry in db if entry["ID"] in all_db_ids]
+    else:
+        structures_list = [entry["Smiles"] for entry in db]
+
+    return None
+
+    #smart_utils.draw_structures(smiles_list, "merged_structures.png")
+
+    #Reading Embedding of Query
+    if mapquery is True:
+        embedding = json.loads(open(query_embedding_filename).read())
+        output_list.append('\t'.join(map(str, embedding)))
+
+    return "\n".join(output_list)
+
+@celery_instance.task()
 def smart_classic_embedding(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
 
