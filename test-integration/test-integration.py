@@ -36,6 +36,11 @@ def test_entry():
         task = r.json()["task"]
         r = requests.get(f"{PRODUCTION_URL}/embedding_json_classic/{task}")
         r.raise_for_status()
+
+        # Checking the dimensions
+        number_rows = r.json()["embeddings"][0]["tensorShape"][0]
+        assert(number_rows > 1)
+
         r = requests.get(f"{PRODUCTION_URL}/embedding_metadata_classic/{task}")
         r.raise_for_status()
         r = requests.get(f"{PRODUCTION_URL}/embedding_data_classic/{task}")
