@@ -44,9 +44,9 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
 
     # Seeing if we can parse it as topspin
     if not "1H" in qc:
-        qc = topspin_to_pd(clean_input_filename)
+        qc = topspin_to_pd(input_filename)
 
-    os.unlink(clean_input_filename)
+    os.unlink(input_filename)
     
     qc = qc.dropna()
     H = (qc['1H']*H_scale//12).astype(int)
