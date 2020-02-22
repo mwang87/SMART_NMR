@@ -63,9 +63,13 @@
                 {
                     targets: 5,
                     render: function ( data, type, row ) {
-                        img_url = "https://gnps-external.ucsd.edu/npatlasproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
-                        ref_url = "https://gnps-external.ucsd.edu/npatlasproxy?smiles=" + encodeURIComponent(row["SMILES"])
-                        return "<a href='" + ref_url + "' target='_blank'>" + "<img height='76' src='" + img_url + "'/>" + "</a>"
+                        npatlas_img_url = "https://gnps-external.ucsd.edu/npatlasproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        npatlas_url = "https://gnps-external.ucsd.edu/npatlasproxy?smiles=" + encodeURIComponent(row["SMILES"])
+
+                        mibig_img_url = "https://gnps-external.ucsd.edu/mibigproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        mibig_url = "https://gnps-external.ucsd.edu/mibigproxy?smiles=" + encodeURIComponent(row["SMILES"])
+                        return "<a href='" + npatlas_url + "' target='_blank'>" + "<img height='76' src='" + npatlas_img_url + "'/>" + "</a>" + 
+                        "<a href='" + mibig_url + "' target='_blank'>" + "<img height='76' src='" + mibig_img_url + "'/>" + "</a>"
                     }
                 } ],
                 order: [[ 2, 'desc' ]]
