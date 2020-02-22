@@ -21,7 +21,8 @@ def homepage():
     return redirect(url_for('classic'))
  
 from smartfp_tasks import smart_fp_run
-from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_images, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
+from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
+from smartclassic_tasks import smart_classic_images
 
 @app.route('/classic', methods=['GET'])
 def classic():
@@ -123,9 +124,9 @@ def resultclassic():
     projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
     projector_json_url = urllib.parse.quote(projector_json_url)
 
-    embed_metadata_json_url = "https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    embed_metadata_json_url = "/embedding_json_classic/{}".format(task_id)
 
-    resultclassictable_url = "https://{}/resultclassictable?task={}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    resultclassictable_url = "/resultclassictable?task={}".format(task_id)
     return make_response(render_template('results.html',
         candidates=candidates_df.to_dict(orient="records"), 
         task_id=task_id, projector_json_url=projector_json_url, 
