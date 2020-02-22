@@ -48,7 +48,16 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
 
     # Seeing if we can parse it as topspin
     if not "1H" in qc:
-        qc = topspin_to_pd(input_filename)
+        from tempfile import NamedTemporaryFile
+        f = NamedTemporaryFile(delete=False)
+        clean_input_filename = f.name
+        with open(clean_input_filename, "wb") as clean_input:
+            input_text = open(input_filename, encoding='ascii', errors='ignore').read().encode('ascii', errors="ignore")
+            clean_input.write(input_text)
+
+        qc = topspin_to_pd(clean_input_filename)
+
+        os.unlink(clean_input_filename)
 
     
     
