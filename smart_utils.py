@@ -95,12 +95,12 @@ def draw_nmr(input_filename, output_png, dpi=300, display_name=None):
     plt.savefig(output_png, dpi=dpi)
     plt.close()
 
-
 # Creating a canvas of structure images for projector
 def draw_structures(structure_list, output_filename):
     import requests
     import urllib.parse
 
+    #TODO: properly do temporary files
     local_folder_name = "temp"
     all_image_paths = []
     for i, structure in enumerate(structure_list):
@@ -110,12 +110,13 @@ def draw_structures(structure_list, output_filename):
         with open(temp_filename, "wb") as output_image:
             output_image.write(r.content)
         
-    create_square_image(all_image_paths, output_filename)
+    return create_square_image(all_image_paths, output_filename)
 
 def concat_tile(im_list_2d):
     import cv2
     return cv2.vconcat([cv2.hconcat(im_list_h) for im_list_h in im_list_2d])
 
+# Returns the lenght dimension
 def create_square_image(image_paths, output_image):
     import cv2
     import math
@@ -123,7 +124,6 @@ def create_square_image(image_paths, output_image):
     total_image_count = len(image_paths)
 
     grid_size = int(math.sqrt(total_image_count) + 0.99)
-    print(total_image_count, grid_size)
 
     all_images = []
     # Going to assume all of the images are the same width and height and are square
@@ -142,5 +142,6 @@ def create_square_image(image_paths, output_image):
         image_2d.append(image_list)
 
     im_tile = concat_tile(image_2d)
-    print(im_tile, output_image)
     cv2.imwrite(output_image, im_tile)
+
+    return grid_size * all_images[0].width

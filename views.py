@@ -167,14 +167,17 @@ def result_nmr():
 def embedding_json_classic(task_id):
     output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    output_result_img = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_structures.png")
     size = smart_classic_size.delay(output_result_embed, output_result_table)
 
     # Calculating the images
-    smart_classic_images.delay(output_result_embed, output_result_table)
+    structure_dim = smart_classic_images.delay(output_result_embed, output_result_table)
 
-    show_images = False
-    if "images" in request.values:
-        show_images = True
+    while(1):
+        if structure_dim.ready():
+            break
+        sleep(1)
+    structure_dim = structure_dim.get()
 
     while(1):
         if size.ready():
@@ -188,8 +191,10 @@ def embedding_json_classic(task_id):
     result_dict["embeddings"] = [{
         "tensorName": "SMART Classic Embeddings",
         "tensorShape": [size, 180],
-        "tensorPath": SERVER_URL + "/embedding_data_classic/{}".format(task_id),
-        "metadataPath": SERVER_URL + "/embedding_metadata_classic/{}".format(task_id),
+        "tensorPath": f"{SERVER_URL}/embedding_data_classic/{task_id}",
+        "metadataPath": f"{SERVER_URL}/embedding_metadata_classic/{task_id}",
+        "sprite" : {"imagePath": f"{SERVER_URL}/embedding_structures_classic/{task_id}",
+                    "singleImageDim": structure_dim}
     }]
     
     return json.dumps(result_dict)
@@ -225,6 +230,26 @@ def embedding_metadata_classic(task_id):
     
     return metadata_string
 
+
+@app.route('/embedding_structures_classic/<task_id>', methods=['GET'])
+def embedding_data_classic(task_id):
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    output_result_img = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_structures.png")
+
+    if os.path.isfile(output_result_img):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_img))
+
+    # Calculating the images
+    structure_dim = smart_classic_images.delay(output_result_embed, output_result_table)
+
+    while(1):
+        if structure_dim.ready():
+            break
+        sleep(1)
+    structure_dim = structure_dim.get()
+
+    return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_img))
+    
 
 # For Classic Global Embedder
 @app.route('/embedding_json_classic_global', methods=['GET'])
