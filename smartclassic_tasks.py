@@ -82,12 +82,47 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
 
     return 0
 
+@celery_instance.task()
+def smart_classic_size(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
+    db = shared_model_data["database"]
+    if query_embedding_filename is None:
+        return len(db)
+    else:
+        total_size = 0 
+        if filterresults is True:
+            df = pd.read_csv(query_result_table)
+            all_db_ids = set(df["DBID"])
+            output_list = [entry for entry in db if entry["ID"] in all_db_ids]
+            total_size = len(output_list)
+        else:
+            total_size = len(db)
+
+        #Reading Embedding of Query
+        if mapquery is True:
+            total_size += 1
+
+        return total_size
+
 
 @celery_instance.task()
-def smart_classic_size(query_embedding_filename, query_result_table):
-    db = shared_model_data["database"]
+def smart_classic_images(query_result_table, filterresults=True, mapquery=True):
+    if filterresults is True:
+        df = pd.read_csv(query_result_table)
+        all_db_ids = set(df["DBID"])
+        structures_list = [entry["Smiles"] for entry in db if entry["ID"] in all_db_ids]
+    else:
+        structures_list = [entry["Smiles"] for entry in db]
 
-    return len(db)
+    return None
+
+    #smart_utils.draw_structures(smiles_list, "merged_structures.png")
+
+    #Reading Embedding of Query
+    if mapquery is True:
+        embedding = json.loads(open(query_embedding_filename).read())
+        output_list.append('\t'.join(map(str, embedding)))
+
+    return "\n".join(output_list)
 
 @celery_instance.task()
 def smart_classic_embedding(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
@@ -95,10 +130,10 @@ def smart_classic_embedding(query_embedding_filename, query_result_table, filter
 
     if filterresults is True:
         df = pd.read_csv(query_result_table)
-        all_compounds = set(df["Name"])
-        output_list = ['\t'.join(map(str, entry[1])) for entry in db if entry[0] in all_compounds]
+        all_db_ids = set(df["DBID"])
+        output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db if entry["ID"] in all_db_ids]
     else:
-        output_list = ['\t'.join(map(str, entry[1])) for entry in db]
+        output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db]
 
     #Reading Embedding of Query
     if mapquery is True:
@@ -110,7 +145,7 @@ def smart_classic_embedding(query_embedding_filename, query_result_table, filter
 @celery_instance.task()
 def smart_classic_embedding_global(output_filename):
     db = shared_model_data["database"]
-    output_list = ['\t'.join(map(str, entry[1])) for entry in db]
+    output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db]
 
     with open(output_filename, "w") as out_file:
         out_file.write("\n".join(output_list))
@@ -123,10 +158,10 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
 
     if filterresults is True:
         df = pd.read_csv(query_result_table)
-        all_compounds = set(df["Name"])
-        output_list = [entry[0].replace("\n", "") for entry in db if entry[0] in all_compounds]
+        all_db_ids = set(df["DBID"])
+        output_list = [entry["Compound_name"].replace("\n", "") for entry in db if entry["ID"] in all_db_ids]
     else:
-        output_list = [entry[0].replace("\n", "") for entry in db]
+        output_list = [entry["Compound_name"].replace("\n", "") for entry in db]
 
     #Reading Embedding of Query
     if mapquery is True:
@@ -137,7 +172,7 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
 @celery_instance.task()
 def smart_classic_metadata_global(output_filename):
     db = shared_model_data["database"]
-    output_list = [entry[0].replace("\n", "") for entry in db]
+    output_list = [entry["Compound_name"].replace("\n", "") for entry in db]
 
     with open(output_filename, "wb") as out_file:
         out_file.write("\n".join(output_list).encode("ascii", errors="ignore"))
