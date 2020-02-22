@@ -102,9 +102,32 @@ def draw_structures(structure_list, output_filename):
     import urllib.parse
 
     local_folder_name = "temp"
+    all_image_paths = []
     for i, structure in enumerate(structure_list):
         r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
         output_filename = os.path.join(local_folder_name, "{0:03d}.png".format(i))
+        all_image_paths.append(output_filename)
         
+    populate_img_arr(all_image_paths)
 
-        print(output_filename)
+def populate_img_arr(images_paths, size=(100, 100), should_preprocess=False):
+    from PIL import Image
+
+    """
+    Get an array of images for a list of image paths
+    Args:
+        size: the size of image , in pixels
+        should_preprocess: if the images should be processed (according to InceptionV3 requirements)
+    Returns:
+        arr: An array of the loaded images
+    """
+    arr = []
+    for i, img_path in enumerate(images_paths):
+        img = image.load_img(img_path, target_size=size)
+        x = image.img_to_array(img)
+        arr.append(x)
+    arr = np.array(arr)
+    if should_preprocess:
+        arr = preprocess_input(arr)
+    print(arr.shape)
+    return arr
