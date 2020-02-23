@@ -158,15 +158,22 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
     if filterresults is True:
         df = pd.read_csv(query_result_table)
         all_db_ids = set(df["DBID"])
-        output_list = [entry["Compound_name"].replace("\n", "") for entry in db if entry["ID"] in all_db_ids]
+        compound_list = [entry["Compound_name"].replace("\n", "") for entry in db if entry["ID"] in all_db_ids]
+        source_list = [entry["From"] for entry in db if entry["ID"] in all_db_ids]
     else:
-        output_list = [entry["Compound_name"].replace("\n", "") for entry in db]
+        compound_list = [entry["Compound_name"].replace("\n", "") for entry in db]
+        source_list = [entry["From"].replace("\n", "") for entry in db]
 
     #Reading Embedding of Query
     if mapquery is True:
-        output_list.append("Query")
+        compound_list.append("Query")
+        source_list.append("Query")
 
-    return "\n".join(output_list)
+    output_df = pd.DataFrame()
+    output_df["Compound_name"] = compound_list
+    output_df["From"] = source_list
+
+    return output_df.to_csv(sep="\t", index=False)
 
 @celery_instance.task()
 def smart_classic_metadata_global(output_filename):
