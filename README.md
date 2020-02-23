@@ -6,7 +6,7 @@ Repository to help develop SMART
 ![unittest](https://github.com/mwang87/SMART_NMR/workflows/unittest/badge.svg)
 
 
-## Test Server URL
+## Production Server 
 
 https://smart.ucsd.edu/
 
