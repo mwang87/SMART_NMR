@@ -140,7 +140,6 @@ def resultclassictable():
     return send_from_directory(app.config['UPLOAD_FOLDER'], output_result_table)
 
 
-
 @app.route('/result', methods=['GET'])
 def result():
     task_id = request.values["task"]
@@ -205,7 +204,7 @@ def embedding_json_classic(task_id):
         "tensorPath": f"{SERVER_URL}/embedding_data_classic/{task_id}",
         "metadataPath": f"{SERVER_URL}/embedding_metadata_classic/{task_id}",
         "sprite" : {"imagePath": f"{SERVER_URL}/embedding_structures_classic/{task_id}",
-                    "singleImageDim": 300}
+                    "singleImageDim": [100, 100]}
         })
     
     return json.dumps(result_dict)

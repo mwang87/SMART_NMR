@@ -101,22 +101,28 @@ def draw_nmr(input_filename, output_png, dpi=300, display_name=None):
     plt.savefig(output_png, dpi=dpi)
     plt.close()
 
-# Creating a canvas of structure images for projector
+# Creating a canvas of structure images for projector, a structure with the name QUERY needs to be just a black box
 def draw_structures(structure_list, output_filename):
     import requests
     import urllib.parse
-
+    import cv2
+    import numpy as np
     import tempfile
 
-    tempfile.TemporaryDirectory()
     all_image_paths = []
 
     with tempfile.TemporaryDirectory() as tmpdirname:
         for i, structure in enumerate(structure_list):
-            r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=300&height=300".format(urllib.parse.quote(structure)))
             temp_filename = os.path.join(tmpdirname, "{0:03d}.png".format(i))
-            print(temp_filename)
             all_image_paths.append(temp_filename)
+            print(temp_filename)
+
+            if structure == "QUERY":
+                blank_image = np.zeros((100,100,3), np.uint8)
+                cv2.imwrite(temp_filename, blank_image) 
+                continue
+            
+            r = requests.get("https://gnps-structure.ucsd.edu/structureimg?smiles={}&width=100&height=100".format(urllib.parse.quote(structure)))
             with open(temp_filename, "wb") as output_image:
                 output_image.write(r.content)
         merged_dimension = create_square_image(all_image_paths, output_filename)
@@ -147,13 +153,14 @@ def create_square_image(image_paths, output_image):
         image_list = []
         for j in range(grid_size):
             lookup_index = j + i * grid_size
-            if lookup_index  > len(all_images):
-                break
-            image_list.append(all_images[lookup_index])
+            if lookup_index  >= len(all_images):
+                image_list.append(np.zeros((100,100,3), np.uint8))
+            else:
+                image_list.append(all_images[lookup_index])
         image_2d.append(image_list)
 
     im_tile = concat_tile(image_2d)
     cv2.imwrite(output_image, im_tile)
 
     # THIS IS A HARDCODE TODO: Fix
-    return grid_size * 300
+    return grid_size * 100

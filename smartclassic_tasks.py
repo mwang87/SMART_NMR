@@ -114,6 +114,9 @@ def smart_classic_images(query_image_filename, query_result_table, filterresults
     else:
         structures_list = [entry["SMILES"] for entry in db]
 
+    if mapquery:
+        structures_list.append("QUERY")
+
     #TODO: Support structures with Special Query Image
 
     dimension = smart_utils.draw_structures(structures_list, query_image_filename)
