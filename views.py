@@ -251,7 +251,7 @@ def embedding_structures_classic(task_id):
         return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_img))
 
     # Calculating the images
-    structure_dim = smart_classic_images.delay(output_result_embed, output_result_table)
+    structure_dim = smart_classic_images.delay(output_result_img, output_result_table)
 
     while(1):
         if structure_dim.ready():
