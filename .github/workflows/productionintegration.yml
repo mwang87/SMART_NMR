@@ -2,6 +2,7 @@ name: production-integration
 
 on: 
   push:
+    branches: classic
   schedule:
    - cron:  '*/60 * * * *'
 
