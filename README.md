@@ -1,4 +1,4 @@
-# SMART_NMR
+# SMART NMR Server
 
 Repository to help develop SMART 
 
