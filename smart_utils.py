@@ -59,7 +59,6 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
 
         os.unlink(clean_input_filename)
     
-    
     qc = qc.dropna()
     H = (qc['1H']*H_scale//12).astype(int)
     C = (qc['13C']*C_scale//200).astype(int)
