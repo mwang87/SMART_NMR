@@ -37,7 +37,7 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
         f = NamedTemporaryFile(delete=False)
         clean_input_filename = f.name
         with open(clean_input_filename, "wb") as clean_input:
-            input_text = open(input_filename).read().encode('ascii', errors="ignore")
+            input_text = open(input_filename, encoding='ascii', errors='ignore').read().encode('ascii', errors="ignore")
             clean_input.write(input_text)
         
         qc = pd.read_csv(clean_input_filename, sep=None) # Sniffing out delimiter
@@ -58,7 +58,6 @@ def hsqc_to_np(input_filename,C_scale=100,H_scale=100, output_numpy=None): # x i
         qc = topspin_to_pd(clean_input_filename)
 
         os.unlink(clean_input_filename)
-
     
     
     qc = qc.dropna()
