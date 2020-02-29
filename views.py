@@ -68,7 +68,7 @@ def process_entry():
 
     input_filename = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_input.tsv")
     with open(input_filename, "w") as input_file:
-        input_file.write(request.values["peaks"])
+        input_file.write(request.values["peaks"].replace("\"", ""))
 
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
