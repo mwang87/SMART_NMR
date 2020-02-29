@@ -1,7 +1,6 @@
 from celery import Celery
 from celery.signals import worker_init
 
-import time
 import os
 import json
 import requests
@@ -45,24 +44,33 @@ def worker_load_models(**kwargs):
         print("EROOOOOOOOOOORRRRRRRRRRRRRR", e, file=sys.stderr)
         raise
     
+    # Lets try and format the database in a better way
+    all_embedding_list = []
+    for entry in db:
+        embedding = np.asarray(entry["Embeddings"])
+        embedding_norm = np.sqrt(np.dot(embedding, embedding))
+        normed_embedding = embedding / embedding_norm
+        all_embedding_list.append(normed_embedding)
+    stacked_np = np.vstack(all_embedding_list)
+
+    shared_model_data["embeddingmatrix"] = stacked_np
     shared_model_data["database"] = db
     shared_model_data["model"] = model
 
     return 0
 
 @celery_instance.task()
-def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display="SMART 2.0 Query", perform_db_search=True):
+def smart_classic_run(input_filename, output_result_table, output_result_nmr_image, output_result_embed, nmr_display="SMART 2.0 Query", draw_nmr=True, perform_db_search=True):
     import requests
     import numpy as np
     import cli
     from model import SMARTModel
     import torch
 
-    start_time = time.time()
-
-    #Saving image
-    smart_utils.draw_nmr(input_filename, output_result_nmr_image, display_name=nmr_display)
-
+    if draw_nmr:
+        #Saving image
+        smart_utils.draw_nmr(input_filename, output_result_nmr_image, display_name=nmr_display)
+    
     hsqc = smart_utils.hsqc_to_np(input_filename)
     model = shared_model_data["model"]
     db = shared_model_data["database"]
@@ -75,7 +83,7 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
 
         if perform_db_search:
             #Performing DB Search
-            search_results_df = cli.search_database(db, embedding, topk=100)
+            search_results_df = cli.search_database(db, shared_model_data["embeddingmatrix"], embedding, topk=100)
 
             #Save all results
             search_results_df.to_csv(output_result_table, index=None)
