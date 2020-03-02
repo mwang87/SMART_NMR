@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 def Find_ChemSP(Name): #Compound Name
-    Name = Name.replace(' ','%20',5) #removing space from compound name
+    Name = Name.replace(' ','%20') #removing space from compound name
     delay = np.random.randint(1,4) # for avoiding blocking 
     time.sleep(delay)
     url = f"https://www.chemspider.com/Search.aspx?q={Name}" #seraching URL
