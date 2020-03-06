@@ -77,6 +77,7 @@ def process_entry():
 
     # Performing calculation
     result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed)
+    sleep(1.5)
     
     while(1):
         if result.ready():
