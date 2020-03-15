@@ -57,6 +57,7 @@ def worker_load_models(**kwargs):
     shared_model_data["database"] = db
     shared_model_data["model"] = model
 
+
     return 0
 
 @celery_instance.task()
@@ -134,20 +135,23 @@ def smart_classic_images(query_image_filename, query_result_table, filterresults
 @celery_instance.task()
 def smart_classic_embedding(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
+    db_df = shared_model_data["database_df"]
 
     if filterresults is True:
         df = pd.read_csv(query_result_table)
         all_db_ids = set(df["DBID"])
-        output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db if entry["ID"] in all_db_ids]
+        #output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db if entry["ID"] in all_db_ids]
+        merged_output_df = df.merge(db_df, how='left', on="DBID")
     else:
         output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db]
 
     #Reading Embedding of Query
-    if mapquery is True:
-        embedding = json.loads(open(query_embedding_filename).read())
-        output_list.append('\t'.join(map(str, embedding)))
+    #if mapquery is True:
+    #    embedding = json.loads(open(query_embedding_filename).read())
+    #    output_list.append('\t'.join(map(str, embedding)))
 
-    return "\n".join(output_list)
+    return merged_output_df.to_csv(sep="\t", index=False)
+    #return "\n".join(output_list)
 
 @celery_instance.task()
 def smart_classic_embedding_global(output_filename):
@@ -163,9 +167,11 @@ def smart_classic_embedding_global(output_filename):
 def smart_classic_metadata(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
 
+    query_df = None
+
     if filterresults is True:
-        df = pd.read_csv(query_result_table)
-        all_db_ids = set(df["DBID"])
+        query_df = pd.read_csv(query_result_table)
+        all_db_ids = set(query_df["DBID"])
         compound_list = [entry["Compound_name"].replace("\n", "") for entry in db if entry["ID"] in all_db_ids]
         source_list = [entry["From"] for entry in db if entry["ID"] in all_db_ids]
     else:
@@ -180,6 +186,10 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
     output_df = pd.DataFrame()
     output_df["Compound_name"] = compound_list
     output_df["From"] = source_list
+
+    if filterresults is True:
+        db_df = pd.DataFrame(db)
+        output_df = output_df.merge(query_df, how="left", left_on="")
 
     return output_df.to_csv(sep="\t", index=False)
 

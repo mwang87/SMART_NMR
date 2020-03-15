@@ -78,4 +78,3 @@ def test_api():
         r = requests.post(f"{PRODUCTION_URL}/api/classic/embed", data={"peaks":json.dumps(peaks_json)})
         r.raise_for_status()
 
-
