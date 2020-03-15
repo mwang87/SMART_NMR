@@ -56,6 +56,7 @@ def worker_load_models(**kwargs):
     shared_model_data["embeddingmatrix"] = stacked_np
     shared_model_data["database"] = db
     shared_model_data["model"] = model
+    shared_model_data["database_df"] = pd.DataFrame(db)
 
 
     return 0
@@ -99,16 +100,20 @@ def smart_classic_size(query_embedding_filename, query_result_table, filterresul
     else:
         total_size = 0 
         if filterresults is True:
-            df = pd.read_csv(query_result_table)
-            all_db_ids = set(df["DBID"])
-            output_list = [entry for entry in db if entry["ID"] in all_db_ids]
-            total_size = len(output_list)
+            query_df = pd.read_csv(query_result_table)
+            all_db_ids = set(query_df["DBID"])
+            merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
+            merged_output_df = merged_output_df.sort_values(by="DBID")
+
+            total_size = len(merged_output_df)
+
+            #Reading Embedding of Query
+            if mapquery is True:
+                total_size += 1
         else:
             total_size = len(db)
 
-        #Reading Embedding of Query
-        if mapquery is True:
-            total_size += 1
+        
 
         return total_size
 
@@ -117,16 +122,17 @@ def smart_classic_size(query_embedding_filename, query_result_table, filterresul
 def smart_classic_images(query_image_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
     if filterresults is True:
-        df = pd.read_csv(query_result_table)
-        all_db_ids = set(df["DBID"])
-        structures_list = [entry["SMILES"] for entry in db if entry["ID"] in all_db_ids]
+        query_df = pd.read_csv(query_result_table)
+        all_db_ids = set(query_df["DBID"])
+        merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
+        merged_output_df = merged_output_df.sort_values(by="DBID")
+
+        structures_list = list(merged_output_df["SMILES"])
+
+        if mapquery:
+            structures_list.append("QUERY")
     else:
         structures_list = [entry["SMILES"] for entry in db]
-
-    if mapquery:
-        structures_list.append("QUERY")
-
-    #TODO: Support structures with Special Query Image
 
     dimension = smart_utils.draw_structures(structures_list, query_image_filename)
 
@@ -138,20 +144,18 @@ def smart_classic_embedding(query_embedding_filename, query_result_table, filter
     db_df = shared_model_data["database_df"]
 
     if filterresults is True:
-        df = pd.read_csv(query_result_table)
-        all_db_ids = set(df["DBID"])
-        #output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db if entry["ID"] in all_db_ids]
-        merged_output_df = df.merge(db_df, how='left', on="DBID")
+        query_df = pd.read_csv(query_result_table)
+        merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
+        merged_output_df = merged_output_df.sort_values(by="DBID")
+        output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in merged_output_df.to_dict(orient="records")]
+        #Reading Embedding of Query
+        if mapquery is True:
+            embedding = json.loads(open(query_embedding_filename).read())
+            output_list.append('\t'.join(map(str, embedding)))
     else:
         output_list = ['\t'.join(map(str, entry["Embeddings"])) for entry in db]
 
-    #Reading Embedding of Query
-    #if mapquery is True:
-    #    embedding = json.loads(open(query_embedding_filename).read())
-    #    output_list.append('\t'.join(map(str, embedding)))
-
-    return merged_output_df.to_csv(sep="\t", index=False)
-    #return "\n".join(output_list)
+    return "\n".join(output_list)
 
 @celery_instance.task()
 def smart_classic_embedding_global(output_filename):
@@ -166,30 +170,27 @@ def smart_classic_embedding_global(output_filename):
 @celery_instance.task()
 def smart_classic_metadata(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
-
-    query_df = None
+    db_df = shared_model_data["database_df"]
 
     if filterresults is True:
         query_df = pd.read_csv(query_result_table)
         all_db_ids = set(query_df["DBID"])
-        compound_list = [entry["Compound_name"].replace("\n", "") for entry in db if entry["ID"] in all_db_ids]
-        source_list = [entry["From"] for entry in db if entry["ID"] in all_db_ids]
+        merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
+        merged_output_df = merged_output_df.sort_values(by="DBID")
+
+        output_df = pd.DataFrame()
+        output_df["Cosine"] = merged_output_df["Cosine score"]
+        output_df["ID"] = merged_output_df["ID"]
+        output_df["From"] = merged_output_df["From_x"]
+        output_df["Compound_name"] = merged_output_df["Compound_name"]
+        output_df["MW"] = merged_output_df["MW_x"]
+        output_df["SMILES"] = merged_output_df["SMILES_y"]
+
+        #Reading Embedding of Query
+        if mapquery is True:
+            output_df = output_df.append({'ID': -1, 'From': 'Query', 'Compound_name': 'Query', 'MW': -1, "SMILES": "Query"}, ignore_index=True)
     else:
-        compound_list = [entry["Compound_name"].replace("\n", "") for entry in db]
-        source_list = [entry["From"].replace("\n", "") for entry in db]
-
-    #Reading Embedding of Query
-    if mapquery is True:
-        compound_list.append("Query")
-        source_list.append("Query")
-
-    output_df = pd.DataFrame()
-    output_df["Compound_name"] = compound_list
-    output_df["From"] = source_list
-
-    if filterresults is True:
-        db_df = pd.DataFrame(db)
-        output_df = output_df.merge(query_df, how="left", left_on="")
+        output_df = db_df
 
     return output_df.to_csv(sep="\t", index=False)
 
