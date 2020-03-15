@@ -95,13 +95,14 @@ def smart_classic_run(input_filename, output_result_table, output_result_nmr_ima
 @celery_instance.task()
 def smart_classic_size(query_embedding_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
+    db_df = shared_model_data["database_df"]
+
     if query_embedding_filename is None:
         return len(db)
     else:
         total_size = 0 
         if filterresults is True:
             query_df = pd.read_csv(query_result_table)
-            all_db_ids = set(query_df["DBID"])
             merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
             merged_output_df = merged_output_df.sort_values(by="DBID")
 
@@ -113,21 +114,19 @@ def smart_classic_size(query_embedding_filename, query_result_table, filterresul
         else:
             total_size = len(db)
 
-        
-
         return total_size
 
 
 @celery_instance.task()
 def smart_classic_images(query_image_filename, query_result_table, filterresults=True, mapquery=True):
     db = shared_model_data["database"]
+    db_df = shared_model_data["database_df"]
+
     if filterresults is True:
         query_df = pd.read_csv(query_result_table)
-        all_db_ids = set(query_df["DBID"])
-        merged_output_df = query_df.merge(db_df, how='left', left_on="DBID", right_on="ID")
-        merged_output_df = merged_output_df.sort_values(by="DBID")
+        query_df = query_df.sort_values(by="DBID")
 
-        structures_list = list(merged_output_df["SMILES"])
+        structures_list = list(query_df["SMILES"])
 
         if mapquery:
             structures_list.append("QUERY")
@@ -185,10 +184,11 @@ def smart_classic_metadata(query_embedding_filename, query_result_table, filterr
         output_df["Compound_name"] = merged_output_df["Compound_name"]
         output_df["MW"] = merged_output_df["MW_x"]
         output_df["SMILES"] = merged_output_df["SMILES_y"]
+        output_df["Embeddings"] = merged_output_df["Embeddings"]
 
         #Reading Embedding of Query
         if mapquery is True:
-            output_df = output_df.append({'ID': -1, 'From': 'Query', 'Compound_name': 'Query', 'MW': -1, "SMILES": "Query"}, ignore_index=True)
+            output_df = output_df.append({'ID': -1, 'From': 'Query', 'Compound_name': 'Query', 'MW': -1, "SMILES": "Query", "Embeddings": "Query"}, ignore_index=True)
     else:
         output_df = db_df
 
