@@ -25,4 +25,4 @@ jobs:
     - name: Test with pytest
       run: |
         pip install nose2
-        cd test-integration	&& nose2 -v
+        cd test-integration	&& nose2 -v test-integration
