@@ -37,3 +37,8 @@ attach:
 
 attach-classic:
 	docker exec -it smartclassic-worker /bin/bash
+
+
+# ACT Testing
+test-production:
+	act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 -b
