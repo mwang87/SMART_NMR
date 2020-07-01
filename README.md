@@ -26,6 +26,8 @@ The format of the database is a json file, that is a list of records. The follow
 1. MW - exact mass
 1. From - indicates the database
 1. ID - unique identifier to give the database a pseudo accession. These can be integers or simply uuids, but they must be unique per entry and must not be NULL. 
+1. External_link - external link for compounds. JEOL and Pubchem links are included.
+1. GNPS_ID - GNPS ID for the compound which is from GNPS DB
 
 ## Running Unit Tests
 
