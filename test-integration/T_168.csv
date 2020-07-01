@@ -1,0 +1,101 @@
+filename,truestructure,expectedmatch,expectedname,expectedscore,tanimoto,topn
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)c(Cl)c(O)c1C(=O)OC,methyl 4-chloroasterrate. methyl 3-chloroasterric acid,0.963883752,0.8736209307562355,1
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(OC)c1C(=O)O,circinophoric acid,0.939448981,0.9767441860465118,2
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=C(OC2=C(C(=O)OC)C(O)=CC(C)=C2)C(OC)=CC(O)=C1,NCGC00180813-03!methyl 2-hydroxy-6-(4-hydroxy-2-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoate,0.9385614179999999,0.9644856443408243,3
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)OC,Methyl Asterrate,0.9385614179999999,0.9644856443408243,4
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(OC)c1C(=O)OC,"dimethyl 2,3'-dimethoxyosoate",0.931901564,0.9403735032323036,5
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=C(OC2=CC(C)=CC(O)=C2C(=O)OC)C(O)=CC(OC)=C1,NCGC00381149-01!methyl 2-hydroxy-6-(2-hydroxy-4-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoate,0.927111145,0.9162613621237831,6
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1Oc1cc(C)cc(O)c1C(=O)OC,pestalotether D,0.927111145,0.9162613621237831,7
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=C(O)C=C(C)C=C1OC2=C(C=C(O)C=C2OC)C(O)=O,NCGC00381013-01!5-hydroxy-2-(3-hydroxy-2-methoxycarbonyl-5-methylphenoxy)-3-methoxybenzoic acid,0.9252226509999999,1.0000000000000002,8
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(O)cc(C)cc1Oc1c(O)cc(OC)cc1C1=C(c2c(O)cc(C)cc2O)c2c(O)cc(OC)cc2C1=O,ascomindone B,0.9244886040000001,0.7473924880782187,9
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(Oc2cc(C)cc(O)c2C(=O)OC)c1O,pestalotether C,0.919124591,0.8372093023255816,10
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(c1)C(=O)[C@@]13OC(C)=CC(=O)[C@@]1(O3)[C@@H]2O,Epoxyroussoedione,0.90952381,0.40039564797011623,11
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)O,asterric acid,0.9089944520000001,1.0000000000000002,12
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)O,asterric acid,0.908091517,1.0000000000000002,13
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=C(OC2=CC(C)=CC(O)=C2C(O)=O)C(O)=CC(OC)=C1,NCGC00384947-01!2-hydroxy-6-(2-hydroxy-4-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoic acid,0.9068077459999999,0.9534883720930234,14
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1Oc1cc(C)cc(O)c1C(=O)O,MCULE-4479113429,0.9068077459999999,0.9534883720930234,15
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(OC)c1C(=O)OC,"dimethyl 2,3'-dimethoxyosoate",0.903661743,0.9403735032323036,16
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)O,Asterric Acid,0.9030066659999999,1.0000000000000002,17
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,OC1=CC(C(OC)=O)=C(OC2=CC(C)=CC(O)=C2C(O)=O)C(OC)=C1,Asterric acid_120092,0.9030066659999999,1.0000000000000002,18
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c(O)cc(OC)c4c(O)c5c(=O)cc(C)oc5cc34)c2c1,rubasperone A,0.901793045,0.43681046537811774,19
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(=O)cc(C)oc2c1,"5,7-Dimethoxy-2-Methylchromen-4-One",0.898693802,0.40437289951289407,20
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(O)c1Oc1cc(C)cc(O)c1C(=O)O,dihydromaldoxin,0.896676068,0.8993875008265758,21
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(=O)cc(C)oc2c1,Eugenin,0.893570381,0.4639853360038203,22
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1OC(=O)c1c(O)cc2cc(C)oc(=O)c2c1O,Cercophorin C,0.891942363,0.6406221326384731,23
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(O)c2oc3c(c(=O)c12)C(OC)OC(C)=C3,chaetocyclinone A,0.889655262,0.5453710851915744,24
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(Oc2cc(C)cc(O)c2C(=O)O)c(OC)cc(O)c1[N+](=O)[O-],3-nitroasterric acid,0.887276781,0.8626621856275073,25
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3cc2c1,Rubrofusarin B,0.88702232,0.43954766145495394,26
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(O)c2oc3c(c(=O)c12)C(OC)OC(C)=C3,chaetocyclinone A,0.88683073,0.5453710851915744,27
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(C)cc(Oc2cc(C)cc(O[C@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)c2)cc1O,Unnamed,0.883658552,0.6168870908644988,28
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC(=O)c2c(O)cc(C)cc2Oc2c(OC)cc(O)cc2C(=O)OC)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)OC,Geomycin A,0.8824633620000001,0.9196009797434058,29
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(O)c1Oc1cc(C)cc(O)c1C(=O)OC,pestalotether A,0.881405676,0.86046511627907,30
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(c1)c(-c1c(O)cc(OC)c3c(O)c4c(=O)cc(C)oc4cc13)c(O)c1c(=O)cc(C)oc12,rubasperone D,0.8808384429999999,0.4319297483312999,31
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1C(=O)c1c(O)cc2cc(C)oc(=O)c2c1O,Cercophorin A,0.8807104570000001,0.6099942813304187,32
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(=O)C=C(OC)C12Oc1cc(C)cc(O)c1C2=O,Geodin,0.879803143,0.5498414147691577,33
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c(O)c4c(=O)cc(C)oc4c4c(OC)cc(OC)cc34)c2c1,Isonigerone,0.879718363,0.43681046537811774,34
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(O)cc(OC)cc1-c1cc(O)c(OC)cc1C,diOH diMeO Me biphenyl CBA methyl ester,0.8779996870000001,0.7569987502835318,35
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c(Oc2cc(C)cc(O)c2C(=O)O)c(C2=C(c3c(O)cc(C)cc3O)c3c(O)cc(OC)cc3C2=O)c1,ascomindone A,0.876745853,0.7332628577833812,36
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,CCOC(=O)c1c(O)cc(C)cc1Oc1c(OC)cc(O)cc1C(=O)OC,Ethyl Asterrate,0.8755929790000001,0.9093257859606313,37
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c2c3c1OC(C)=CC(O)=C3COC2=O,proserin A,0.8726367279999999,0.5236822405563849,38
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)cc(OC)c1C(N)=O,Neoplaether,0.871130792,0.8638594966625998,39
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1c(Cl)c(C)cc(O)c1C(=O)OC,Penicillither,0.869349095,0.8736209307562355,40
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(c1)c(-c1c(OC)cc(OC)c3c(O)c4c(=O)cc(C)oc4cc13)c(O)c1c(=O)cc(C)oc12,rubasperone C,0.868851092,0.4319297483312999,41
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COCc1c(OC)cc2oc(C)cc(=O)c2c1O,6-Methoxymethyleugenin,0.868779105,0.42869295740658686,42
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(OC)=CC(OC)=C1C(=O)C2=C(O)C=C(C)C=C2O,"NCGC00347729-02!methyl 2-(2,6-dihydroxy-4-methylbenzoyl)-3,5-dimethoxybenzoate",0.8684154359999999,0.781418064808807,43
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(c1)[C@H](O)[C@@]13OC(C)=CC(=O)[C@@]1(O3)[C@@H]2O,Epoxyroussoeone,0.86670559,0.4226398506351227,44
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1C(=O)c1c(O)cc(C)cc1OC,Unnamed,0.8661225570000001,0.781418064808807,45
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c4cc(OC)cc(OC)c4c(O)c4c(=O)cc(C)oc34)c2c1,NIGERONE,0.865707215,0.4340185399533709,46
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(O)=CC(OC)=C1OC2=C(Cl)C(C)=CC(O)=C2C(O)=O,NCGC00347776-02!3-chloro-6-hydroxy-2-(4-hydroxy-2-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoic acid,0.864553525,0.9120123092652648,47
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc2oc(C)cc(=O)c2c(O)c1O,"5,6-Dihydroxy-7-Methoxy-2-Methylchromen-4-One",0.863877638,0.4639853360038203,48
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1C(=O)c2c(O)cc(C)cc2O,"""MLS000877019-01!methyl 2-(2,6-dihydroxy-4-methylbenzoyl)-3-hydroxy-5-methoxybenzoate""",0.863528616,0.7916331135924696,49
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(O)c1C(=O)c1c(O)cc(C)cc1O,Isosulochrin,0.863528616,0.7916331135924696,50
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(O)c3c(=O)cc(C)oc3c(-c3c4cc(OC)cc(OC)c4c(O)c4c(=O)cc(C)oc34)c2c1,6-O-Demethylnigerone,0.862985201,0.42869295740658686,51
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c4cc(O)cc(OC)c4c(O)c4c(=O)cc(C)oc34)c2c1,8'-O-demethylnigerone,0.8613369120000001,0.45250923281806393,52
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(O)=CC(OC)=C1OC2=C(C(O)=O)C(O)=C(Cl)C(C)=C2,NCGC00384696-01!3-chloro-2-hydroxy-6-(4-hydroxy-2-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoic acid,0.860897301,0.9120123092652648,53
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c2c3c1OC(C)=CC(O)=C3C(OC)OC2=O,Proserin C,0.860358405,0.509461966212014,54
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c(O)c4c(=O)cc(C)oc4c4c(OC)cc(O)cc34)c2c1,8'-O-demythylisonigerone,0.8602731290000001,0.45466289298031565,55
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=C(C(=O)C2=C(OC)C=C(C)C=C2O)C(OC)=CC(O)=C1,NCGC00169225-02!methyl 5-hydroxy-2-(2-hydroxy-6-methoxy-4-methylbenzoyl)-3-methoxybenzoate,0.860018545,0.8058373793340823,56
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1C(=O)c1c(O)cc(C)cc1OC,"1,2-Seco-Trypacidin",0.860018545,0.8058373793340823,57
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,C/C=C/C1=CC(=O)[C@@]2(C(=O)c3c(OC)cc(OC)cc3C(=O)OC)O[C@H]2O1,"(9S,14R)-epoxy-11-deoxyfunicone",0.859914638,0.4817876613118741,58
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,C/C=C/C1=CC(=O)[C@]2(C(=O)c3c(OC)cc(OC)cc3C(=O)OC)O[C@@H]2O1,"(9R,14S)-epoxy-11-deoxyfunicone",0.859914638,0.4817876613118741,59
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1cc(C)c(Cl)c(O)c1C(=O)OC,Methyl Chloroasterrate,0.8595034559999999,0.8736209307562355,60
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c2c3c1OC(C)=CC(O)=C3C(O)OC2=O,proserin B,0.858332219,0.5140725757204156,61
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(Oc3c4c(O)cc(OC)cc4cc4cc(C)oc(=O)c34)c3c(=O)oc(C)cc3cc2c1,eriocauline,0.85726383,0.4883862905055044,62
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(OC(=O)c2c(O)cc3cc(C)oc(=O)c3c2O)c1O,Cercophorin B,0.853901982,0.6406221326384731,63
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(OC)cc(C)c2c1Oc1c(c(C)c(O)c3c1C(O)OC3=O)OC2=O,"1,4-Dihydroxy-3,7-dioxo-5,8-dimethyl-10-methoxy-1,3-dihydro-7H-isobenzofuro[4,5-b][1,4]benzodioxepin-11-carboxylic acid methyl ester",0.852951948,0.5606732120242913,64
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(O)cc(C)c(Cl)c1Oc1c(OC)cc(OC)cc1C(=O)O,Unnamed,0.852425573,0.8897681066002583,65
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(Oc2cc(C)cc(O)c2C(=O)OC)c1O,pestalotether C,0.8504932009999999,0.8372093023255816,66
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(O)c1Oc1cc(C)cc(O)c1,pestalotether B,0.849684027,0.8372093023255816,67
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1Oc1c(Cl)c(C)c(Cl)c(O)c1C(=O)OC,Metyl Dichloroasterrate,0.848918803,0.8372093023255816,68
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(O)=CC(OC)=C1OC2=C(Cl)C(C)=C(Cl)C(O)=C2C(=O)OC,"NCGC00347615-02!methyl 3,5-dichloro-2-hydroxy-6-(4-hydroxy-2-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoate",0.848918803,0.8372093023255816,69
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(O)c1Oc1cc(C)cc(O)c1C(=O)OC,pestalotether A,0.848713913,0.86046511627907,70
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC(=O)c2c(O)cc(C)cc2Oc2c(OC)cc(O)cc2C(=O)OC)cc(OC)c1Oc1cc(C)cc(O)c1C(=O)O,Geomycin B,0.848523096,0.9565007145952776,71
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c(OC)cc(OC)c4c(O)c5c(=O)cc(C)oc5cc34)c2c1,rubasperone B,0.8484901690000001,0.43681046537811774,72
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC1C(CO)OC(Oc2cc(C)cc(Oc3cc(C)cc(O)c3)c2)C(O)C1O,cordyol A,0.847485888,0.46712825596513563,73
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,O=C(C1=C(O)C=C(C)C=C1O)C2=C(C(OC)=O)C=C(O)C=C2OC,Sulochrin_120096,0.84683998,0.8058373793340823,74
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(O)cc(OC)c1C(=O)c1c(O)cc(C)cc1O,Sulochrin,0.84683998,0.8058373793340823,75
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)[C@]12Oc3cc(C)cc(O)c3C(=O)C1=CC=C[C@H]2O,"Methyl (4R,4As)-4,8-Dihydroxy-6-Methyl-9-Oxo-4H-Xanthene-4A-Carboxylate",0.8452721670000001,0.465250427881595,76
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(=O)C=C(OC)C12Oc1c(Cl)c(C)c(Cl)c(O)c1C2=O,Geodin,0.845267733,0.4773058182129292,77
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(O)c3c(=O)cc(C)oc3cc2c1,Rubrofusarin,0.844251155,0.43954766145495394,78
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)cc(OC)c1Oc1c(Cl)c(C)cc(O)c1C(=O)OC,Unnamed,0.8430301490000001,0.8506309062626504,79
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,CC1=CC(=O)C2=C(O1)C=C3C=C(C=C(C3=C2O)O)OC,Rubrofusarin,0.8429800279999999,0.43954766145495394,80
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O)c2c(O)c3c(=O)cc(C)oc3cc2c1,Rubrofusarin,0.8429800279999999,0.43954766145495394,81
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(O)cc(C)cc1CC1=CC(=O)C=C(OC)C1=O,variecolorquinone B,0.841353039,0.6520559380992675,82
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(O[C@@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)c2c(O)c3c(=O)cc(C)oc3cc2c1,"5-Hydroxy-8-Methoxy-2-Methyl-6-[(2S,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxybenzo[G]Chromen-4-One",0.8408254340000001,0.3573652103592188,83
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,O=C(OC)c1c(C)cc(OC)cc1OC,"""Methyl-2,4-Di-O-methylorsellinate""",0.8404287570000001,0.7238998603066159,84
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(C)cc(Oc2cc(C)cc(O[C@@H]3O[C@H](CO)[C@@H](OC)[C@H](O)[C@H]3O)c2)cc1O,Cordyol B,0.8402857640000001,0.6007212985974549,85
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,C/C=C(/C)c1cc(OC)cc(=O)o1,pestalotiopyrone G,0.840185858,0.37165231124132925,86
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(C)nn1c2nc(C)cc(OC)n2,4-methoxy-2-(5-methoxy-3-methylpyrazol-1-yl)-6-methylpyrimidine,0.838566568,0.2876861795312678,87
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)C1=CC(=O)C=C(OC)[C@]12Oc1cc(C)cc(OC(=O)c3c(O)cc(C)cc3Oc3c(OC)cc(O)cc3C(=O)OC)c1C2=O,Geomycin C,0.8374365909999999,0.7343468193540316,88
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc2c(c(C3=C(c4c(O)cc(C)cc4O)c4c(O)cc(OC)cc4C3=O)c1)Oc1cc(C)cc(O)c1C(=O)O2,ascomindone C,0.83698225,0.48424799847909317,89
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(O)cc(C)cc1CC1=CC(=O)C=C(OC)C1=O,variecolorquinone B,0.835979658,0.6520559380992675,90
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc2oc(C)cc(=O)c2c(O)c1CO,6-hydroxymethyleugenin,0.833191076,0.4340185399533709,91
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC1=CC(OC)=C2C=C(OC)C3=C(OC(C)=CC3=O)C2=C1,"NCGC00386013-01!5,7,9-trimethoxy-2-methylbenzo[h]chromen-4-one",0.8321175340000001,0.39229933572445613,92
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,CC1=CC(C2=C(C=C3C(C(OC)=CC(C3=O)=O)=C2OC)O1)=O,Canarione dimethylether,0.831515261,0.3334278557606787,93
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(Sc2c(O)cc(OC)c(C(=O)c3c(O)cc(C)cc3O)c2C(=O)OC)c(O)cc(OC)c1C(=O)c1c(O)cc(C)cc1O,Polluxochrin,0.831168795,0.7209302325581397,94
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1cc(OC)c(Cl)c(O)c1Oc1cc(C)cc(O)c1C(=O)O,ZINC1485315,0.83011809,0.8993875008265758,95
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc(OC)c2c(O)c3c(=O)cc(C)oc3c(-c3c(OC)cc4cc5oc(C)cc(=O)c5c(O)c4c3OC)c2c1,Aurasperone A,0.829651505,0.40472437537195916,96
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COc1cc2c(cc1C)c(OC)cc1cc(C)c(=O)cc(OC)c12,"4,6,9-Trimethoxyphenanthropolone",0.8288909640000001,0.4382328285318214,97
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,COC(=O)c1c(Oc2cc(C)cc(O)c2C(=O)OC(C)C(=O)O)c(OC)cc(O)c1[N+](=O)[O-],pseudogymnoascin C,0.828093455,0.7743821886422613,98
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,C=C(C)[C@H](O)COc1cc(OC)c2c(c1)C(=O)c1cc(O)cc(O)c1-2,gramniphenol E,0.8274935920000001,0.46511627906976755,99
+T_168.csv,CC1=CC(=C(C(=C1)OC2=C(C=C(C=C2OC)O)C(=O)OC)C(=O)O)O,CO/C(=C/C(=O)O)c1c(C)oc(C)cc1=O,Citreo-gamma-pyrone,0.827389445,0.44529362639576414,100
