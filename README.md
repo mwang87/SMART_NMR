@@ -26,8 +26,8 @@ The format of the database is a json file, that is a list of records. The follow
 1. MW - exact mass
 1. From - indicates the database
 1. ID - unique identifier to give the database a pseudo accession. These can be integers or simply uuids, but they must be unique per entry and must not be NULL. 
-1. External_link - external link for compounds. The JEOL DB derived compounds have jeol db link (https://www.j-resonance.com/en/nmrdb/data/xxx). The others have pubchem DB link (https://pubchem.ncbi.nlm.nih.gov/compound/xxx) which can be used complementarily if there are no external links for the compounds to GNPS, MiBig, or NPAtlas
-1. GNPS_ID - GNPS ID (CCMSLIBxxxxxx) for the compound which is from GNPS DB 
+1. JEOL_link - external link for JEOL DB derived compounds to see NMR data. The JEOL DB derived compounds have jeol db link (https://www.j-resonance.com/en/nmrdb/data/xxx). 
+
 
 [{'Compound_name': 'micrococcin P1',
   'Embeddings': [0.1537381113, 0.3115234971, -1.3087806702,................... -0.2351712883],
@@ -35,24 +35,15 @@ The format of the database is a json file, that is a list of records. The follow
   'MW': 1143.2,
   'From': 'Jeol',
   'ID': 'v2.1_0',
-  'External_link': 'https://www.j-resonance.com/en/nmrdb/data/1',
-  'GNPS_ID': None},
-  {'Compound_name': '1-(3,5,5,6,8,8-Hexamethyl-6,7-Dihydronaphthalen-2-Yl)Ethanone',
-  'Embeddings': [-0.9410166144, 0.3261731267, 0.0565251969, ................... 0.6860147119],
-  'SMILES': 'CC(=O)c1cc2c(cc1C)C(C)(C)C(C)CC2(C)C',
-  'MW': 258.2,
-  'From': 'ACD_Labs',
-  'ID': 'v2.1_80010',
-  'External_link': 'https://pubchem.ncbi.nlm.nih.gov/compound/89440',
-  'GNPS_ID': None},
-  {'Compound_name': 'NCGC00381013-01!5-hydroxy-2-(3-hydroxy-2-methoxycarbonyl-5-methylphenoxy)-3-methoxybenzoic acid',
-  'Embeddings': [-0.6626132727, 0.0148074143, 2.245932579,......................  2.4398159981],
-  'SMILES': 'COC(=O)C1=C(O)C=C(C)C=C1OC2=C(C=C(O)C=C2OC)C(O)=O',
+  'JEOL_link': 'https://www.j-resonance.com/en/nmrdb/data/1'},
+ {'Compound_name': 'chelerythrine',
+  'Embeddings': [0.1537381113, 0.3115234971, -1.3087806702,................... -0.2351712883],
+  'SMILES': 'COc1ccc2c(c[n+](C)c3c4cc5c(cc4ccc23)OCO5)c1OC',
   'MW': 348.1,
-  'From': 'GNPS',
-  'ID': 'v2.1_100000',
-  'External_link': 'https://pubchem.ncbi.nlm.nih.gov/compound/21629518',
-  'GNPS_ID': 'CCMSLIB00000848539'}
+  'From': 'Jeol',
+  'ID': 'v2.1_1',
+  'JEOL_link': 'https://www.j-resonance.com/en/nmrdb/data/2'},
+  
   .
   .
   .
