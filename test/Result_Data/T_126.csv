@@ -1,0 +1,101 @@
+Cosine score,Name,SMILES
+0.8620862766999008,uvaridacane A,CC(=CCOC(=O)c1ccccc1)COC(=O)c1ccccc1
+0.8391098706308853,SCHEMBL469716,CSSc1cccc2c(-c3ccccc3)c(=O)oc-2c1
+0.8340575039088104,uvaridacane B,CC(=CCOC(=O)c1ccccc1)COC(=O)C=Cc1ccccc1
+0.8311581941112861,Cladobotryal,C/C=C(\C)[C@H]1Oc2ncc(-c3ccccc3)c(O)c2[C@@]1(C)C=O
+0.8213735867821343,(+)-(R)-E-3'-Hydroxyartemidin,C[C@@H](O)/C=C/c1cc2ccccc2c(=O)o1
+0.818700336441239,(+)-(R)-(E)-3'-hydroxyartemidin,CC(O)C=Cc1cc2ccccc2c(=O)o1
+0.8153054898205148,"Pesticide4_Flutolanil_C17H16F3NO2_Benzamide, N-[3-(1-methylethoxy)phenyl]-2-(trifluoromethyl)-",CC(C)OC1=CC=CC(=C1)NC(=O)C2=CC=CC=C2C(F)(F)F
+0.8149276256446563,3-Phenylprop-2-Enyl Acetate,CC(=O)OCC=Cc1ccccc1
+0.8121527083093301,grandiuvarin B,CC(=O)OCC(O)(COC(=O)c1ccccc1)C(O)C=CCOC(=O)c1ccccc1
+0.8107254615579541,quadricinctapyran B,CC(=O)OC[C@]1(C)C=Cc2cc(C(=O)O)ccc2O1
+0.8071469644386607,(2R)-2-[4-(7-Chloroquinoxalin-2-Yl)Oxyphenoxy]Propanoic Acid,C[C@@H](Oc1ccc(Oc2cnc3ccc(Cl)cc3n2)cc1)C(=O)O
+0.8070697982275633,Isobutyl Cinnamate,CC(C)COC(=O)/C=C/c1ccccc1
+0.8068763338193106,curtisian A,CC(=O)Oc1c(OC(C)=O)c(-c2ccc(O)cc2)c(OC(=O)c2ccccc2)c(OC(C)=O)c1-c1ccc(O)cc1
+0.8053257979479111,Isopropyl Cinnamate,CC(C)OC(=O)/C=C/c1ccccc1
+0.8005972407970963,guignardianone A,CC(C)[C@@]1(C(=O)OCCc2ccccc2)OC(=O)/C(=C/c2ccccc2)O1
+0.7997190816035692,SCHEMBL469715,CSSc1cccc2c(-c3ccc(O)cc3)c(=O)oc-2c1
+0.7976973112310402,Acetylmelodorinol,CC(=O)OC(/C=C1/C=CC(=O)O1)COC(=O)c1ccccc1
+0.7938243789621389,Thelephantin L,CC(=O)Oc1c(OC(=O)c2ccccc2)c(-c2ccc(O)cc2)c(OC(=O)c2ccccc2)c(OC(=O)c2ccccc2)c1-c1ccc(O)cc1
+0.7926472102653815,Antrocinnamomins A,CC(=O)ON1C(=O)C(CC(C)C)=C(c2ccc(OCC=C(C)C)cc2)C1=O
+0.7894394252782757,Hyperlactone C,C=C[C@@]1(C)COC(=O)[C@]12OC(c1ccccc1)=CC2=O
+0.7880115467391915,ellipeiopsol A,CC(=O)OC1C=CC(O)C(O)(COC(=O)c2ccccc2)C1O
+0.7874069932698855,fuzanin D,Cc1cccnc1C=CC=CC(O)C(C)O
+0.7874069932698855,Fuzanin D,Cc1cccnc1/C=C/C=C/[C@H](O)[C@@H](C)O
+0.7863492029064394,"""1H-Imidazole-5-carboxylic acid, 1-(1-phenylethyl)-, ethyl ester, (R)- [CAS]""",CCOC(=O)c1cncn1[C@H](C)c2ccccc2
+0.7854334812182215,(S)-2-(2-hydroxypropanamido) benzoic acid,C[C@H](O)C(=O)Nc1ccccc1C(=O)O
+0.7854334812182215,2-(2-hydroxypropanamido)benzoic acid,CC(O)C(=O)Nc1ccccc1C(=O)O
+0.7841611528038794,"3-isobutyl-4-[4-(3-methyl-2-butenyloxy)phenyl]-1H-pyrrole-2,5-dione",CC(C)=CCOc1ccc(C2=C(CC(C)C)C(=O)NC2=O)cc1
+0.7830773732119041,Massbank:BML01543 6-Bromo-3'-methylflavone,CC1=CC=CC(=C1)C2=CC(=O)C3=C(O2)C=CC(=C3)Br
+0.7825452316220389,Hyperlactone D,C=C[C@@]1(C)COC(=O)C1C(=O)/C=C(\O)c1ccccc1
+0.7821373797736814,Pestalospirane A,C[C@H]1O[C@]2(C=Cc3cccc(O)c3CO2)[C@@H](C)O[C@@]12C=Cc1cccc(O)c1CO2
+0.7809445912273594,Citridone B',CC(O)[C@]1(C)O[C@@H](O)[C@@]2(C)c3c([nH]cc(-c4ccccc4)c3=O)O[C@@H]12
+0.7805304891890609,peregrinumcin A,CC(=O)OCC1OC(OC(C#N)c2ccccc2)C(O)C(O)C1O
+0.7804773767506767,klaivanolide,CC(=O)OC1=CC(OC(=O)c2ccccc2)OC(=O)C=C1
+0.7790978032980387,121007-16-7,C=C(C)C#Cc1cc(CO)ccc1O
+0.7785109949993662,SCHEMBL7007787,C/C=C(\C)[C@H]1Oc2ncc(-c3ccccc3)c(O)c2[C@@]1(C)CO
+0.7778545069610823,xanthopappin A,CC=CC#CC#Cc1cccs1
+0.7778545069610823,Xanthopappin A,C/C=C/C#CC#Cc1cccs1
+0.7775333603875753,4-Hydroxyhyperolactone D,C=C[C@@]1(C)COC(=O)C1(O)C(=O)/C=C(\O)c1ccccc1
+0.7763442434948727,BRN 2435036,Cc1ccccc1/C=C/C(N)=O
+0.7750830127065267,"[5-[(E)-Hept-5-En-1,3-Diynyl]Thiophen-2-Yl]Methanol",C/C=C/C#CC#Cc1ccc(CO)s1
+0.773724889020318,antrocinnamomin A,CC(=O)ON1C(=O)C(CC(C)C)=C(c2ccc(OCC=C(C)C)cc2)C1=O
+0.7694147991408556,echinopsacetylene A,CC#CC#Cc1ccc(C#CC(CO)c2ccc(-c3ccc(-c4cccs4)s3)s2)s1
+0.7664161655095353,grandiuvarin C,CC(=O)OCC(=CC=CCOC(=O)c1ccccc1)COC(=O)c1ccccc1
+0.7660217366818851,Phenylacetic acid 6-deoxy-alpha-L-talopyranosyl ester,C[C@@H]1O[C@@H](OC(=O)Cc2ccccc2)[C@H](O)[C@H](O)[C@@H]1O
+0.7658797456374156,"NCGC00381007-01_C21H23NO8_(5S,8S,9R)-8-Benzoyl-2-[(1S,2S,3Z)-1,2-dihydroxy-3-hexen-1-yl]-8,9-dihydroxy-3-methyl-1-oxa-7-azaspiro[4.4]non-2-ene-4,6-dione",CC\C=C/[C@H](O)[C@H](O)\C1=C(/C)C(=O)[C@@]2(O1)[C@@H](O)[C@@](O)(NC2=O)C(=O)C3=CC=CC=C3
+0.7650172094818546,"1-[5-[(E)-Hept-5-En-1,3-Diynyl]Thiophen-2-Yl]Ethane-1,2-Diol",C/C=C/C#CC#Cc1ccc(C(O)CO)s1
+0.7640480738459856,"(2,2,2-Trichloro-1-Phenylethyl) Acetate",CC(=O)OC(c1ccccc1)C(Cl)(Cl)Cl
+0.7637362888850026,\N,CC(C)=CCOc1ccc(C2=C(CC(C)C)C(=O)OC2=O)cc1
+0.7637362888850026,"3-isobutyl-4-[4-(3-methyl-2-butenyloxy)phenyl]furan-2,5-dione",CC(C)=CCOc1ccc(C2=C(CC(C)C)C(=O)OC2=O)cc1
+0.7625540989079486,n.a.,C/C(=N\NC(S)=NCc1ccccc1)c1c(O)ccc2ccc(=O)oc12
+0.762268126313799,circumdatin L,CC1NC(=O)c2ccccc2-n2c1nc1c(c2=O)C=CC=CO1
+0.7622362212145735,cyanosporaside A,C[C@H]1O[C@@H](O[C@]23C(=Cc4ccc(CC#N)c(Cl)c42)C=C[C@@H]3O)[C@H](O)C(=O)[C@@]1(C)O
+0.7616465808654065,fuzanin C,Cc1cccnc1C=CC=CC(O)C(C)O
+0.7615822009492408,Lawsone 2-Isopentenyl Ether,CC(C)=CCOC1=CC(=O)c2ccccc2C1=O
+0.7613653403754556,3-Hydroxydehydroiso-Alpha-Lapachone,C=C(C)[C@@H]1OC2=C(C(=O)c3ccccc3C2=O)[C@@H]1O
+0.7607748211900706,Celecoxib,Cc1ccc(-c2cc(C(F)(F)F)nn2-c2ccc(S(N)(=O)=O)cc2)cc1
+0.7607748211900706,Celecoxib,C1(=CC=C(C=C1)S(N)(=O)=O)N2C(=CC(=N2)C(F)(F)F)C3=CC=C(C=C3)C
+0.7596992561245223,citridone B',CC(O)C1(C)OC(O)C2(C)c3c(ncc(-c4ccccc4)c3O)OC12
+0.7594816263848956,MLS000860042-01!Pirfenidone,Cc1ccc(=O)n(c1)c2ccccc2
+0.7588380593817905,Unnamed,C/C=C/C=C/[C@@H]1OC(=O)c2cc(C(=O)O)cc(-c3ccccc3)c2[C@@H]1C
+0.7586144420575256,Gleditschiaside A,C[C@@H]1O[C@@H](OC[C@H]2O[C@@H](OC(=O)/C=C/c3ccccc3)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H](O)[C@H]1O
+0.7574018544206718,[(E)-3-(4-Hydroxyphenyl)Prop-2-Enyl] Acetate,CC(=O)OC/C=C/c1ccc(O)cc1
+0.7570089768385108,grandiuvarone A,CC(=O)O[C@H]1C(=O)C=COC=C1COC(=O)c1ccccc1
+0.7570089768385108,Grandiuvarone A,CC(=O)O[C@H]1C(=O)C=COC=C1COC(=O)c1ccccc1
+0.756593301262172,35212-22-7,CC(C)Oc1ccc2c(=O)c(coc2c1)c3ccccc3
+0.7555978249070855,Permethrin,CC1(C)C(C=C(Cl)Cl)C1C(=O)OCc1cccc(Oc2ccccc2)c1
+0.7553654232680344,Antrodin C. Camphorataimide C,CC(C)=CCOc1ccc(C2=C(CC(C)C)C(=O)N(O)C2=O)cc1
+0.7553654232680344,"1-Hydroxy-3-[4-(3-Methylbut-2-Enoxy)Phenyl]-4-(2-Methylpropyl)Pyrrole-2,5-Dione",CC(C)=CCOc1ccc(C2=C(CC(C)C)C(=O)N(O)C2=O)cc1
+0.7551015029127218,"Pesticide6_Etaconazole Isomer 1*_C14H15Cl2N3O2_1-{[2-(2,4-Dichlorophenyl)-4-ethyl-1,3-dioxolan-2-yl]methyl}-1H-1,2,4-triazole",CCC1COC(O1)(CN2C=NC=N2)C3=C(C=C(C=C3)Cl)Cl
+0.7546847643434463,solphenazine B,CC(=O)O[C@@H]1[C@@H](O)[C@H](C)O[C@@H](OC(=O)c2cccc3nc4c(C(=O)O[C@@H]5O[C@@H](C)[C@H](O)[C@@H](O)[C@H]5O)cccc4nc23)[C@@H]1O
+0.754425227100469,uvaridacol H,CC(=O)OC1C(O)C(OC(=O)c2ccccc2)C=CC1(O)COC(=O)c1ccccc1
+0.7541250140055941,Soulattrolide,C[C@@H]1Oc2c3c(c4c(-c5ccccc5)cc(=O)oc4c2[C@@H](O)[C@H]1C)OC(C)(C)C=C3
+0.7541250140055941,n.a.,C[C@@H]1[C@@H](C)Oc2c3c(c4c(-c5ccccc5)cc(=O)oc4c2[C@@H]1O)OC(C)(C)C=C3
+0.7536147477402084,MassbankEU:SM842051 Mecoprop|2-(4-chloro-2-methylphenoxy)propanoic acid,CC(Oc1ccc(Cl)cc1C)C(O)=O
+0.7533317622581288,"9-acetoxy-8,10-dehydrothymol 3-O-tiglate",C=C(COC(C)=O)c1ccc(C)cc1OC(=O)C(C)=CC
+0.7531934213433124,"(2R,3R)-7-(3-Methyl-2-pyridyl)-4,6-heptadiene-2,3-diol",Cc1cccnc1/C=C/C=C/[C@@H](O)[C@@H](C)O
+0.7527035987303498,Unnamed,CC=CC#C/C=C1/C=CC(=O)O1
+0.7521612255248145,Strebluslignanol,C=CCc1ccc(O)c(-c2cc([C@@H](O)[C@@H](C)O)ccc2O)c1
+0.7520095609296846,CHEMBL449582,C[C@@H](O)[C@]1(C)NC(=O)c2ccccc2N1
+0.750549469101852,Mammea A/AB dioxalanocyclo F,CCC(C)C(=O)c1c2c(c3oc(=O)cc(-c4ccccc4)c3c1O)C1OOC(C)(C)C1O2
+0.7505482171302954,pestalospirane A,CC1OC2(C=Cc3cccc(O)c3CO2)C(C)OC12C=Cc1cccc(O)c1CO2
+0.7501503042896115,"8-Hydroxy-2-[(1R)-1-Hydroxyethyl]-Naphtho[2,3-B]Furan-4,9-Dione",C[C@@H](O)c1cc2c(o1)C(=O)c1c(O)cccc1C2=O
+0.7501503042896115,"8-Hydroxy-2-(1-Hydroxyethyl)Naphtho[2,3-B]Furan-4,9-Dione",CC(O)c1cc2c(o1)C(=O)c1c(O)cccc1C2=O
+0.7501503042896115,"8-Hydroxy-2-[(1S)-1-Hydroxyethyl]-Naphtho[2,3-B]Furan-4,9-Dione",C[C@H](O)c1cc2c(o1)C(=O)c1c(O)cccc1C2=O
+0.7490133067124558,Thelephantin L,CC(=O)Oc1c(OC(=O)c2ccccc2)c(-c2ccc(O)cc2)c(OC(=O)c2ccccc2)c(OC(=O)c2ccccc2)c1-c1ccc(O)cc1
+0.7486565476399482,"(E)-1-(2,6-Dihydroxy-4-Methoxyphenyl)-3-Phenylprop-2-En-1-One",COc1cc(O)c(C(=O)/C=C/c2ccccc2)c(O)c1
+0.7486565476399482,"NCGC00090582-03!(E)-1-(2,6-dihydroxy-4-methoxyphenyl)-3-phenylprop-2-en-1-one",COC1=CC(O)=C(C(=O)\C=C\C2=CC=CC=C2)C(O)=C1
+0.7486063325185097,"MassbankEU:SM839351 Dichlorprop|2-(2,4-dichlorophenoxy)propanoic acid",CC(Oc1ccc(Cl)cc1Cl)C(O)=O
+0.7479959163612104,myxodiol A,CC1=CC2=C(Cl)C(=O)C(C)(O)C(O)C2=CO1
+0.7474714600610961,n.a.,O=C1C=CC[C@@H]([C@H](O)[C@@H](O)c2ccccc2)O1
+0.74741138278204,"""Fenofibrate (Tricor, Trilipix)""",C1=C(C=CC(=C1)C(C2=CC=C(C=C2)OC(C(OC(C)C)=O)(C)C)=O)Cl
+0.7467577385360517,"14-Hydroxyheptadeca-8,10,12-Trien-4,6-Diynyl Benzoate",CCCC(O)/C=C/C=C/C=C/C#CC#CCCCOC(=O)c1ccccc1
+0.7467290701217514,3-[(E)-1-Propenyl]-4-[(E)-3-hydroxy-1-butenyl]furan-2(5H)-one,C/C=C/C1=C(/C=C/C(C)O)COC1=O
+0.7456219272517873,[(E)-3-(4-Acetyloxyphenyl)Prop-2-Enyl] Acetate,CC(=O)OC/C=C/c1ccc(OC(C)=O)cc1
+0.745510496606276,salvixalapadiene,C=CC1=C(C(C)c2cccc3c2COC3=O)C(c2ccoc2)OC1=O
+0.7454105229608222,Cyanosporaside B,C[C@H]1O[C@@H](O[C@]23C(=Cc4c(Cl)cc(CC#N)cc42)C=C[C@@H]3O)[C@H](O)C(=O)[C@@]1(C)O
+0.7454105229608222,cyanosporaside B,C[C@H]1O[C@@H](O[C@]23C(=Cc4c(Cl)cc(CC#N)cc42)C=C[C@@H]3O)[C@H](O)C(=O)[C@@]1(C)O
+0.7450379622625438,citridone B,CC(O)C1(C)OC(O)C2(C)c3c(ncc(-c4ccccc4)c3O)OC12
+0.7441889636210814,Aspirin,CC(=O)Oc1ccccc1C(=O)O
+0.7438067541310219,C12H12N2O2,C[C@@H]1NC(=O)/C(=C/c2ccccc2)NC1=O

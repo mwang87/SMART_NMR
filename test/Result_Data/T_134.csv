@@ -1,0 +1,101 @@
+Cosine score,Name,SMILES
+0.9191921718574673,Thielavin G,COc1cc(OC(=O)c2c(C)cc(O)c(C)c2O)c(C)c(C)c1C(=O)Oc1c(C)c(C)c(C(=O)O)c(OC)c1C
+0.9045394195035337,Thielavin F,COc1cc(OC(=O)c2c(C)c(C)c(OC(=O)c3c(C)cc(O)c(C)c3O)c(C)c2OC)c(C)c(C)c1C(=O)O
+0.9010929613038967,CHEMBL3218304,COC1=C(C)C(=O)C=C(C)C1(O)C(=O)Oc1c(C)c(C)c(C(=O)Oc2cc(C)c(C(=O)Oc3cc(OC)c(C(=O)O)c(C)c3C)c(O)c2C)c(O)c1Cl
+0.8997546075710774,Thielavin B methyl ester,COC(=O)c1c(C)c(C)c(OC(=O)c2c(C)c(C)c(OC(=O)c3c(C)cc(O)c(C)c3O)c(C)c2OC)c(C)c1OC
+0.8788149152399214,NSC646005,COc1cc(C)c(C)c(OC(=O)c2c(C)c(C)c(OC)c(C)c2OC)c1C
+0.8772024586457755,Unnamed,COC(=O)/C(C)=C/c1cc(OC)c(C)c(=O)o1
+0.8732356551411954,Xylariaquinone A,COc1cc2c3c(oc2c(C)c1O)C(=O)C(C)=CC3=O
+0.8726656831367816,thielavin Z5,COc1c(C)c(OC(=O)c2c(C)cc(O)cc2O)cc(C)c1C(=O)Oc1c(C)c(C)c(C(=O)O)c(O)c1C
+0.8697573947110592,thielavin Z2,COc1c(C)c(OC(=O)c2c(C)cc(O)c(C)c2O)cc(C)c1C(=O)Oc1c(C)c(C)c(C(=O)O)c(O)c1C
+0.8686992511586372,Infectopyrone,COc1cc(C(C)=CC(C)=CC(=O)O)oc(=O)c1C
+0.8511035205772584,(4Z)-Infectopyrone,COc1cc(/C(C)=C\C(C)=C\C(=O)O)oc(=O)c1C
+0.8507790460051486,pleosporallin E,COc1c(C)c(O)cc(C)c1CC1=C(C)C(=O)C(O)=C(C)C1=O
+0.8493454610929865,nectriapyrone C,C/C=C(\CO)c1cc(OC)c(C)c(=O)o1
+0.8482924641897717,Thielavin G,COc1cc(OC(=O)c2c(C)cc(O)c(C)c2O)c(C)c(C)c1C(=O)Oc1c(C)c(C)c(C(=O)O)c(OC)c1C
+0.8427500523885458,Thielavin F,COc1cc(OC(=O)c2c(C)c(C)c(OC(=O)c3c(C)cc(O)c(C)c3O)c(C)c2OC)c(C)c(C)c1C(=O)O
+0.8425991860665916,Phomapyrone F,COc1c(C)c(=O)oc2c(C)cc(C)c(C)c12
+0.8408194526431891,Isotorachrysone Peracetate,COc1cc(OC(C)=O)cc2cc(C)c(C(C)=O)c(OC(C)=O)c12
+0.8394492864394484,Buellin,CC1=C(Cl)C(OC)=CC(OC2=C(O)C(Cl)=C(OC)C(Cl)=C2C)=C1C(OC)=O
+0.8394492864394484,Buellin,COC(=O)c1c(Oc2c(C)c(Cl)c(OC)c(Cl)c2O)cc(OC)c(Cl)c1C
+0.8384667321517054,Phomapyrone D,COc1cc(/C(C)=C/C(C)=O)oc(=O)c1C
+0.8353284526104892,nigerapyrone E,COc1cc(C=CC(C)=O)oc(=O)c1C
+0.834961257054484,thielavin Z7,COC(=O)c1c(C)c(C)c(OC(=O)c2c(C)cc(O)c(C)c2O)c(C)c1O
+0.8329943569637902,aspergillusidone B,C/C=C(\C)c1c(Cl)c(O)c(C)c2c1Oc1c(Cl)c(OC)cc(C)c1C(=O)O2
+0.8329197422664631,C11H12O5,COc1cc(/C(C)=C/C(=O)O)oc(=O)c1C
+0.8310259963584267,Gangaleoidin,O=C1c2c(C)c(Cl)c(O)c(Cl)c2Oc2c(O1)cc(c(c2C)C(=O)OC)OC
+0.8309798094234252,thielavin K,COc1c(C)c(OC(=O)c2c(C)cc(O)c(C)c2O)c(C)c(C)c1C(=O)Oc1c(C)c(C)c(C(=O)O)c(O)c1C
+0.8299760411756926,Stemanthrene C,COc1c(O)ccc2c1CCc1c(C)c(O)c(C)c(OC)c1-2
+0.8291214537317133,2-Methyl-3-O-Methylemodin,COc1cc2c(c(O)c1C)C(=O)c1c(O)cc(C)cc1C2=O
+0.8255503278607101,5-(Hydroxymethyl)-4-methoxy-3-methyl-6-[(E)-1-propenyl]-2H-pyran-2-one,C/C=C/c1oc(=O)c(C)c(OC)c1CO
+0.8252518251142453,Infectopyrone,COc1cc(/C(C)=C/C(C)=C/C(=O)O)oc(=O)c1C
+0.824493596339952,Obtusatic acid,Cc1c(c(O)c(C)c(OC)c1)C(=O)Oc1cc(C)c(C(=O)O)c(O)c1
+0.8243267275002528,"5-Hydroxy-2,8-Dimethyl-6,7-Dimethoxy Chromone",COc1c(OC)c(O)c2c(=O)cc(C)oc2c1C
+0.8241786581637902,Unnamed,COCc1c(O)cc(C)c2c1Oc1c(C)cc(O)c(C)c1OC2=O
+0.823571928996154,5-(3'-carboxyl-3'-methyl-2E-allyloxy)-3-methoxy-4-methylphthalide,COc1c(C)c(OCC=C(C)C(=O)O)cc2c1COC2=O
+0.8216504483349673,Colletotric Acid,COc1c(C)c(OC(=O)c2c(C)cc(O)cc2O)c(C)c(C(=O)Oc2cc(O)c(C(=O)O)c(C)c2C)c1C
+0.8212088447308014,nigerapyrone E,COc1cc(/C=C/C(C)=O)oc(=O)c1C
+0.8207742501651728,Auranticin A,C/C=C(\C)c1cc(OC)c(C)c2c1Oc1c(CO)c(O)cc(/C(C)=C/C(=O)O)c1C(=O)O2
+0.8207742501651728,"NCGC00380585-01!(E)-3-[1-[(E)-but-2-en-2-yl]-9-hydroxy-10-(hydroxymethyl)-3-methoxy-4-methyl-6-oxobenzo[b][1,4]benzodioxepin-7-yl]but-2-enoic acid",COC1=C(C)C2=C(OC3=C(CO)C(O)=CC(\C(C)=C\C(O)=O)=C3C(=O)O2)C(=C1)C(\C)=C\C
+0.8202756793030471,Thielocin B1,COc1c(C)c(OC(=O)c2c(C)c(C)c(OC(=O)c3c(C)c(Oc4c(C)c(C)c(C(=O)Oc5c(C)c(C)c(C(=O)O)c(OC)c5C)c(OC)c4C)c(O)c(C)c3O)c(C)c2OC)c(C)c(C)c1C(=O)O
+0.8202589551611886,"""MLS000563514-01!2-hydroxy-4-(2-hydroxy-4-methoxy-3,6-dimethylbenzoyl)oxy-3,6-dimethylbenzoic acid""",COc1cc(C)c(C(=O)Oc2cc(C)c(C(=O)O)c(O)c2C)c(O)c1C
+0.8202589551611886,"2-Hydroxy-4-(2-Hydroxy-4-Methoxy-3,6-Dimethylbenzoyl)Oxy-3,6-Dimethylbenzoic Acid",COc1cc(C)c(C(=O)Oc2cc(C)c(C(=O)O)c(O)c2C)c(O)c1C
+0.8199050441762237,"2-Hydroxy-4-Methoxy-3,6-Dimethylbenzoic Acid",COc1cc(C)c(C(=O)O)c(O)c1C
+0.8199050441762237,Rhizonic acid,O=C(O)c1c(C)cc(OC)c(C)c1O
+0.8190281613437409,"NCGC00347452-02!4-[4-(2,4-dihydroxy-3,6-dimethylbenzoyl)oxy-2-methoxy-3,5,6-trimethylbenzoyl]oxy-2-methoxy-3,5,6-trimethylbenzoic acid",COC1=C(C)C(OC(=O)C2=C(C)C(C)=C(OC(=O)C3=C(C)C=C(O)C(C)=C3O)C(C)=C2OC)=C(C)C(C)=C1C(O)=O
+0.8190281613437409,Thielavin B,COc1c(C)c(OC(=O)c2c(C)c(C)c(OC(=O)c3c(C)cc(O)c(C)c3O)c(C)c2OC)c(C)c(C)c1C(=O)O
+0.8187869453798131,placidene F,C/C=C(C)\C=C(/C)c1oc(=O)c(C)c(OC)c1C
+0.8172561531530889,(Z)-3-Ethylidene-7-Hydroxy-6-Methoxyphthalide,C/C=C1\OC(=O)c2c1ccc(OC)c2O
+0.8169711914160676,Sid22411775,COc1cccc2c1C(=O)C=C(C)C2=O
+0.8164492472576548,PS 990,COc1c(C)c(O)c(C)c(C)c1C(=O)Oc1c(C)c(C)c(C(=O)Oc2c(C)c(C)c(C(=O)O)c(OC)c2C)c(O)c1C
+0.814866159537729,Placidene F,C/C=C(C)\C=C(/C)c1oc(=O)c(C)c(OC)c1C
+0.8140441631921709,Nigerloxin,C/C=C/c1c(C)c(OC)c(C(=O)O)c(C(N)=O)c1O
+0.8137445264911163,154160-09-5,COc1cc2oc(=O)cc(OC)c2c(C)c1-c1c(O)cc2oc(=O)cc(OC)c2c1C
+0.8127634375321563,dehydroluteothin,COc1oc(/C=C/C(C)=C/C(C)=C/c2ccc([N+](=O)[O-])cc2)c(C)c(=O)c1C
+0.8107389068306976,Menegazziaic acid,COc1cc(C)c2c(c1O)Oc1c(c(C)c(O)c3c1C(O)OC3=O)OC2=O
+0.8102986100306622,Misakimycin,COC1=CC(=O)c2c(cc(OC)c(C)c2O)C1=O
+0.8100045347553284,"NCGC00385078-01_C19H18O3_Phenol, 2-methoxy-4-[3-methyl-5-[(1E)-1-propen-1-yl]-2-benzofuranyl]-",COC1=C(O)C=CC(=C1)C2=C(C)C3=CC(=CC=C3O2)\C=C\C
+0.8099171279165465,Stemofuran E,COc1cc(-c2cc3c(O)cccc3o2)c(C)c(O)c1C
+0.8099053157285474,Unnamed,CC=C(C)C(=O)Oc1c(OC)cc(/C=C/COC(=O)/C(C)=C\C)cc1OC
+0.8080183682690748,"1,7-Bis[(E)-But-2-En-2-Yl]-3,9-Dihydroxy-10-(Methoxymethyl)-4-Methylbenzo[B][1,4]Benzodioxepin-6-One",C/C=C(\C)c1cc(O)c(C)c2c1Oc1c(COC)c(O)cc(/C(C)=C/C)c1C(=O)O2
+0.8077104026496348,BE-19412A,COc1c2c(cc3cc(C)[nH]c(=O)c13)CCC1C(=O)c3c(c(C)c4cc(O)c(Cl)c(O)c4c3O)C(=O)C21O
+0.806753740938905,stemphypyrone,COc1cc(C(C)=CC(C)O)oc(=O)c1C
+0.8063182332735117,"NCGC00380398-01!2-[(3,6-dihydroxy-5-methoxy-7-methyl-4-oxochromen-2-yl)amino]propanoic acid",COC1=C(O)C(C)=CC2=C1C(=O)C(O)=C(NC(C)C(O)=O)O2
+0.8058472934920112,Dechlorodiploicin,O=C1Oc2c(c(C)c(Cl)c(OC)c2)Oc2c(Cl)c(O)c(Cl)c(C)c12
+0.8055446893358928,Stemofuran J,COc1cc(-c2cc3c(O)cccc3o2)c(C)c(OC)c1C
+0.8052664019803233,"NCGC00384930-01!4-(4-hydroxy-2-methoxy-3,5,6-trimethylbenzoyl)oxy-2-methoxy-3,5,6-trimethylbenzoic acid",COC1=C(C)C(OC(=O)C2=C(OC)C(C)=C(O)C(C)=C2C)=C(C)C(C)=C1C(O)=O
+0.8049964659119028,wentiquinone B,COc1cc(OC)c2c(=O)c3c(O)cc(C)cc3oc(=O)c2c1
+0.8049025951683307,Thielavin H,Cc1cc(O)cc(O)c1C(=O)Oc1c(C)c(C)c(C(=O)Oc2c(C)c(C)c(C(=O)O)c(O)c2C)c(O)c1C
+0.8045511501405467,Eucalyptin,O=C1C2=C(O)C(C)=C(OC)C(C)=C2OC(C3=CC=C(OC)C=C3)=C1
+0.8024577328377746,"NCGC00380256-01!2-[[4-(2,4-dihydroxy-3,5,6-trimethylbenzoyl)oxy-2-hydroxy-6-methylbenzoyl]amino]-3-hydroxybutanoic acid",CC(O)C(NC(=O)C1=C(O)C=C(OC(=O)C2=C(O)C(C)=C(O)C(C)=C2C)C=C1C)C(O)=O
+0.802389685873506,Combiferan lactone E,COc1cc(C)c2c(OC)cc(O)c3c2c1C(=O)OC3OC
+0.8017167322508826,placidene-B,C/C=C(C)\C=C(/C)c1oc(OC)c(C)c(=O)c1C
+0.8015083102111835,7-methyl-12-norcyercene-B,C/C=C(C)/C=C(\C)c1cc(=O)c(C)c(OC)o1
+0.8000247632258471,"1,11-[Oxy(1-hydroxyethane-1,1-diyl)oxymethylene]-4-hydroxy-3,7-dioxo-5,8-dimethyl-10-methoxy-1,3-dihydro-7H-isobenzofuro[4,5-b][1,4]benzodioxepin",COc1cc(C)c2c3c1COC(C)(O)OC1OC(=O)c4c(O)c(C)c(c(c41)O3)OC2=O
+0.7999749016233986,[2-Methoxy-4-[(E)-Prop-1-Enyl]Phenyl] Acetate,C/C=C/c1ccc(OC(C)=O)c(OC)c1
+0.79939471338474,pyramidamycin D,COc1ccc(C(N)=O)c(O)c1NC(C)=O
+0.7991609232928405,Vermelhotin,C/C=C/C1=CC=C/C(=C2\C(=O)CNC2=O)O1
+0.7991534013554036,Scensidin,COc1cc2c(c(C)c1Cl)Oc1cc(OC)c(Cl)c(C)c1C(=O)O2
+0.7991534013554036,Scensidin,O=C1c2c(C)c(Cl)c(OC)cc2Oc2c(O1)cc(c(c2C)Cl)OC
+0.7984729635745911,Isokotanin C,COc1cc(=O)oc2cc(O)c(-c3c(O)cc4oc(=O)cc(OC)c4c3C)c(C)c12
+0.7983730211339511,biscopyran,C/C=C(\OC)C(=O)[C@H]1OC2=C(C(C)=C1C)C(C)=C(C)[C@H](C(=O)/C(=C/C)OC)O2
+0.7980090432190304,"1,4-Dihydroxy-3,7-dioxo-5,8-dimethyl-10-methoxy-1,3-dihydro-7H-isobenzofuro[4,5-b][1,4]benzodioxepin-11-carboxylic acid",COc1cc(C)c2c(c1C(=O)O)Oc1c(c(C)c(O)c3c1C(O)OC3=O)OC2=O
+0.7977748127144907,"2-Hydroxy-7,9-Dimethoxy-1,8-Dimethyl-5H-Benzo[B][1,4]Benzoxazepin-6-One",COc1cc2c(c(OC)c1C)C(=O)Nc1ccc(O)c(C)c1O2
+0.7974449480399196,Unnamed,COc1c(O)cc(OC)c2c(=O)oc(C)cc12
+0.7972578521691875,"NCGC00169635-03!3,5-dichloro-2-hydroxy-6-(4-hydroxy-2-methoxy-6-methoxycarbonylphenoxy)-4-methylbenzoic acid",COC(=O)C1=C(OC2=C(C(O)=O)C(O)=C(Cl)C(C)=C2Cl)C(OC)=CC(O)=C1
+0.7970650071585166,"5,8-Dimethoxy-3-Methylnaphthalen-1-Ol",COc1ccc(OC)c2c(O)cc(C)cc12
+0.7966646333653056,"5-[2-(Acetoxymethyl)-3-hydroxy-5-methylphenoxy]-2,4-dihydroxy-3,6-dimethylbenzoic acid methyl ester",COC(=O)c1c(C)c(Oc2cc(C)cc(O)c2COC(C)=O)c(O)c(C)c1O
+0.7965466981106769,"2,6-Dimethoxy-4-Methylphenol",COc1cc(C)cc(OC)c1O
+0.794956250947846,phomopyrone A,C/C=C(\C)c1cc(OC)c(CO)c(=O)o1
+0.7948562521617805,trigonochinene E,COc1cc2c(cc(OC)c3cc(C)c(O)cc32)c(C)c1O
+0.7947672366426476,iso-placidene-B,C/C=C(C)\C=C(\C)c1oc(OC)c(C)c(=O)c1C
+0.794626496987157,Stemanthrene C,COc1c(O)ccc2c1CCc1c(C)c(O)c(C)c(OC)c1-2
+0.7942164513476077,Misakimycin,COC1=CC(=O)c2c(cc(OC)c(C)c2O)C1=O
+0.7940483780192024,"5,8-Dimethoxy-2-Methylnaphthalene-1,4-Dione",COc1ccc(OC)c2c1C(=O)C=C(C)C2=O
+0.7939635270384121,thielavin A,Cc1cc(O)c(C)c(O)c1C(=O)Oc1c(C)c(C)c(C(=O)Oc2c(C)c(C)c(C(=O)O)c(O)c2C)c(O)c1C
+0.7937803074825018,Stemofuran F,COc1c(C)c(O)c(C)c(-c2cc3c(O)cccc3o2)c1C
+0.7935214434062275,Cercophorin B,COC(=O)c1cc(OC)cc(OC(=O)c2c(O)cc3cc(C)oc(=O)c3c2O)c1O
+0.7933718175316982,"5-amino-1,8-dihydroxy-3-methoxy-6-methyl-9,10-anthraquinone",COc1cc(O)c2c(c1)C(=O)c1c(N)c(C)cc(O)c1C2=O
+0.7932676700131328,Unnamed,CC1=N/C(=C\c2[nH]c(C)c(C)c2C)C(C)=C1C
+0.7931421241325055,"2,8-Dimethoxy-3-Methylnaphthalen-1-Ol",COc1c(C)cc2cccc(OC)c2c1O
+0.7928625116657477,Carbazomycin C,COc1ccc2[nH]c3c(C)c(C)c(OC)c(O)c3c2c1

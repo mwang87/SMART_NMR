@@ -1,0 +1,101 @@
+Cosine score,Name,SMILES
+0.779560467562826,SCHEMBL7007787,C/C=C(\C)[C@H]1Oc2ncc(-c3ccccc3)c(O)c2[C@@]1(C)CO
+0.7786384871361377,4-Hydroxyhyperolactone D,C=C[C@@]1(C)COC(=O)C1(O)C(=O)/C=C(\O)c1ccccc1
+0.7669396343024583,Hyperlactone C,C=C[C@@]1(C)COC(=O)[C@]12OC(c1ccccc1)=CC2=O
+0.7521267093904056,echoside E,Cn1c(=O)sc2c(-c3ccccc3)c(O)c(O[C@@H]3O[C@H](C(=O)O)[C@@H](O)[C@H](O)[C@H]3O)c(-c3ccccc3)c21
+0.7388234717194789,citridone B',CC(O)C1(C)OC(O)C2(C)c3c(ncc(-c4ccccc4)c3O)OC12
+0.7321633487842631,C16H18N2O3,C[C@H](/C=c1\c(O)n/c(=C\c2ccccc2)c(=O)n1C)CO
+0.7321633487842631,C16H18N2O3,C[C@@H](/C=c1\c(O)n/c(=C\c2ccccc2)c(=O)n1C)CO
+0.7249690555187911,"NCGC00090582-03!(E)-1-(2,6-dihydroxy-4-methoxyphenyl)-3-phenylprop-2-en-1-one",COC1=CC(O)=C(C(=O)\C=C\C2=CC=CC=C2)C(O)=C1
+0.7249690555187911,"(E)-1-(2,6-Dihydroxy-4-Methoxyphenyl)-3-Phenylprop-2-En-1-One",COc1cc(O)c(C(=O)/C=C/c2ccccc2)c(O)c1
+0.7200494483950198,echoside D,O=C(O)[C@H]1O[C@@H](Oc2c(O)c(-c3ccccc3)c3scnc3c2-c2ccccc2)[C@H](O)[C@@H](O)[C@@H]1O
+0.7194715128919205,uvaridacane A,CC(=CCOC(=O)c1ccccc1)COC(=O)c1ccccc1
+0.7156084515233445,Hyperlactone D,C=C[C@@]1(C)COC(=O)C1C(=O)/C=C(\O)c1ccccc1
+0.7152984295513583,Citridone B',CC(O)[C@]1(C)O[C@@H](O)[C@@]2(C)c3c([nH]cc(-c4ccccc4)c3=O)O[C@@H]12
+0.7014948375990855,citridone B,CC(O)C1(C)OC(O)C2(C)c3c(ncc(-c4ccccc4)c3O)OC12
+0.6984094738712342,3-Hydroxydehydroiso-Alpha-Lapachone,C=C(C)[C@@H]1OC2=C(C(=O)c3ccccc3C2=O)[C@@H]1O
+0.6952086484983541,SCHEMBL469716,CSSc1cccc2c(-c3ccccc3)c(=O)oc-2c1
+0.6901362764756953,Cladobotryal,C/C=C(\C)[C@H]1Oc2ncc(-c3ccccc3)c(O)c2[C@@]1(C)C=O
+0.6899732772061329,Gleditschiaside A,C[C@@H]1O[C@@H](OC[C@H]2O[C@@H](OC(=O)/C=C/c3ccccc3)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H](O)[C@H]1O
+0.6897737431453184,NCGC00091904-06!4-methoxy-6-[(E)-2-phenylethenyl]pyran-2-one,COC1=CC(=O)OC(\C=C\C2=CC=CC=C2)=C1
+0.6897737431453184,Desmethoxyyangonin,COc1cc(/C=C/c2ccccc2)oc(=O)c1
+0.6873237308930591,2-Methoxy-9-Phenylphenalen-1-One,COC1=Cc2cccc3ccc(-c4ccccc4)c(c23)C1=O
+0.6850323555792872,Terferol,COc1cc(-c2ccccc2)c(O)c(O)c1-c1ccccc1
+0.6838251658663741,Sophenazine F,C[C@@H]1O[C@@H](Oc2cccc3nc4c(O[C@@H]5O[C@@H](C)[C@H](O)[C@@H](O)[C@H]5O)cccc4nc23)[C@H](O)[C@H](O)[C@H]1O
+0.6817442213670828,Prop-1-En-2-Ylbenzene,C=C(C)c1ccccc1
+0.6802358305928706,BRN 2435036,Cc1ccccc1/C=C/C(N)=O
+0.6797453352332458,gymnoascolide C,CO[C@H]1OC(=O)C(c2ccccc2)=C1C(O)c1ccccc1
+0.6797453352332458,gymnoascolide B,CO[C@@H]1OC(=O)C(c2ccccc2)=C1C(O)c1ccccc1
+0.679219501182572,NCGC00385330-01!2-hydroxy-4-methoxy-6-[(E)-2-phenylethenyl]benzoic acid,COC1=CC(\C=C\C2=CC=CC=C2)=C(C(O)=O)C(O)=C1
+0.6784139983457838,Amycomycin C,Cc1cc(O[C@@H]2O[C@@H](C)[C@@H](O)[C@@H](O)[C@H]2O)c2c3c(c(O[C@@H]4O[C@@H](C)[C@@H](O)[C@@H](O)[C@H]4O)cc2c1)C(=O)c1c(O)cccc1C3=O
+0.6758808572152998,"Benzyl 2,6-Dimethoxybenzoate",COc1cccc(OC)c1C(=O)OCc1ccccc1
+0.6749628197521803,Amycomycin D,Cc1cc(O[C@@H]2O[C@@H](C)[C@@H](O)[C@@H](O)[C@H]2O)c2c3c(c(O)cc2c1)C(=O)c1c(O)cccc1C3=O
+0.6738153037286829,Izuminoside A,C[C@@H]1O[C@@H](Oc2cccc3nc4c(C(=O)O)cccc4nc23)[C@H](O)[C@H](O)[C@H]1O
+0.6727051278261327,peregrinumcin A,CC(=O)OCC1OC(OC(C#N)c2ccccc2)C(O)C(O)C1O
+0.6725204828878815,citridone D,CC1OC2OC1(C)C1Oc3ncc(-c4ccccc4)c(O)c3C21C
+0.671714983843015,Phenylacetic acid 6-deoxy-alpha-L-talopyranosyl ester,C[C@@H]1O[C@@H](OC(=O)Cc2ccccc2)[C@H](O)[C@H](O)[C@@H]1O
+0.6716727142888282,grandiuvarin B,CC(=O)OCC(O)(COC(=O)c1ccccc1)C(O)C=CCOC(=O)c1ccccc1
+0.6704137311069335,fuzanin C,Cc1cccnc1C=CC=CC(O)C(C)O
+0.6697679225675189,1-(p-tolylsulfonyl)-3-pyrroline,Cc1ccc(S(=O)(=O)N2CC=CC2)cc1
+0.6694379631116422,Massbank:BML01543 6-Bromo-3'-methylflavone,CC1=CC=CC(=C1)C2=CC(=O)C3=C(O2)C=CC(=C3)Br
+0.667686183169493,Prunasin,N#C[C@H](O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)c1ccccc1
+0.666498767264453,marmesiline,C=C(C)C(O)COc1ccc(C(O)CNC(=O)C=Cc2ccccc2)cc1
+0.6661124826336946,9-[(E)-4-Hydroxy-3-Methylbut-2-Enyl]Phenazine-1-Carboxylic Acid,C/C(=C\Cc1cccc2nc3cccc(C(=O)O)c3nc12)CO
+0.6659415714486236,circumdatin L,CC1NC(=O)c2ccccc2-n2c1nc1c(c2=O)C=CC=CO1
+0.6658485830064025,Styrene,C=Cc1ccccc1
+0.6653326443418208,4-hydroxyhyperolactone D,C=CC1(C)COC(=O)C1(O)C(=O)C=C(O)c1ccccc1
+0.6633773980617019,xanthopappin A,CC=CC#CC#Cc1cccs1
+0.6633773980617019,Xanthopappin A,C/C=C/C#CC#Cc1cccs1
+0.6627155658330076,Ethyl Amygdalinate,CCOC(=O)[C@H](O[C@@H]1O[C@H](CO[C@@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@H](O)[C@H]1O)c1ccccc1
+0.6625035617024304,Acetylmelodorinol,CC(=O)OC(/C=C1/C=CC(=O)O1)COC(=O)c1ccccc1
+0.6623269513443678,gymnoascolide B,CO[C@@H]1OC(=O)C(c2ccccc2)=C1C(O)c1ccccc1
+0.6612914256158242,Strebluslignanol,C=CCc1ccc(O)c(-c2cc([C@@H](O)[C@@H](C)O)ccc2O)c1
+0.6608208711296601,"(E)-1-(2,3-Dihydroxy-4,6-Dimethoxyphenyl)-3-Phenylprop-2-En-1-One",COc1cc(OC)c(C(=O)/C=C/c2ccccc2)c(O)c1O
+0.6608208711296601,"""MLS000863647-01!(E)-1-(2,3-dihydroxy-4,6-dimethoxyphenyl)-3-phenylprop-2-en-1-one""",COc1cc(OC)c(C(=O)/C=C/c2ccccc2)c(O)c1O
+0.6606785565366293,Prupersin B,O=C(OC[C@H]1O[C@@H](O[C@@H](C(=O)O)c2ccccc2)[C@H](O)[C@@H](O)[C@@H]1O)c1ccccc1
+0.6603745407326886,"1-(2-Hydroxy-4,6-Dimethoxyphenyl)-3-O-Tolylprop-2-En-1-One",COc1cc(O)c(C(=O)/C=C/c2ccccc2C)c(OC)c1
+0.6602114920645803,"(2R,3R)-7-(3-Methyl-2-pyridyl)-4,6-heptadiene-2,3-diol",Cc1cccnc1/C=C/C=C/[C@@H](O)[C@@H](C)O
+0.6596711894165339,penipacid C,CC(=Nc1ccccc1C(=O)O)NC(=O)O
+0.6577926865534968,"NCGC00380369-01!(2S,3S,4S,5R,6S)-3,4,5-trihydroxy-6-(3-hydroxy-4-methoxy-2,5-diphenylphenoxy)oxane-2-carboxylic acid",COC1=C(O)C(C2=CC=CC=C2)=C(O[C@@H]3O[C@@H]([C@@H](O)[C@H](O)[C@H]3O)C(O)=O)C=C1C4=CC=CC=C4
+0.6577926865534968,echoside B,COc1c(-c2ccccc2)cc(O[C@@H]2O[C@H](C(=O)O)[C@@H](O)[C@H](O)[C@H]2O)c(-c2ccccc2)c1O
+0.6565712824572236,"7-oxo-1,3,5-cycloheptatrienyl p-toluenesulfonate",[2H]c1cc([2H])c(OS(=O)(=O)c2ccc(C)cc2)c(=O)c([2H])c1
+0.6564040025297431,sulfatricalysine A,COC(=O)c1ccccc1OC1OC(CO)C(OS(=O)(=O)O)C(O)C1O
+0.6561094310694287,MLS000737282-01!,COc1cc(O)c(C(=O)/C=C/c2ccccc2)c(OC)c1
+0.6561094310694287,Flavokawain B,COc1cc(O)c(C(=O)/C=C/c2ccccc2)c(OC)c1
+0.6561094310694287,"Spectral Match to 4',6'-Dimethoxy-2'-hydroxychalcone from NIST14",COC1=CC(=C(C(=C1)OC)C(=O)C=CC2=CC=CC=C2)O
+0.656003217879476,Izuminoside C,C[C@@H]1O[C@@H](OC(=O)c2cccc3nc4c(C(=O)O)cccc4nc23)[C@H](O)[C@H](O)[C@H]1O
+0.6559726994776921,Hydroxystrobilurin-A,CO/C=C(C(=O)OC)\C(=C/C=C/c1ccccc1)CO
+0.6556946736666567,grandiuvarin C,CC(=O)OCC(=CC=CCOC(=O)c1ccccc1)COC(=O)c1ccccc1
+0.6556685210574623,echoside A,COC(=O)[C@H]1O[C@@H](Oc2c(-c3ccccc3)cc(O)c(-c3ccccc3)c2O)[C@H](O)[C@@H](O)[C@@H]1O
+0.6555635215197464,Pestalospirane A,C[C@H]1O[C@]2(C=Cc3cccc(O)c3CO2)[C@@H](C)O[C@@]12C=Cc1cccc(O)c1CO2
+0.6554730266200927,2-Aminobenzoyl alpha-L-rhamnopyranoside,C[C@@H]1O[C@@H](OC(=O)c2ccccc2N)[C@H](O)[C@H](O)[C@H]1O
+0.6539793359398995,Massbank:BML01258 6-Methylflavone,CC1=CC2=C(C=C1)OC(=CC2=O)C3=CC=CC=C3
+0.653620673247329,tenuiphenone A,COc1cc(O[C@@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O[C@@H]2O[C@@H](C)[C@H](O)[C@@H](O)[C@H]2O)cc(O)c1C(=O)c1ccccc1
+0.6528033131703184,Visartiside D,O=C(/C=C/c1ccccc1)OC[C@@]1(O)CO[C@@H](O[C@@H]2[C@@H](O)[C@@H](O)O[C@H](CO)[C@H]2O)[C@@H]1O
+0.6520469453933077,fuzanin D,Cc1cccnc1C=CC=CC(O)C(C)O
+0.6520469453933077,Fuzanin D,Cc1cccnc1/C=C/C=C/[C@H](O)[C@@H](C)O
+0.6520117807280015,Hydrangeic Acid 4'-O-Beta-D-Glucopyranoside,O=C(O)c1c(O)cccc1/C=C/c1ccc(O[C@@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)cc1
+0.6515221873979284,MLS002153163-01!6-Methyl-2-(phenylethynyl)pyridine,Cc1cccc(C#Cc2ccccc2)n1.Cl
+0.651105305824117,Prupersin D,O=C(OC[C@H]1O[C@@H](OC[C@H]2O[C@@H](OC(=O)c3ccccc3)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@@H](O)[C@@H]1O)c1ccccc1
+0.650436756194864,Rosavin,O[C@H]1CO[C@@H](OC[C@H]2O[C@H](OC/C=C/c3ccccc3)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H]1O
+0.649499142426082,"(7'r,8's,7'r,8's)-Erythro-Strebluslignanol G",C=CCc1ccc2c(c1)-c1cc([C@@H](O)[C@H](C)O)ccc1Oc1ccc(CC=C)cc1-c1cc([C@@H](O)[C@H](C)O)ccc1O2
+0.6494642351371033,diosyrosonaphthoside,CC1OC(OC2C(Oc3cc(CO)cc4cccc(O)c34)OC(CO)C(O)C2O)C(O)C(O)C1O
+0.6493652309666953,J3.597.776G,C[C@H](O)[C@H](O)/C=C/c1cccc(O)c1CO[C@H](/C=C/c1cccc(O)c1CO)[C@H](C)O
+0.649169849500038,"[4-[(2S,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-[[(2R,3R,4R,5R,6S)-3,4,5-Trihydroxy-6-Methyloxan-2-Yl]Oxymethyl]Oxan-2-Yl]Oxyphenyl]Methyl Benzoate",C[C@@H]1O[C@@H](OC[C@H]2O[C@@H](Oc3ccc(COC(=O)c4ccccc4)cc3)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H](O)[C@H]1O
+0.648706241678114,solphenazine F,C[C@@H]1O[C@@H](Oc2cccc3nc4c(O[C@@H]5O[C@@H](C)[C@H](O)[C@@H](O)[C@H]5O)cccc4nc23)[C@H](O)[C@H](O)[C@H]1O
+0.6482305253181951,Sennoside B,O=C(O)c1cc(O)c2c(c1)[C@@H]([C@H]1c3cc(C(=O)O)cc(O)c3C(=O)c3c(O[C@@H]4O[C@H](CO)[C@@H](O)[C@H](O)[C@H]4O)cccc31)c1cccc(O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)c1C2=O
+0.6481771600352221,Celecoxib,Cc1ccc(-c2cc(C(F)(F)F)nn2-c2ccc(S(N)(=O)=O)cc2)cc1
+0.6481771600352221,Celecoxib,C1(=CC=C(C=C1)S(N)(=O)=O)N2C(=CC(=N2)C(F)(F)F)C3=CC=C(C=C3)C
+0.6472753507545533,Unnamed,COC(=O)c1cc(C)cc2oc3c(c(=O)c12)C(O)=C(O)OC=C3
+0.646066907771083,gombapyrone A,C=CC(O)c1cc(C)ccc1C=CC=CC(C)=CCc1oc(=O)c(C)c(OC)c1C
+0.6450090914540558,uvaridacane B,CC(=CCOC(=O)c1ccccc1)COC(=O)C=Cc1ccccc1
+0.6450008058163869,Benzyl 2-Hydroxy-6-Methoxybenzoate,COc1cccc(O)c1C(=O)OCc1ccccc1
+0.6438701926921855,"5,6-Dihydroxy-2-Methoxy-5-(1-Phenylallyl)Cyclohex-2-Ene-1,4-Dione",C=CC(c1ccccc1)C1(O)C(=O)C=C(OC)C(=O)C1O
+0.6438003225379665,Unnamed,C/C=C/C=C/[C@@H]1OC(=O)c2cc(C(=O)O)cc(-c3ccccc3)c2[C@@H]1C
+0.6433796363858468,1-(p-tolyl)isoquinoline,CC(C=C1)=CC=C1C2=NC=CC3=CC=CC=C32
+0.6417570141046528,"(9R)-9-[(9R)-2-Carboxy-4-Hydroxy-10-Oxo-5-[(3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxy-9H-Anthracen-9-Yl]-4-Hydroxy-10-Oxo-5-[(2S,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxy-9H-Anthracene-2-Carboxylic Acid",O=C(O)c1cc(O)c2c(c1)[C@H]([C@H]1c3cc(C(=O)O)cc(O)c3C(=O)c3c(O[C@@H]4O[C@H](CO)[C@@H](O)[C@H](O)[C@H]4O)cccc31)c1cccc(OC3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)c1C2=O
+0.6416464861036105,"NCGC00385183-01!(9R)-9-[(9R)-2-carboxy-4-hydroxy-10-oxo-5-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxy-9H-anthracen-9-yl]-4-hydroxy-10-oxo-5-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxy-9H-anthracene-2-carboxylic acid",OC[C@H]1O[C@@H](OC2=CC=CC3=C2C(=O)C4=C(C=C(C=C4O)C(O)=O)[C@@H]3[C@@H]5C6=C(C(=O)C7=C5C=C(C=C7O)C(O)=O)C(O[C@@H]8O[C@H](CO)[C@@H](O)[C@H](O)[C@H]8O)=CC=C6)[C@H](O)[C@@H](O)[C@@H]1O
+0.6416464861036105,Sennoside A,O=C(O)c1cc(O)c2c(c1)[C@H]([C@H]1c3cc(C(=O)O)cc(O)c3C(=O)c3c(O[C@@H]4O[C@H](CO)[C@@H](O)[C@H](O)[C@H]4O)cccc31)c1cccc(O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)c1C2=O
+0.6413618850262659,1-Methyl-4-Phenylbenzene,Cc1ccc(-c2ccccc2)cc1
+0.6410010013743348,cyanosporaside A,C[C@H]1O[C@@H](O[C@]23C(=Cc4ccc(CC#N)c(Cl)c42)C=C[C@@H]3O)[C@H](O)C(=O)[C@@]1(C)O
+0.6409101174366243,MLS000860042-01!Pirfenidone,Cc1ccc(=O)n(c1)c2ccccc2
