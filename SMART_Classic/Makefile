@@ -11,7 +11,7 @@ test_data:
 	python ./SMART.py ./input/XC817.csv output/test.npy
 
 download_2_1_db:
-	wget --output-document="DB.json" https://www.dropbox.com/s/uge3xn394fw25vp/DB_06282020_SM2.1%28100K%29.json?dl=1
+	wget --output-document="DB.json" https://www.dropbox.com/s/p5c6u6o3vocsf7k/DB_07012020_SM2.1%28100K%29_nolink.json?dl=1
 	
 download_2_0_db:
 	wget --output-document="DB.json" https://www.dropbox.com/s/hki1tcpyipcr124/DB_SMART_2_0_MW.json?dl=1
