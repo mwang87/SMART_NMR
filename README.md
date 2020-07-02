@@ -26,7 +26,6 @@ The format of the database is a json file, that is a list of records. The follow
 1. MW - exact mass
 1. From - indicates the database
 1. ID - unique identifier to give the database a pseudo accession. These can be integers or simply uuids, but they must be unique per entry and must not be NULL. 
-1. JEOL_link - external link for JEOL DB derived compounds to see NMR data. The JEOL DB derived compounds have jeol db link (https://www.j-resonance.com/en/nmrdb/data/xxx). 
 
 
 [{'Compound_name': 'micrococcin P1',
@@ -35,14 +34,12 @@ The format of the database is a json file, that is a list of records. The follow
   'MW': 1143.2,
   'From': 'Jeol',
   'ID': 'v2.1_0',
-  'JEOL_link': 'https://www.j-resonance.com/en/nmrdb/data/1'},
  {'Compound_name': 'chelerythrine',
   'Embeddings': [0.1537381113, 0.3115234971, -1.3087806702,................... -0.2351712883],
   'SMILES': 'COc1ccc2c(c[n+](C)c3c4cc5c(cc4ccc23)OCO5)c1OC',
   'MW': 348.1,
   'From': 'Jeol',
   'ID': 'v2.1_1',
-  'JEOL_link': 'https://www.j-resonance.com/en/nmrdb/data/2'},
   
   .
   .
