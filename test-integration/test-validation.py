@@ -12,6 +12,9 @@ def test_validation():
     errors_list = []
 
     for validation_object in validate_list:
+        if validation_object["validated"] != 1:
+            continue
+
         print(validation_object)
         test_filename = os.path.join("Data", validation_object["filename"])
         if os.path.isfile(test_filename):
@@ -33,6 +36,11 @@ def test_validation():
 
             #TODO: put expectation for score
 
-    print("\n".join(errors_list))
-        
+    if len(errors_list) > 0:
+        print("===================ERROR===================")
+        print("\n".join(errors_list))
+    else:
+        print("Success!")
+    
     assert(len(errors_list) == 0)
+
