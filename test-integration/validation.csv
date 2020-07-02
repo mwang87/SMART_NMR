@@ -1,7 +1,6 @@
 filename,truestructure,expectedmatch,expectedname,expectedscore,tanimoto,topn,validated
 3′-deoxy-corynol.csv,OC1=CC=C(C[C@@H](C)C2=CC(CC=C)=CC=C2O)C=C1,C=CCc1cccc(Oc2cc(CC=C)cc(O)c2O)c1,Obovatol,0.781681264,0.7084472691787521,9.0,1
 aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)OC4C(C(C(C(O4)CO)O)O)O)O)O)O,O=C1c2c(O)cc(O)cc2OC(c2ccc(O)cc2)C1OC1OC(CO)C(O)C(O)C1O,Ddd01025617,0.939328339,0.9092412093166349,1.0,1
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)OC4C(C(C(C(O4)CO)O)O)O)O)O)O,O=C1c2c(O)cc(O)cc2OC(c2ccc(O)c(O)c2)C1OC1OC(CO)C(O)C(O)C1O,Taxifolin-3-glucoside,0.929944056,0.8928571428571429,2.0,1
 "4,12-Di-epi-baenzigeride A.csv",C[C@@](C(C1=O)=CC[C@]23C)([C@]2([H])C[C@@]([C@@]43O)([H])COC4=O)C[C@](O1)([H])C5=COC=C5,CC12CC(c3ccoc3)OC(=O)C1(O)CCC13COC(=O)C1=CCC1OC132,tehuanin G,0.9294162779999999,0.7147416898918632,5.0,1
 "4,12-Di-epi-baenzigeride A.csv",C[C@@](C(C1=O)=CC[C@]23C)([C@]2([H])C[C@@]([C@@]43O)([H])COC4=O)C[C@](O1)([H])C5=COC=C5,CC12CC(c3ccoc3)OC(=O)C13CCC14COC(=O)C1=CCC(O3)C42,tehuanin B,0.9478133670000001,0.6542341797740516,1.0,1
 20-hydroxyecdysone.csv,CC12CCC3C(=CC(=O)C4C3(CC(C(C4)O)O)C)C1(CCC2C(C)(C(CCC(C)(C)O)O)O)O,CC(C)(O)CCC(O)C(C)(O)C1CCC2(O)C3=CC(=O)C4CC(O)C(O)CC4(C)C3C(O)CC12C,Turkesterone(Calcd_CDCl3),0.789954037,0.9557896392964647,3.0,1
