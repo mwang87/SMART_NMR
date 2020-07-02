@@ -18,17 +18,6 @@ cyclomarin_A_duggan2_input.csv,O=C1N(C)[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H]
 3′-deoxy-corynol.csv,OC1=CC=C(C[C@@H](C)C2=CC(CC=C)=CC=C2O)C=C1,C=CCc1ccc(O)c(-c2cc(O)ccc2O)c1,Randaiol,,0.764315706,,0
 3′-deoxy-corynol.csv,OC1=CC=C(C[C@@H](C)C2=CC(CC=C)=CC=C2O)C=C1,Oc1ccc(cc1CC=C)c2cc(CC=C)ccc2O,HONOKIOL,,0.739249324,,0
 3′-deoxy-corynol.csv,OC1=CC=C(C[C@@H](C)C2=CC(CC=C)=CC=C2O)C=C1,Oc1ccc(CC=C)cc1c2cc(CC=C)ccc2O,MLS001048917-01!2-(2-hydroxy-5-prop-2-enylphenyl)-4-prop-2-enylphenol,,0.759113116,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2O[C@@H](c2ccc(O)cc2)[C@@H]1O,Ddd01025617,,1,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2O[C@H](c2ccccc2O)[C@H]1O,"(2R,3R)-2',3,5,7-Tetrahydroxy Flavanonol",,0.946291623,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2O[C@H](c2ccc(O)cc2)[C@H]1O,Dihydrokaempferol,,1,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2ccc(O)cc2O[C@H](c2ccccc2)[C@H]1O,"(2R,3R)-3,7-Dihydroxyflavanone",,0.916666667,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2O[C@H](c2cccc(O)c2)[C@H]1O,n.a.,,0.973328527,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2ccc(O)cc2OC(c2ccc(O)c(O)c2)C1O,"3,7,3',4'-Tetrahydroxyflavanone",,0.90419443,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2OC(c2ccc(O)cc2)C1O,"3,5,7-Trihydroxy-2-(4-Hydroxyphenyl)Chroman-4-One",,1,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2ccc(O)cc2O[C@H](c2ccc(O)c(O)c2)[C@H]1O,Fustin,,0.90419443,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2ccc(O)cc2O[C@H](c2ccc(O)cc2)[C@H]1O,Garbanzol,,0.92966968,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O=C1c2c(O)cc(O)cc2O[C@H](c2ccccc2)[C@H]1O,Pinobaksin,,0.972222222,,0
-aromadendrin(DMSO).csv,C1=CC(=CC=C1C2C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O,O[C@H]1[C@@H](OC2=CC(O)=CC=C2C1=O)C3=CC(O)=C(O)C=C3,"NCGC00386031-01!(2S,3S)-2-(3,4-dihydroxyphenyl)-3,7-dihydroxy-2,3-dihydrochromen-4-one",,0.90419443,,0
 "4,12-Di-epi-baenzigeride A.csv",C[C@@](C(C1=O)=CC[C@]23C)([C@]2([H])C[C@@]([C@@]43O)([H])COC4=O)C[C@](O1)([H])C5=COC=C5,CC12CC(c3ccoc3)OC(=O)C1=CCC13COC(=O)C1C=CCC23O,salviacoccin,,0.75232524,,0
 "4,12-Di-epi-baenzigeride A.csv",C[C@@](C(C1=O)=CC[C@]23C)([C@]2([H])C[C@@]([C@@]43O)([H])COC4=O)C[C@](O1)([H])C5=COC=C5,CC12C(=CCC34COC(=O)C3C=CCC41)C(=O)OC(c1ccoc1)C2O,salvisplendin B,,0.715626447,,0
 "4,12-Di-epi-baenzigeride A.csv",C[C@@](C(C1=O)=CC[C@]23C)([C@]2([H])C[C@@]([C@@]43O)([H])COC4=O)C[C@](O1)([H])C5=COC=C5,CC12CC(c3ccoc3)OC(=O)C1(O)CCC13COC(=O)C1=CCC1OC132,tehuanin G,,0.71474169,,1
