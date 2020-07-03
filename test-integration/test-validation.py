@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import json
 import glob
+import urllib.parse
 
 PRODUCTION_URL = os.environ.get("SERVER_URL", "https://smart.ucsd.edu")
 
@@ -27,8 +28,20 @@ def test_validation():
             task = r.json()["task"]
             url = f"{PRODUCTION_URL}/resultclassictable?task={task}"
 
+            expected_inchi_key = requests.get("https://gnps-structure.ucsd.edu/inchikey?smiles={}".format(urllib.parse.quote(validation_object["expectedmatch"]))).text
+            expected_inchi_key = expected_inchi_key.split("-")[0]
+
             results_df = pd.read_csv(url)
-            results_df = results_df[results_df["SMILES"] == validation_object["expectedmatch"]]
+            # Calculating inchi_keys
+            result_list = results_df.to_dict(orient="records")
+
+            for record in result_list:
+                smiles = record["SMILES"]
+                result_inchi_key = requests.get("https://gnps-structure.ucsd.edu/inchikey?smiles={}".format(urllib.parse.quote(smiles))).text
+                result_inchi_key = result_inchi_key.split("-")[0]
+                record["InChiKey"] = result_inchi_key
+            results_df = pd.DataFrame(result_list)
+            results_df = results_df[results_df["InChiKey"] == expected_inchi_key]
 
             if len(results_df) == 0:
                 expected_name = validation_object["expectedname"]
