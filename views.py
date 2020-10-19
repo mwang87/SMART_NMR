@@ -20,7 +20,6 @@ def heartbeat():
 def homepage():
     return redirect(url_for('classic'))
  
-from smartfp_tasks import smart_fp_run
 from smartclassic_tasks import smart_classic_run, smart_classic_size, smart_classic_embedding, smart_classic_metadata, smart_classic_embedding_global, smart_classic_metadata_global
 from smartclassic_tasks import smart_classic_images
 
