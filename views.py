@@ -116,28 +116,32 @@ def apiclassicembed():
     return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_embed))
 
 # API to calculate classic embedding, assume input is a list of dicts
-# @app.route('/api/classic/search', methods=['POST', 'GET'])
-# def apiclassicsearch():
-#     task_id = str(uuid.uuid4())
-#     df = pd.DataFrame(json.loads(request.values["peaks"]))
+@app.route('/api/classic/search', methods=['POST', 'GET'])
+def apiclassicsearch():
+    task_id = str(uuid.uuid4())
+    df = pd.DataFrame(json.loads(request.values["peaks"]))
     
-#     input_filename = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_input.tsv")
-#     df.to_csv(input_filename, sep=",", index=False)
+    input_filename = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_input.tsv")
+    df.to_csv(input_filename, sep=",", index=False)
 
-#     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
-#     output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
-#     output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
+    output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
+    output_result_nmr_image = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_nmr.png")
+    output_result_embed = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_embed.json")
 
-#     # Performing calculation
-#     result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed, perform_db_search=True)
+    # Performing calculation
+    result = smart_classic_run.delay(input_filename, output_result_table, output_result_nmr_image, output_result_embed, perform_db_search=True)
     
-#     while(1):
-#         if result.ready():
-#             break
-#         sleep(0.1)
-#     result = result.get()
+    while(1):
+        if result.ready():
+            break
+        sleep(0.1)
+    result = result.get()
 
-#     return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_table))
+    if "json" in request.values:
+        result_df = pd.read_csv(output_result_table)
+        return json.dumps(result_df.to_dict(orient="records"))
+
+    return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(output_result_table))
 
 @app.route('/resultclassic', methods=['GET'])
 def resultclassic():
