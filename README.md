@@ -27,9 +27,10 @@ MW - exact mass
 From - indicates the database
 ID - unique identifier to give the database a pseudo accession. These can be integers or simply uuids, but they must be unique per entry and must not be NULL.
 
+```
 [{'Compound_name': 'micrococcin P1', 'Embeddings': [0.1537381113, 0.3115234971, -1.3087806702,................... -0.2351712883], 'SMILES': 'CC=C(NC(=O)c1csc(-c2csc(-c3ccc4c(n3)-c3csc(n3)C(C(C)O)NC(=O)c3csc(n3)C(C(C)C)NC(=O)c3csc(n3)C(=CC)NC(=O)C(C(C)O)NC(=O)c3csc-4n3)n2)n1)C(=O)NCC(C)O', 'MW': 1143.2, 'From': 'Jeol', 'ID': 'v2.1_0'}, {'Compound_name': 'chelerythrine', 'Embeddings': [0.1537381113, 0.3115234971, -1.3087806702,................... -0.2351712883], 'SMILES': 'COc1ccc2c(cn+c3c4cc5c(cc4ccc23)OCO5)c1OC', 'MW': 348.1, 'From': 'Jeol', 'ID': 'v2.1_1'},
-
 . . . }]
+```
 
 ## Running Unit Tests
 
@@ -38,3 +39,18 @@ Although unit tests are automatically run with github actions, to run them yours
 ```
 nose2 -v
 ```
+
+## LICENSE
+
+### Software 
+
+All software is licensed as [MIT License](https://opensource.org/licenses/MIT).
+
+### Model 
+
+We acknowledge the use of Advanced Chemistry Development, Inc. for use of their HSQC predictor for calculating data in the SMART tool. The machine learning model here is for Academic Use only.
+
+## Search Database
+
+The search database is based upon open data and is licensed permissively as [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+
