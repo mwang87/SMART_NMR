@@ -62,7 +62,7 @@ def cosine(x,y):
     return (len(a&b))/(sqrt(len(a))*sqrt(len(b)))
 
 
-def CSV_converter(CSV_converter, channel = 1): # Converting CSV file to numpy array (128 x 128), # i = CSV file name
+def CSV_converter(CSV_converter, channel): # Converting CSV file to numpy array (128 x 128), # i = CSV file name
     _, ext = os.path.splitext(CSV_converter)
     if ext in [".xls",".xlsx"]:
         qc = pd.read_excel(CSV_converter)
@@ -100,9 +100,15 @@ def predict_nmr(input_nmr_filename, channel, model, model_class):
     fingerprint_prediction = fingerprint_prediction[0].round()
     pred_MW = pred_MW[0][0]
     #TODO: Annotate Logic Here
-    fingerprint_prediction = np.where(fingerprint_prediction == 1)[0] 
-    pred_class = np.argmax(model_class.predict(mat.reshape(1,scale,scale,channel))[0],-1)
-    return fingerprint_prediction, pred_MW, pred_class #array, array, array
+    fingerprint_prediction = np.where(fingerprint_prediction == 1)[0]
+    pred_c = model_class.predict(mat.reshape(1,scale,scale,channel))
+    pred_gly = pred_c[1][0][1]
+    pred_class = pred_c[0][0]
+    pred_class_index= sorted(range(len(pred_class)),key= lambda i: pred_class[i])[-3:] #top 5
+    pred_class_index.reverse()
+    pred_class_prob = pred_class[pred_class_index]
+    
+    return fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly #array, array, array
 
 def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates=20):
     #TODO: Annotate Logic Here
@@ -141,34 +147,13 @@ def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates
     return topK
 
 def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
-    mat = CSV_converter(input_nmr_filename)
+    mat = CSV_converter(input_nmr_filename,channel)
 
     # plotting and saving constructed HSQC images
     ## image without padding and margin
-    height, width = scale, scale
-    figsize = (10, 10)
-    plt.figure(figsize=figsize)
-    ax = plt.axes()
-    try:
-        plt.imshow(mat[:,:,1], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'blue']))
-        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
-    except:
-        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
-    ax.set_ylim(scale-1,0)
-    ax.set_xlim(0,scale-1)
-    
-    plt.axis()
-    plt.xticks(np.arange(scale+1,step=scale/12), (list(range(12,0-1,-1))))
-    plt.yticks(np.arange(scale+1,step=scale/12), (list(range(0,240+1,20))))
-    ax.set_xlabel('1H [ppm]')
-    ax.set_ylabel('13C [ppm]')
-    plt.grid(True,linewidth=0.5, alpha=0.5)
-    plt.tight_layout()
-    #plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
-    plt.savefig(output_nmr_image, dpi=600)
-    plt.close()
 
-    fingerprint_prediction, pred_MW, pred_class = predict_nmr(input_nmr_filename, channel, model, model_class)
+
+    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model, model_class)
     
     topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
@@ -177,6 +162,35 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
     
     #Saving the predicted Fingerprint
     open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
+
+    #TODO: Evaluate if we want to remove the code to not have the drawing
+    #draw_candidates(topK, output_candidate_image)
+    height, width = scale, scale
+    plt.figure()
+    ax = plt.axes()
+    try:
+        plt.imshow(mat[:,:,1], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'blue']))
+        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+    except:
+        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+    ax.set_ylim(scale-1,0)
+    ax.set_xlim(0,scale-1)
+    print(pred_class_index, pred_class_prob,pred_gly)
+    plt.axis()
+    plt.xticks(np.arange(scale+1,step=scale/12), (list(range(12,0-1,-1))))
+    plt.yticks(np.arange(scale+1,step=scale/12), (list(range(0,240+1,20))))
+    ax.set_xlabel('1H [ppm]')
+    ax.set_ylabel('13C [ppm]')
+    plt.grid(True,linewidth=0.5, alpha=0.5)
+    plt.tight_layout()
+    for n, idx in enumerate(pred_class_index):
+        class_name = [i for i in index_super if index_super[i]==idx][0]
+        plt.text(4, 8+8*n, f'{class_name} {round(float((100*pred_class_prob[n])),2)}%', ha='left', wrap=True, alpha=0.8)
+    plt.text(4, 8+8*3, f'Glycoside {round(float((100*pred_gly)),2)}%', ha='left', wrap=True, alpha=0.8)
+    #plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
+    plt.savefig(output_nmr_image, dpi=600)
+    plt.close()
+
 
     #TODO: Evaluate if we want to remove the code to not have the drawing
     #draw_candidates(topK, output_candidate_image)
@@ -191,10 +205,13 @@ def main():
     parser.add_argument('output_nmr_image', help='output_nmr_image')
     parser.add_argument('output_pred_fingerprint', help='output_pred_fingerprint')
     parser.add_argument('--molecular_weight', default=None, type=float, help='molecular_weight')
+    parser.add_argument('--channel', default=1, type=int, help='HSQC type')
     args = parser.parse_args()
     
-    
-    search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+    if args.channel == 1:
+        search_CSV(args.input_csv, DB, model_1ch, model_1ch_class, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+    elif args.channel == 2:
+        search_CSV(args.input_csv, DB, model_2ch, model_2ch_class, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
 
 
 
