@@ -31,21 +31,27 @@ import time
 import json
 
 import argparse
+scale = 128 
 
 def load_models(models_folder="models"):
     #importing trained model
     #If no gpus are available, these models are working with CPU automatically
     with tf.device('/CPU:0'):
-        model = keras.models.load_model(os.path.join(models_folder, 'HWK_sAug_1106_final(2048r1)_cos.hdf5'))
-        model_mw = keras.models.load_model(os.path.join(models_folder, 'VGG16_high_aug_MW_continue.hdf5'))
+        model_1ch = keras.models.load_model(os.path.join(models_folder, '(011721)SMART3_v3_1ch_RC.hdf5'))
+        model_2ch = keras.models.load_model(os.path.join(models_folder, '(011721)SMART3_v3_2ch_RC.hdf5'))
+        model_1ch_class = keras.models.load_model(os.path.join(models_folder, '(011621)SMART3_v3_1ch_class_g.hdf5'))
+        model_2ch_class = keras.models.load_model(os.path.join(models_folder, '(011621)SMART3_v3_2ch_class_g.hdf5'))
+        #model_mw = keras.models.load_model(os.path.join(models_folder, 'VGG16_high_aug_MW_continue.hdf5'))
 
-    return model, model_mw
+    return model_1ch, model_2ch, model_1ch_class, model_2ch_class 
 
 def load_db(db_folder="."):
     #loading DB
-    DB = np.load(os.path.join(db_folder, 'FPinder_DB.npy'), allow_pickle=True)
-
-    return DB
+    #DB = np.load(os.path.join(db_folder, 'FPinder_DB.npy'), allow_pickle=True)
+    DB =np.array(pd.read_json('DB_010621_SM3.json'))
+    with open('superclass.json','r') as r:
+        index_super = json.load(r)
+    return DB, index_super
 
 #This is a binary cosine between two sets
 def cosine(x,y):
@@ -55,104 +61,76 @@ def cosine(x,y):
     return (len(a&b))/(sqrt(len(a))*sqrt(len(b)))
 
 
-def draw_candidates(candidates_df, output_png, topk=10):#i is compound name used for file name. (ex abc.csv)
-    smiles_input = candidates_df["SMILES"]
-    names = []
-    mols = []
-    
-    number_candidates = len(candidates_df)
-    molsPerRow = 2
-    if topk == 1:
-        molsPerRow = 2
-    elif topk < 5:
-        molsPerRow = 3
-    else:
-        molsPerRow = 5
-    for j in range(topk):
-        try:
-            smiles_candi = Chem.MolFromSmiles(neighbors.iat[j,1])        
-            mols.append(smiles_candi)
-            candi_name = neighbors.iat[j,0]+'({})'.format(neighbors.iat[j,2].round(2))
-            names.append(candi_name)
-        except:
-            continue
-    try:
-        Draw.MolsToGridImage(mols, molsPerRow=molsPerRow, subImgSize=(300, 300),legends=names ,highlightAtomLists=None, highlightBondLists=None, useSVG=False).save(output_png)
-    except:
-        print("RDKIT error, see the csv file in result folder")
-        raise
-
-def CSV_converter(CSV_converter): # Converting CSV file to numpy array (200 x 240), # i = CSV file name
-    try:
-        qc = pd.read_csv(CSV_converter, sep=",")
-        qc["1H"]
-    except:
+def CSV_converter(CSV_converter, channel = 1): # Converting CSV file to numpy array (128 x 128), # i = CSV file name
+    _, ext = os.path.splitext(CSV_converter)
+    if ext in [".xls",".xlsx"]:
+        qc = pd.read_excel(CSV_converter)
+    elif ext == '.csv':
+        qc = pd.read_csv(CSV_converter)
+    elif ext == '.tsv':
         qc = pd.read_csv(CSV_converter, sep="\t")
-        qc["1H"]
-
+    
     qc = qc.dropna()
-    H = (qc['1H']*240//12).astype(int)
-    C = (qc['13C']*200//200).astype(int)
-    try: #Considering peak intensities
-        INT = qc['Intensity']
-        mat = np.zeros((200,240), float)
+    H = (qc['1H']*scale//12).astype(int)
+    C = (qc['13C']*scale//240).astype(int)
+    if channel == 2: # edited HSQC with intensity
+        T = qc['Intensity']
+        mat = np.zeros((scale,scale,2), float)
         for j in range(len(qc)): 
             a, b = H.iloc[j].astype(int), C.iloc[j].astype(int)
-            if 0 <= a <= 239 and 0 <= b <= 199:
-                if mat[b, 239-a] < abs(INT[j]):
-                    mat[b, 239-a] = abs(INT[j])
-        mat = mat/mat.max()
-    except: # if intensities are not provided
-        mat = np.zeros((200,240), float)
+            t = T.iloc[j]
+            if 0 <= a < scale and 0 <= b < scale and t > 0:# + phase
+                mat[b, scale-a-1,0] = 1
+            elif 0 <= a < scale and 0 <= b < scale and t < 0:# - phase
+                mat[b, scale-a-1,1] = 1
+    elif channel == 1':
+        mat = np.zeros((scale,scale), float)
         for j in range(len(qc)): 
             a, b = H.iloc[j].astype(int), C.iloc[j].astype(int)
-            if 0 <= a < 240 and 0 <= b < 200:
-                mat[b, 239-a] = 1
+            if 0 <= a < scale and 0 <= b < scale:
+                mat[b, scale-a-1] = 1
     return mat
 
-def predict_nmr(input_nmr_filename, model, model_mw):
-    mat = CSV_converter(input_nmr_filename)
+def predict_nmr(input_nmr_filename, channel, model, model_class):
+    mat = CSV_converter(input_nmr_filename, channel)
 
     ### Model Prediction
-    fingerprint_prediction = model.predict(mat.reshape(1,200,240,1))
+    fingerprint_prediction, pred_MW  = model.predict(mat.reshape(1,scale,scale,channel))
+    fingerprint_prediction = fingerprint_prediction[0].round()
+    pred_MW = pred_MW[0][0]
     #TODO: Annotate Logic Here
-    fingerprint_prediction_nonzero = np.where(fingerprint_prediction.round()[0]==1)[0] 
-    pred_MW = model_mw.predict(mat.reshape(1,200,240,1)).round()[0][0] #Model to Preduct the molecular mass
+    fingerprint_prediction = np.where(fingerprint_prediction == 1)[0] 
+    pred_class = np.argmax(model_class.predict(mat.reshape(1,scale,scale,channel))[0],-1)
+    return fingerprint_prediction, pred_MW, pred_class #array, array, array
 
-    return fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW
-
-def search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=None, top_candidates=20):
+def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates=20):
     #TODO: Annotate Logic Here
     # Database structure, 2 must be the predictions for the DB, 3, must be the mass
     #topK = np.full((len(DB),4), np.nan, dtype=object)
     results_list = []
+    DB_len = len(DB)
+    topK = np.full((DB_length,4), np.nan, dtype=object)
+    for j in range(DB_len):
+        if mw == None: #If we don't provide a user input mw, we should use the prediction
+            DB_mw = DB[j][3]
+            if abs(DB_mw-pred_mw)/(real_mw) < 0.2 :
+                DB_fp = DB[j][1]
+                score = cosine(fingerprint_prediction,DB_fp)
+                if score > 0.6:
+                    topK[j] = DB[j][0], DB[j][2], score, DB_mw
+        
+        else:
+            real_mw = DB[j][3]
+            if abs(real_mw-pred_mw) <20:
+                DB_fp = DB[j][1]
+                score = cosine(fingerprint_prediction,DB_fp)
+                if score > 0.6:
+                    topK[j] = DB[j][0], DB[j][2], score, DB_mw
+            
 
-    for j in range(len(DB)):
-        try:
-            real = DB[j][2]
-            score = cosine(fingerprint_prediction_nonzero, real)
-            if mw == None:
-                #If we don't provide a user input mw, we should use the prediction
-                if score > 0.7 and abs(DB[j][3]-pred_MW)/(DB[j][3]) < 0.1 :
-                    result_dict = {}
-                    result_dict["Name"] = DB[j][0]
-                    result_dict["SMILES"] = DB[j][1]
-                    result_dict["Cosine score"] = score
-                    result_dict["MW"] = DB[j][3]
-                    results_list.append(result_dict)
-            else:
-                if score > 0.7 and abs(DB[j][3]-mw) < 20 :
-                    result_dict = {}
-                    result_dict["Name"] = DB[j][0]
-                    result_dict["SMILES"] = DB[j][1]
-                    result_dict["Cosine score"] = score
-                    result_dict["MW"] = DB[j][3]
-                    results_list.append(result_dict)
-        except:
-            continue
     
     #Saving the DB Search
-    topK = pd.DataFrame(results_list)
+    topK = pd.DataFrame(topK, columns = ['Name','SMILES','Cosine score','MW'] )
     topK = topK.dropna(how='all')
     topK = topK.sort_values(['Cosine score'], ascending = False)
     topK = topK.drop_duplicates(['SMILES'])
@@ -161,7 +139,7 @@ def search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred
 
     return topK
 
-def search_CSV(input_nmr_filename, DB, model, model_mw, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
+def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename)
 
     # plotting and saving constructed HSQC images
