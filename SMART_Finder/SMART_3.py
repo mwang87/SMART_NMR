@@ -84,12 +84,12 @@ def CSV_converter(CSV_converter, channel = 1): # Converting CSV file to numpy ar
                 mat[b, scale-a-1,0] = 1
             elif 0 <= a < scale and 0 <= b < scale and t < 0:# - phase
                 mat[b, scale-a-1,1] = 1
-    elif channel == 1':
-        mat = np.zeros((scale,scale), float)
+    elif channel == 1:
+        mat = np.zeros((scale,scale,1), float)
         for j in range(len(qc)): 
             a, b = H.iloc[j].astype(int), C.iloc[j].astype(int)
             if 0 <= a < scale and 0 <= b < scale:
-                mat[b, scale-a-1] = 1
+                mat[b, scale-a-1,0] = 1
     return mat
 
 def predict_nmr(input_nmr_filename, channel, model, model_class):
@@ -110,11 +110,11 @@ def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates
     #topK = np.full((len(DB),4), np.nan, dtype=object)
     results_list = []
     DB_len = len(DB)
-    topK = np.full((DB_length,4), np.nan, dtype=object)
+    topK = np.full((DB_len,4), np.nan, dtype=object)
     for j in range(DB_len):
         if mw == None: #If we don't provide a user input mw, we should use the prediction
             DB_mw = DB[j][3]
-            if abs(DB_mw-pred_mw)/(real_mw) < 0.2 :
+            if abs(DB_mw-pred_MW)/(DB_mw) < 0.2 :
                 DB_fp = DB[j][1]
                 score = cosine(fingerprint_prediction,DB_fp)
                 if score > 0.6:
@@ -150,16 +150,16 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
     plt.figure(figsize=figsize)
     ax = plt.axes()
     try:
-        plt.imshow(mat[0,:,:,1], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'blue']))
-        plt.imshow(mat[0,:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+        plt.imshow(mat[:,:,1], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'blue']))
+        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
     except:
-        plt.imshow(mat[0,:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
-    ax.set_ylim(C_scale-1,0)
-    ax.set_xlim(0,H_scale-1)
+        plt.imshow(mat[:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+    ax.set_ylim(scale-1,0)
+    ax.set_xlim(0,scale-1)
     
     plt.axis()
-    plt.xticks(np.arange(H_scale+1,step=H_scale/12), (list(range(12,0-1,-1))))
-    plt.yticks(np.arange(C_scale+1,step=C_scale/12), (list(range(0,240+1,20))))
+    plt.xticks(np.arange(scale+1,step=scale/12), (list(range(12,0-1,-1))))
+    plt.yticks(np.arange(scale+1,step=scale/12), (list(range(0,240+1,20))))
     ax.set_xlabel('1H [ppm]')
     ax.set_ylabel('13C [ppm]')
     plt.grid(True,linewidth=0.5, alpha=0.5)
@@ -168,7 +168,7 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
     plt.savefig(output_nmr_image, dpi=600)
     plt.close()
 
-    fingerprint_prediction, pred_MW = predict_nmr(input_nmr_filename, channel, model, model_class)
+    fingerprint_prediction, pred_MW, pred_class = predict_nmr(input_nmr_filename, channel, model, model_class)
     
     topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
