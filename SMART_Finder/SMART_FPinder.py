@@ -25,6 +25,7 @@ from rdkit.Chem import Descriptors
 from rdkit.Chem import AllChem
 from rdkit import DataStructs
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from math import sqrt
 import time
@@ -144,19 +145,32 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
 
     # plotting and saving constructed HSQC images
     ## image without padding and margin
-    height, width = mat.shape
-    figsize = (10, 10*height/width) if height>=width else (width/height, 1)
+    height, width = scale, scale
+    figsize = (10, 10)
     plt.figure(figsize=figsize)
-    plt.imshow(mat, cmap=plt.cm.binary)
-    plt.axis('off'), plt.xticks([]), plt.yticks([])
+    ax = plt.axes()
+    try:
+        plt.imshow(mat[0,:,:,1], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'blue']))
+        plt.imshow(mat[0,:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+    except:
+        plt.imshow(mat[0,:,:,0], mpl.colors.ListedColormap([(0.2, 0.4, 0.6, 0),'red']))
+    ax.set_ylim(C_scale-1,0)
+    ax.set_xlim(0,H_scale-1)
+    
+    plt.axis()
+    plt.xticks(np.arange(H_scale+1,step=H_scale/12), (list(range(12,0-1,-1))))
+    plt.yticks(np.arange(C_scale+1,step=C_scale/12), (list(range(0,240+1,20))))
+    ax.set_xlabel('1H [ppm]')
+    ax.set_ylabel('13C [ppm]')
+    plt.grid(True,linewidth=0.5, alpha=0.5)
     plt.tight_layout()
-    plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
+    #plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
     plt.savefig(output_nmr_image, dpi=600)
     plt.close()
 
-    fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW = predict_nmr(input_nmr_filename, model, model_mw)
+    fingerprint_prediction, pred_MW = predict_nmr(input_nmr_filename, channel, model, model_class)
     
-    topK = search_database(fingerprint_prediction, fingerprint_prediction_nonzero, pred_MW, DB, mw=mw, top_candidates=top_candidates)
+    topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
     #Saving TopK
     topK.to_csv(output_table, index = None)
@@ -168,8 +182,8 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
     #draw_candidates(topK, output_candidate_image)
 
 def main():
-    DB = load_db()
-    model, model_mw = load_models()
+    DB, index_super = load_db()
+    model_1ch, model_2ch, model_1ch_class, model_2ch_class = load_models()
 
     parser = argparse.ArgumentParser(description='SMART Embedding')
     parser.add_argument('input_csv', help='input_csv')
@@ -178,7 +192,8 @@ def main():
     parser.add_argument('output_pred_fingerprint', help='output_pred_fingerprint')
     parser.add_argument('--molecular_weight', default=None, type=float, help='molecular_weight')
     args = parser.parse_args()
-
+    
+    
     search_CSV(args.input_csv, DB, model, model_mw, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
 
 
