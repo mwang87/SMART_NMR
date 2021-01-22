@@ -10,6 +10,9 @@ This is the source code to do development for SMART. This code contains two dist
 1. install tensorflow with pip
 1. install matplotlib with pip
 
+## Workflow
+![Outline](https://user-images.githubusercontent.com/51690359/105557399-01964180-5cc1-11eb-97f1-c14261193241.png)
+
 ## Models
 
 Models and Database files are expected to be in a very specific location. The database must be named:
