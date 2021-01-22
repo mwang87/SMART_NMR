@@ -9,7 +9,7 @@ from rdkit.Chem import AllChem
 from rdkit import DataStructs
 from rdkit.Chem.Draw import SimilarityMaps
 
-def get_highlight(SMILES,pred):
+def get_highlight(SMILES,output_pred_fingerprint):
     radi = 2
     bits = 2048
     mol = Chem.MolFromSmiles(SMILES)
@@ -36,7 +36,7 @@ def get_highlight(SMILES,pred):
         for k in mol_bi_H_QC[r]:
             mol_tpls_H[2048*r+k] = {'Mol':mol_H,'Bit_info':mol_bi_H,'Radius':r}
             
-    for bit in pred:
+    for bit in output_pred_fingerprint:
     # getting highlight of atom
         try:
             for j in range(len(mol_tpls_H[bit]['Bit_info'][bit%2048])):#for i in range(len(mol_tpls_H[[0][2][bit_n]])):
