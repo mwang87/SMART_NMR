@@ -2,8 +2,7 @@
 
 This is the source code to do development for SMART. This code contains two distinct ways to interact with SMART:
 
-1. SMART-Classic - This includes the embedding work with Henry Mao
-1. SMART-FP - This fingerprint prediction work with Hyunwoo Kim
+1. SMART3.0 - This fingerprint, molecular weight, and class prediction work with Hyunwoo Kim
 
 ## Dependency Installation
 
@@ -15,13 +14,16 @@ This is the source code to do development for SMART. This code contains two dist
 
 Models and Database files are expected to be in a very specific location. The database must be named:
 
-```FPinder_DB.npy```
+```DB_010621_SM3.json```
+but the 'date' can be changed if the DB is updated.
 
 and the model files must be in 
 
 ```
-models/HWK_sAug_1106_final(2048r1)_cos.hdf5
-models/VGG16_high_aug_MW_continue.hdf5
+models/(011721)SMART3_v3_1ch_RC.hdf5
+models/(011721)SMART3_v3_2ch_RC.hdf5
+models/(011621)SMART3_v3_1ch_class_g.hdf5
+models/(011621)SMART3_v3_2ch_class_g.hdf5
 ```
 
 These can be converted to tensorflow serving formats using:
@@ -30,9 +32,11 @@ https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-a
 
 ## Input Format Definition
 
-The input file must be a tsv (tab separated) or csv (comma separated) with the following columns: 1H and 13C. 
+The input file must be a tsv (tab separated), csv (comma separated), or xlsx (not recommend) with the following columns: 1H, 13C, and Intensity(optional). 
 
 ## Examples
+Exmaples are in 'inputs' folder.
+The expected outputs are in 'outputs' folder.
 
 We use docker to encapsule running the examples
 
