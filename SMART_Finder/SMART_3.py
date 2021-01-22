@@ -109,7 +109,7 @@ def predict_nmr(input_nmr_filename, channel, model, model_class): #filenamae, ch
     ##Class prediction
     pred_c = model_class.predict(mat.reshape(1,scale,scale,channel))
     pred_class = pred_c[0][0]
-    pred_class_index= sorted(range(len(pred_class)),key= lambda i: pred_class[i])[-3:] #top 5
+    pred_class_index= sorted(range(len(pred_class)),key= lambda i: pred_class[i])[-3:] #top 3
     pred_class_index.reverse()
     pred_class_prob = pred_class[pred_class_index]
     
