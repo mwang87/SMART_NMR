@@ -9,7 +9,8 @@ from rdkit.Chem import AllChem
 from rdkit import DataStructs
 from rdkit.Chem.Draw import SimilarityMaps
 
-def get_highlight(SMILES,output_pred_fingerprint):
+# This code is for drawing similarity maps based on predicted fingerprints.
+def get_highlight(SMILES,output_pred_fingerprint): #input is smiles and predicted fingerprints
     radi = 2
     bits = 2048
     mol = Chem.MolFromSmiles(SMILES)
