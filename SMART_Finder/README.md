@@ -15,6 +15,7 @@ This is the source code to do development for SMART. This code contains two dist
 Models and Database files are expected to be in a very specific location. The database must be named:
 
 ```DB_010621_SM3.json```
+```superclass.json```
 but the 'date' can be changed if the DB is updated.
 
 and the model files must be in 
