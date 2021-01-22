@@ -39,7 +39,7 @@ https://towardsdatascience.com/deploying-keras-models-using-tensorflow-serving-a
 The input file must be a tsv (tab separated), csv (comma separated), or xlsx (not recommend) with the following columns: 1H, 13C, and Intensity(optional, edited HSQC).
 If you want to submit edited HSQC data, the 'Intensity' column should be presence in the input file.
 
-User should choose the experiments between 'Normal HSQC' and 'Edited HSQC'
+User should choose the experiments between 'Normal HSQC' and 'Edited HSQC'.
 User can input the molecular weight manually. If not, molecular weight is automatically predicted.
 
 ## Examples
