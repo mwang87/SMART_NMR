@@ -39,12 +39,10 @@ def load_models(models_folder="models"):
     #If no gpus are available, these models are working with CPU automatically
     #each channel has two models
     with tf.device('/CPU:0'):
-        model_1ch = keras.models.load_model(os.path.join(models_folder, '(011721)SMART3_v3_1ch_RC.hdf5')) #To predict chemical fingerprints and molecular weights
-        model_1ch_class = keras.models.load_model(os.path.join(models_folder, '(011621)SMART3_v3_1ch_class_g.hdf5')) #to predict chemical class 
-        model_2ch = keras.models.load_model(os.path.join(models_folder, '(011721)SMART3_v3_2ch_RC.hdf5')) #To predict chemical fingerprints and molecular weights
-        model_2ch_class = keras.models.load_model(os.path.join(models_folder, '(011621)SMART3_v3_2ch_class_g.hdf5')) #to predict chemical class 
+        model_1ch = keras.models.load_model(os.path.join(models_folder, '(012521)SMART3_v3_1ch_multitask.hdf5')) #To predict chemical fingerprints and molecular weights
+        model_2ch = keras.models.load_model(os.path.join(models_folder, '(012521)SMART3_v3_2ch_multitask.hdf5')) #To predict chemical fingerprints and molecular weights
         
-    return model_1ch, model_2ch, model_1ch_class, model_2ch_class 
+    return model_1ch, model_2ch 
 
 def load_db(db_folder="."):
     #loading DB
@@ -91,33 +89,35 @@ def CSV_converter(CSV_converter, channel):
             a, b = H.iloc[j].astype(int), C.iloc[j].astype(int)
             if 0 <= a < scale and 0 <= b < scale:
                 mat[b, scale-a-1,0] = 1
+    mat[:,0,:] = 1
+    mat[:,127,:] = 1
+    mat[0,:,:] = 1
+    mat[127,:,:] = 1            
     return mat #it should be 128x128x1 for normal HSQC data, and 128x128x2 for edited HSQC data
 
 #prediction function with two models
-def predict_nmr(input_nmr_filename, channel, model, model_class): #filenamae, channel(normal/edited HSQC, 1/2)
+def predict_nmr(input_nmr_filename, channel, model): #filenamae, channel(normal/edited HSQC, 1/2)
     #To predict chemical fingerprints, molecular weights, compound class with probability, and glycoside checking with probability
     
     mat = CSV_converter(input_nmr_filename, channel) #output shape should be (128,128,1) or (128,128,2)
     ### Model Prediction
     ## Fingerprint and molecular weight prediction
-    fingerprint_prediction, pred_MW  = model.predict(mat.reshape(1,scale,scale,channel))
+    fingerprint_prediction, pred_MW, pred_class, pred_gly  = model.predict(mat.reshape(1,scale,scale,channel))
     fingerprint_prediction = fingerprint_prediction[0].round() 
     fingerprint_prediction = np.where(fingerprint_prediction == 1)[0] #list of fingerprint
     pred_MW = pred_MW[0][0] # molecular weight
     
     
+    ##Glycoside prediction
+    pred_gly = pred_gly[0][1]
     ##Class prediction
-    pred_c = model_class.predict(mat.reshape(1,scale,scale,channel))
-    pred_class = pred_c[0][0]
-    pred_class_index= sorted(range(len(pred_class)),key= lambda i: pred_class[i])[-3:] #top 3
+    pred_class = pred_class[0]
+    pred_class_index= sorted(range(len(pred_class)),key= lambda i: pred_class[i])[-3:] #top 5
     pred_class_index.reverse()
     pred_class_prob = pred_class[pred_class_index]
-    
-    ##Glycoside prediction
-    pred_gly = pred_c[1][0][1]
-    
+
     #Return prediction results. Fingerprints, molecular weights, Compound class index, Compound class probability, and Glycoside probability
-    return fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly
+    return fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly #array, array, array
 
 def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates=20):
     # To compare chemical fingerprints and molecular weights to find the molecules having similar properties (FP, MW)
@@ -154,14 +154,14 @@ def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates
 
     return topK
 
-def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
+def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename,channel)
     # Searching the molecules and drawing the HSQC spectra image with classificaiton results.
     # plotting and saving constructed HSQC images with predicted class
     ## image without padding and margin
 
 
-    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model, model_class)
+    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model)
     
     topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
@@ -173,6 +173,12 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
 
     
     #Drawing constructed HSQC spectra
+    #remove outline
+    mat[:,0,:] = 0
+    mat[:,127,:] = 0
+    mat[0,:,:] = 0
+    mat[127,:,:] = 0  
+    
     height, width = scale, scale
     plt.figure()
     ax = plt.axes()
@@ -202,7 +208,7 @@ def search_CSV(input_nmr_filename, DB, model, model_class, channel, output_table
 
 def main():
     DB, index_super = load_db()
-    model_1ch, model_2ch, model_1ch_class, model_2ch_class = load_models()
+    model_1ch, model_2ch = load_models()
 
     parser = argparse.ArgumentParser(description='SMART Embedding')
     parser.add_argument('input_csv', help='input_csv')
@@ -214,9 +220,9 @@ def main():
     args = parser.parse_args()
     
     if args.channel == 1:
-        search_CSV(args.input_csv, DB, model_1ch, model_1ch_class, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+        search_CSV(args.input_csv, DB, model_1ch, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
     elif args.channel == 2:
-        search_CSV(args.input_csv, DB, model_2ch, model_2ch_class, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+        search_CSV(args.input_csv, DB, model_2ch, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
 
 
 
