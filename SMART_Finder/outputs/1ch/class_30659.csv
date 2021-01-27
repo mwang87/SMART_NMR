@@ -1,0 +1,21 @@
+Name,SMILES,Cosine score,MW
+['656547'],CCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9557915826199321,347
+['131752371'],CCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9476070829586856,375
+['139030989'],O=S(=O)(O)ON=C(CCCO)SC1OC(CO)C(O)C(O)C1O,0.9476070829586856,377
+"['2-Hydroxyethyl glucosinolate', 'Chemspider_2-Hydroxyethyl glucosinolate']",O=S(=O)(O)ON=C(CCO)SC1OC(CO)C(O)C(O)C1O,0.9455689188371162,363
+"['Pentyl glucosinolate', 'CHEBI:36450']",CCCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9380831519646858,389
+['131752360'],CC(C)CCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9380831519646858,389
+['131752369'],CCCCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9380831519646858,403
+['131752367'],CC(C)CC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9356674007618759,375
+"['CHEBI:79328', 'Methyl glucosinolate']",CC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9318181818181818,333
+['131752366'],CC(C)CCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9288407280256479,403
+['No_name'],O=S(=O)(O)ON=C(CCCCCO)SC1OC(CO)C(O)C(O)C1O,0.9288407280256479,405
+['76265-21-9'],CC(O)CC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9260705583459882,377
+['9548624'],CC(C)(O)CC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9260705583459882,391
+['131752364'],C=CCCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,401
+"['Glucocheirolin', 'CHEBI:5400', 'S-(4-Methansulfonyl-N-sulfooxy-butyrimidoyl)-1-thio-beta-D-glucopyranose', 'S-(4-methanesulfonyl-N-sulfooxy-butyrimidoyl)-1-thio-beta-D-glucopyranose']",CS(=O)(=O)CCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,439
+"['5-Oxoheptyl glucosinolate', 'Gluconorcappasalin']",CCC(=O)CCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,431
+['956700-00-8'],CCC(C)CCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,403
+"['3-Methylthiopropyl glucosinolate', '9548637', '3-(methylthio)propyl-glucosinolate', 'Glucoibervirin', 'glucoiberverin', 'S-(4-Methylmercapto-N-sulfoxy-butyrimidoyl)-1-thio-beta-D-glucopyranose']",CSCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,407
+"['4-pentenyl-glucosinolate', 'glucobrassicanapin', '5485207', 'S-(N-Sulfoxy-hex-5-enimidoyl)-1-thio-beta-D-glucopyranose']",C=CCCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9198662110078,387
+['131752358'],CSCCC(=NOS(=O)(=O)O)SC1OC(CO)C(O)C(O)C1O,0.9167630803291248,393
