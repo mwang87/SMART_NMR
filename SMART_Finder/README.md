@@ -24,10 +24,9 @@ but the 'date' can be changed if the DB is updated.
 and the model files must be in 
 
 ```
-models/(011721)SMART3_v3_1ch_RC.hdf5
-models/(011721)SMART3_v3_2ch_RC.hdf5
-models/(011621)SMART3_v3_1ch_class_g.hdf5
-models/(011621)SMART3_v3_2ch_class_g.hdf5
+models/(012521)SMART3_v3_1ch_multitask.hdf5
+models/(012521)SMART3_v3_2ch_multitask.hdf5
+
 ```
 
 These can be converted to tensorflow serving formats using:
