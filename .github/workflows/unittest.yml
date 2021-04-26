@@ -1,0 +1,23 @@
+name: unittest
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+### We probably should switch to using the Docker version, its a TODO
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pandas
+        pip install nose2
+        pip install matplotlib
+    - name: Test with nose2
+      run: |
+        cd test	&& nose2 -v
