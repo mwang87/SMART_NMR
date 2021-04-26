@@ -5,7 +5,6 @@ from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_cors import CORS
 
 APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = False
@@ -23,8 +22,6 @@ class CustomFlask(Flask):
 
 
 app = CustomFlask(__name__)
-CORS(app)
-
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 limiter = Limiter(

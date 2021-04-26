@@ -12,7 +12,6 @@ RUN pip install requests
 RUN pip install pandas
 RUN pip install Pillow
 RUN pip install opencv-python
-RUN pip install flask-cors
 
 ADD . /src
 
