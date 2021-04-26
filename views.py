@@ -25,7 +25,8 @@ from smartclassic_tasks import smart_classic_images
 
 @app.route('/classic', methods=['GET'])
 def classic():
-    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json_classic_global".format(os.getenv("VIRTUAL_HOST"))
+    
+    projector_json_url = "https://cors.bridged.cc/https://{}/embedding_json_classic_global".format(os.getenv("VIRTUAL_HOST"))
     projector_json_url = urllib.parse.quote(projector_json_url)
     response = make_response(render_template('smartclassic.html', projector_json_url=projector_json_url))
     return response
@@ -150,7 +151,7 @@ def resultclassic():
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     candidates_df = pd.read_csv(output_result_table)
 
-    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    projector_json_url = "https://cors.bridged.cc/https://{}/embedding_json_classic/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
     projector_json_url = urllib.parse.quote(projector_json_url)
 
     embed_metadata_json_url = "/embedding_json_classic/{}".format(task_id)
@@ -176,7 +177,7 @@ def result():
     output_result_table = os.path.join(app.config['UPLOAD_FOLDER'], task_id + "_table.tsv")
     candidates_df = pd.read_csv(output_result_table)
 
-    projector_json_url = "https://cors-anywhere.herokuapp.com/https://{}/embedding_json/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
+    projector_json_url = "https://cors.bridged.cc/https://{}/embedding_json/{}".format(os.getenv("VIRTUAL_HOST"), task_id)
     projector_json_url = urllib.parse.quote(projector_json_url)
 
     return make_response(render_template('results.html', candidates=candidates_df.to_dict(orient="records"), task_id=task_id, projector_json_url=projector_json_url))
@@ -215,7 +216,7 @@ def embedding_json_classic(task_id):
         sleep(1)
     size = size.get()
     
-    SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
+    SERVER_URL = "https://cors.bridged.cc/https://{}".format(os.getenv("VIRTUAL_HOST"))
 
     result_dict = {}
     result_dict["embeddings"] = []
@@ -301,7 +302,7 @@ def embedding_json_classic_global():
         sleep(1)
     size = size.get()
     
-    SERVER_URL = "https://cors-anywhere.herokuapp.com/https://{}".format(os.getenv("VIRTUAL_HOST"))
+    SERVER_URL = "https://cors.bridged.cc/https://{}".format(os.getenv("VIRTUAL_HOST"))
 
     result_dict = {}
     result_dict["embeddings"] = [{
