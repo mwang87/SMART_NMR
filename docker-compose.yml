@@ -10,7 +10,7 @@ services:
       - default
       - nginx-net
     volumes:
-        - ./SMART_Finder:/SMART_Finder
+        #- ./SMART_Classic:/src/SMART_Classic:ro
         - ./logs/:/app/logs
         - ./tempuploads/:/app/tempuploads
     environment:
@@ -44,46 +44,6 @@ services:
       - smartclassic-rabbitmq
     networks:
       - default
-
-  # smartfp-redis:
-  #   image: redis
-  #   networks:
-  #     - default
-
-  # smartfp-worker:
-  #   build: .
-  #   container_name: smartfp-worker
-  #   volumes:
-  #       - ./SMART_Finder:/SMART_Finder
-  #       - ./tempuploads/:/app/tempuploads
-  #   command: /app/run_smartfp_celery_worker.sh
-  #   restart: on-failure
-  #   depends_on: 
-  #     - smartfp-redis
-  #   networks:
-  #     - default
-
-  # smartfp-tf-server:
-  #   image: tensorflow/serving
-  #   volumes:
-  #       - ./SMART_Finder/models:/models
-  #       - ./tempuploads/:/app/tempuploads
-  #   restart: on-failure
-  #   networks:
-  #     - default
-  #   environment:
-  #     MODEL_NAME: HWK_sAug_1106_final_2048_cos
-
-  # smartfp-mw-tf-server:
-  #   image: tensorflow/serving
-  #   volumes:
-  #       - ./SMART_Finder/models:/models
-  #       - ./tempuploads/:/app/tempuploads
-  #   restart: on-failure
-  #   networks:
-  #     - default
-  #   environment:
-  #     MODEL_NAME: VGG16_high_aug_MW_continue
 
 
 networks:
