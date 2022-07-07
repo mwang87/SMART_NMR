@@ -19,3 +19,4 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --file classic.Dockerfile
+        docker build . --file Dockerfile
