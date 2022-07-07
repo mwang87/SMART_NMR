@@ -1,3 +1,3 @@
 #!/bin/bash
 
-celery -A smartclassic_tasks worker -l info -c 1
+export LC_ALL=C.UTF-8 && celery -A smartclassic_tasks worker -l info -c 1
