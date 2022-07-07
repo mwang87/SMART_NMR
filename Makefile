@@ -15,6 +15,9 @@ interactive-classic:
 
 
 #Docker Compose
+server-compose-build-no-cache:
+	docker-compose build --no-cache
+
 server-compose-interactive:
 	docker-compose build
 	docker-compose up
