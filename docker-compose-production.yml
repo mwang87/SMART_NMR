@@ -5,9 +5,9 @@ services:
       - default
       - nginx-net
     environment:
-      VIRTUAL_HOST: smart.ucsd.edu
+      VIRTUAL_HOST: smart.ucsd.edu,smart.wanglab.science
       VIRTUAL_PORT: 6213
-      LETSENCRYPT_HOST: smart.ucsd.edu
+      LETSENCRYPT_HOST: smart.ucsd.edu,smart.wanglab.science
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
 networks:
