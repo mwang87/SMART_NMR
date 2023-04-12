@@ -1,0 +1,3 @@
+[submodule "SMART_Classic/SMART"]
+	path = SMART_Classic/SMART
+	url = git@github.com:mwang87/SMART.git

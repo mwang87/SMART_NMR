@@ -22,10 +22,15 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm text-center">
-                    <img src="/result_nmr?task=((task_id))" border="5"/>
+                    <img src="/result_nmr?task=((task_id))" border="5" height=400/>
                 </div>
                 <div class="col-sm">
-                    <a href="https://projector.tensorflow.org/?config=((projector_json_url))" class="btn btn-primary btn-block">Embed in SMART DB</a>
+                    <a href="https://projector.tensorflow.org/?config=((projector_json_url))" class="btn btn-primary btn-block">Embed in the Moliverse</a>
+                    <br>
+                    <a href="((embed_metadata_json_url))" class="btn btn-primary btn-block">Embed JSON</a>
+                    <br>
+                    <a href="((resultclassictable_url))" class="btn btn-primary btn-block">Download Results</a>
+                    
                 </div>
             </div>
             
@@ -41,17 +46,35 @@
                 data: (( candidates | tojson )),
                 columns: [
                     { data: "Name" , title: "Name"},
-                    { data: "SMILES" , title: "SMILES"},
+                    { data: "SMILES" , title: "Structure"},
                     { data: "Cosine score" , title: "Cosine score"},
                     { data: "MW" , title: "MW"},
-                    { data: "SMILES" , title: "SMILES"}
+                    { data: "From" , title: "Source"},
+                    { data: "SMILES" , title: "External"}
                 ],
                 pageLength: 30, 
                 columnDefs: [ {
-                    targets: 4,
+                    targets: 1,
                     render: function ( data, type, row ) {
                         url = "https://gnps-structure.ucsd.edu/structureimg?smiles=" + encodeURIComponent(row["SMILES"])
                         return "<img src='" + url + "'/>"
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function ( data, type, row ) {
+                        npatlas_img_url = "https://gnps-external.ucsd.edu/npatlasproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        npatlas_url = "https://gnps-external.ucsd.edu/npatlasproxy?smiles=" + encodeURIComponent(row["SMILES"])
+
+                        mibig_img_url = "https://gnps-external.ucsd.edu/mibigproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        mibig_url = "https://gnps-external.ucsd.edu/mibigproxy?smiles=" + encodeURIComponent(row["SMILES"])
+
+                        gnps_img_url = "https://gnps-external.ucsd.edu/gnpsproxyimg?smiles=" + encodeURIComponent(row["SMILES"])
+                        gnps_url = "https://gnps-external.ucsd.edu/gnpsproxy?smiles=" + encodeURIComponent(row["SMILES"])
+
+                        return `<a href='${npatlas_url}' target='_blank'><img height='76' src='${npatlas_img_url}'/></a>` + 
+                        `<a href='${mibig_url}' target='_blank'><img height='76' src='${mibig_img_url}'/></a>` + 
+                        `<a href='${gnps_url}' target='_blank'><img height='76' src='${gnps_img_url}'/></a>`
                     }
                 } ],
                 order: [[ 2, 'desc' ]]

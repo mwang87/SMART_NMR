@@ -1,10 +1,10 @@
-tensorflow
 matplotlib
 flask
 gunicorn
 requests
 requests_cache
 Werkzeug
-flask_limiter 
+flask_limiter
 celery
 redis
+opencv-python

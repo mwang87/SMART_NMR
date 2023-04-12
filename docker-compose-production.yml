@@ -5,10 +5,10 @@ services:
       - default
       - nginx-net
     environment:
-      VIRTUAL_HOST: smart-dev.ucsd.edu
+      VIRTUAL_HOST: smart.gnps2.org
       VIRTUAL_PORT: 6213
-      LETSENCRYPT_HOST: smart-dev.ucsd.edu
-      LETSENCRYPT_EMAIL: miw023@ucsd.edu
+      LETSENCRYPT_HOST: smart.gnps2.org
+      LETSENCRYPT_EMAIL: mwang87@gmail.com
 
 networks:
   nginx-net:

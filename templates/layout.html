@@ -24,31 +24,50 @@
         .dropzone .dz-message { font-weight: 400; }
         .dropzone .dz-message .note { font-size: 0.8em; font-weight: 200; display: block; margin-top: 1.4rem; }
         .container-fluid { min-height: 100%; height: 100%;}
-
-
     </style>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8412213-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-8412213-7');
+    </script>
+    
 </head>
 
 <body>
     <!-- A grey horizontal navbar that becomes vertical on small screens -->
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <a class="navbar-brand" href="https://smart.ucsd.edu">
-            <img src="/static/img/smart_logo.png" alt="Logo" style="width:120px;">
+        <a class="navbar-brand" href="/">
+            <img src="/static/img/logo.png" alt="Logo" style="width:120px;">
         </a>
 
       <!-- Links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/">SMART NMR</a>
+          <a class="nav-link" href="/classic">SMART NMR 2.1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mwang87.github.io/SMART_NMR_Documentation/">Usage Documentation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://groups.google.com/forum/#!forum/smartnmr">Forum</a>
         </li>
       </ul>
-
     </nav>
 
 
     <div id="content">
         (% block content %)(% endblock %)
+    </div>
+
+    <hr>
+
+    <div class="footer-copyright text-center py-3">
+      SMART NMR - Release 2.1.4 - For Academic Use Only
     </div>
 </body>
 
