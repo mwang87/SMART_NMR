@@ -16,23 +16,23 @@ interactive-classic:
 
 #Docker Compose
 server-compose-build-no-cache:
-	docker-compose build --no-cache
+	docker compose build --no-cache
 
 server-compose-interactive:
-	docker-compose build
-	docker-compose up
+	docker compose build
+	docker compose up
 
 server-compose:
-	docker-compose build
-	docker-compose up -d
+	docker compose build
+	docker compose up -d
 
 server-compose-production-interactive:
-	docker-compose build
-	docker-compose -f docker-compose.yml -f docker-compose-production.yml up
+	docker compose build
+	docker compose -f docker-compose.yml -f docker-compose-production.yml up
 
 server-compose-production:
-	docker-compose build
-	docker-compose -f docker-compose.yml -f docker-compose-production.yml up -d
+	docker compose build
+	docker compose -f docker-compose.yml -f docker-compose-production.yml up -d
 
 
 attach:

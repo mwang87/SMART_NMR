@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# SMART Classic DB artifacts
+SMART_Classic/DB.json
+SMART_Classic/DB.json.bak
+SMART_NMR/DB.json
+
+tempuploads/*

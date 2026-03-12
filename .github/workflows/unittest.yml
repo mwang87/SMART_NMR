@@ -16,8 +16,8 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pandas
-        pip install nose2
+        pip install pytest
         pip install matplotlib
-    - name: Test with nose2
+    - name: Test with pytest
       run: |
-        cd test	&& nose2 -v
+        cd test	&& pytest -v

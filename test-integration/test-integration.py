@@ -4,7 +4,7 @@ import pandas as pd
 import json
 import glob
 
-PRODUCTION_URL = os.environ.get("SERVER_URL", "https://smart.ucsd.edu")
+PRODUCTION_URL = os.environ.get("SERVER_URL", "https://smart.gnps2.org")
 
 def test_heartbeat():
     r = requests.get(f"{PRODUCTION_URL}/heartbeat")

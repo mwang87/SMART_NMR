@@ -1,4 +1,3 @@
-version: '3'
 services:
   smart-web:
     networks:
@@ -12,5 +11,5 @@ services:
 
 networks:
   nginx-net:
-    external:
-      name: nginx-net
+    name: nginx-net
+    external: true

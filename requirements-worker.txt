@@ -1,0 +1,9 @@
+celery
+redis
+matplotlib
+pillow
+scikit-learn
+scikit-image
+requests
+pandas
+opencv-python
