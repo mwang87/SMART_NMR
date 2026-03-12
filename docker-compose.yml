@@ -11,11 +11,6 @@ services:
         #- ./SMART_Classic:/src/SMART_Classic:ro
         - ./logs/:/app/logs
         - ./tempuploads/:/app/tempuploads
-    environment:
-      VIRTUAL_HOST: mingwangbeta.ucsd.edu
-      VIRTUAL_PORT: 6213
-      LETSENCRYPT_HOST: mingwangbeta.ucsd.edu
-      LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
   smartclassic-redis:
     image: redis
