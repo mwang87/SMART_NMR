@@ -20,12 +20,13 @@ class CustomFlask(Flask):
     comment_end_string='#)',
   ))
 
+
 app = CustomFlask(__name__)
-app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1, x_for=1, x_host=1)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 limiter = Limiter(
-    app,
-    key_func=get_remote_address,
+    get_remote_address,
+    app=app,
     default_limits=["500 per hour"]
 )
 

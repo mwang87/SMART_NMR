@@ -1,0 +1,184 @@
+(% extends "layout.html" %)
+
+(% block content %)
+
+<div class="container-fluid">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm text-center">
+            <h2>SMART Drag and Drop</h2>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <p>
+                Lorem Ipsum, description of the SMART TOOL here
+            </p>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="drag_weight">Molecular Weight</label>
+                <input id="drag_weight" type="number" step="any" class="form-control" name="drag_weight"
+                    placeholder="1044.66">
+            </div>
+    
+            <div class="form-group">
+                <div class="dropzone col-md" id="group1">
+                    <div class="dz-message">Drop files here or click to upload and analyze<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm text-center">
+            <h2>SMART Peaks Entry</h2>
+        </div>
+        <div class="col-sm"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="manual_weight">Molecular Weight</label>
+                <input id="manual_weight" type="number" step="any" class="form-control" name="manual_weight"
+                    placeholder="1044.66">
+            </div>
+            <div class="form-group">
+                <label for="peaks">Peaks</label>
+                <textarea id="peaks" class="form-control" name="peaks" rows="12"
+                    placeholder='Enter peaks here in the follow headers "1H,13C", one per line separated by tab or comma.'></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <button onclick="AnalyzeEntry()" class="btn btn-primary btn-block">Analyze</button>
+    </div>
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Analyzing! Please Wait...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes spin {
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
+
+    .loader-txt {
+        p {
+            font-size: 13px;
+            color: #666;
+
+            small {
+                font-size: 11.5px;
+                color: #999;
+            }
+        }
+    }
+</style>
+
+<script>
+    group1dropzone = new Dropzone("#group1", { url: "analyzeupload", maxFilesize: 1, parallelUploads: 1, timeout: 300000, maxFiles: 10});
+    group1dropzone.on("sending", function (file, xhr, data) {
+        data.append("mw", $("#drag_weight").val());
+    });
+    group1dropzone.on("success", function (file, response) {
+        json_response = JSON.parse(response)
+        //window.location = "/result?task=" + json_response["task"]
+        window.open("/result?task=" + json_response["task"], '_blank');
+    });
+
+    function AnalyzeEntry() {
+        $("#loadMe").modal({
+            backdrop: "static", //remove ability to close modal with click
+            keyboard: false, //remove option to close with keyboard
+            show: true //Display loader!
+        });
+        $.ajax(
+            {
+                url: "/analyzeentry",
+                method: "POST",
+                success: function (response) {
+                    $("#loadMe").modal("hide");
+                    window.location = "/result?task=" + response["task"]
+                },
+                dataType: "json",
+                data: {
+                    "peaks": $("#peaks").val(),
+                    "mw": $("#manual_weight").val()
+                }
+            }
+        );
+    }
+
+
+
+</script>
+
+
+(% endblock %)
