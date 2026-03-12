@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   smart-web:
     build: .
@@ -35,7 +33,7 @@ services:
       dockerfile: classic.Dockerfile
     container_name: smartclassic-worker
     volumes:
-        - ./SMART_Classic:/SMART_Classic
+        - ./SMART_Classic:/src/SMART_Classic
         - ./tempuploads/:/src/tempuploads
     command: /src/run_smartclassic_celery_worker.sh
     restart: on-failure
@@ -48,5 +46,5 @@ services:
 
 networks:
   nginx-net:
-    external:
-      name: nginx-net
+    name: nginx-net
+    external: true

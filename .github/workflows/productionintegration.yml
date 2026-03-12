@@ -20,5 +20,5 @@ jobs:
         pip install pandas
     - name: Test with pytest
       run: |
-        pip install nose2
-        cd test-integration	&& nose2 -v test-integration
+        pip install pytest
+        cd test-integration	&& pytest -v test-integration.py test-api.py
